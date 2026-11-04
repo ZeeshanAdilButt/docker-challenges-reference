@@ -23,10 +23,11 @@ export function docker(args, opts = {}) {
   return r.stdout.trim();
 }
 
-/** docker exec in a container. Returns { ok, out, ms }. Never throws. */
+/** docker exec in a container. opts.containerEnv sets variables for that command. Returns { ok, out, ms }. Never throws. */
 export function exec(container, cmd, opts = {}) {
   const t0 = process.hrtime.bigint();
-  const r = run(['exec', container, ...cmd], opts);
+  const envArgs = Object.entries(opts.containerEnv ?? {}).flatMap(([k, v]) => ['-e', k + '=' + v]);
+  const r = run(['exec', ...envArgs, container, ...cmd], opts);
   const ms = Number(process.hrtime.bigint() - t0) / 1e6;
   return { ok: r.code === 0, out: `${r.stdout}${r.stderr}`.trim(), ms };
 }

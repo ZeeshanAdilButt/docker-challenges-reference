@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 200" width="640" height="200" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">Milliseconds to get an answer from the database port</title>
+  <desc id="d">api to db (name): 21 ms. api to localhost: 23 ms. api to host.docker.internal: 27 ms. your computer to 127.0.0.1: 6 ms</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">Milliseconds to get an answer from the database port</text>
+  <text x="228" y="65" text-anchor="end" font-size="14">api to db (name)</text>
+  <rect x="244" y="51" width="290" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="244" y="51" width="225.6" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">21 ms</text>
+  <text x="228" y="99" text-anchor="end" font-size="14">api to localhost</text>
+  <rect x="244" y="85" width="290" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="244" y="85" width="247.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">23 ms</text>
+  <text x="228" y="133" text-anchor="end" font-size="14">api to host.docker.internal</text>
+  <rect x="244" y="119" width="290" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="244" y="119" width="290.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">27 ms</text>
+  <text x="228" y="167" text-anchor="end" font-size="14">your computer to 127.0.0.1</text>
+  <rect x="244" y="153" width="290" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="244" y="153" width="64.4" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="168" font-size="14">6 ms</text>
+</svg>
