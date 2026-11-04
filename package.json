@@ -1,0 +1,13 @@
+{
+  "name": "docker-challenges",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Challenges for the course Docker in Practice. No dependencies.",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "check": "node toolkit/check-setup.mjs",
+    "test": "node --test \"toolkit/test.mjs\" \"daftar-api/test.mjs\" \"challenges/**/test.mjs\"",
+    "test:challenge0": "node --test \"challenges/challenge-0-setup/**/test.mjs\""
+  }
+}

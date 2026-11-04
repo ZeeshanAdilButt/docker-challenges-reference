@@ -1,0 +1,16 @@
+{
+  "c0.p1.disk_free_gb": 7.6,
+  "c0.p1.docker_call_ms": 157,
+  "c0.p1.docker_memory_gb": 15.5,
+  "c0.p1.node_major": 22,
+  "c0.p2.cleanup_removed_count": 3,
+  "c0.p2.cleanup_s": 2.6,
+  "c0.p2.image_mb": 12.9,
+  "c0.p2.leftover_count": 0,
+  "c0.p2.memory_max_bytes": 67108864,
+  "c0.p2.pids_max": 50,
+  "c0.p2.pull_cached": true,
+  "c0.p2.pull_s": 2.5,
+  "c0.p2.run_s": 1.53,
+  "c0.p2.unlabelled_kept_count": 1
+}

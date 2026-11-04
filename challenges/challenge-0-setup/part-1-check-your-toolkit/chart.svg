@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 132" width="640" height="132" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">What your machine gives Docker</title>
+  <desc id="d">Memory for Docker: 15.5 GB. Free disk: 7.6 GB</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">What your machine gives Docker</text>
+  <text x="148" y="65" text-anchor="end" font-size="14">Memory for Docker</text>
+  <rect x="164" y="51" width="370" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="164" y="51" width="370.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">15.5 GB</text>
+  <text x="148" y="99" text-anchor="end" font-size="14">Free disk</text>
+  <rect x="164" y="85" width="370" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="164" y="85" width="181.4" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">7.6 GB</text>
+</svg>
