@@ -32,7 +32,7 @@ docker version --format "Client {{.Client.Version}}, Engine {{.Server.Version}}"
 Client 29.9.2, Engine 29.9.2
 ```
 
-**Note:** The engine answers in about 157 ms (median of 3 calls).
+**Note:** The engine answers in about 101 ms (median of 3 calls).
 
 ## Step 3
 
@@ -47,13 +47,13 @@ node toolkit/check-setup.mjs
 ```text
 ok    Node.js                  v22.22.2
 ok    Docker engine            engine 29.9.2, client 29.9.2
-ok    Machine type             linux/x86_64, Docker Desktop. This is Docker Desktop, so some behaviour differs. The READMEs tell you where
+ok    Machine type             linux/x86_64, Docker Desktop. Some behaviour differs on Docker Desktop. The READMEs tell you where.
 ok    Docker memory            15.5 GB
 ok    CPUs for Docker          20
 ok    Cgroup version           v2
 ok    Compose plugin           v5.6.1
 ok    Buildx plugin            v0.38.1
-ok    Free disk (this folder)  7.6 GB
+ok    Free disk (this folder)  7.8 GB
 
 All hard checks passed.
 ```
@@ -71,8 +71,8 @@ node toolkit/show-facts.mjs c0.p1
 **Output**
 
 ```text
-c0.p1.disk_free_gb = 7.6
-c0.p1.docker_call_ms = 157
+c0.p1.disk_free_gb = 7.8
+c0.p1.docker_call_ms = 101
 c0.p1.docker_memory_gb = 15.5
 c0.p1.node_major = 22
 ```

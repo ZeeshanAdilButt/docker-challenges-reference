@@ -1,6 +1,6 @@
 {
-  "c0.p1.disk_free_gb": 7.6,
-  "c0.p1.docker_call_ms": 157,
+  "c0.p1.disk_free_gb": 7.8,
+  "c0.p1.docker_call_ms": 101,
   "c0.p1.docker_memory_gb": 15.5,
   "c0.p1.node_major": 22,
   "c0.p2.cleanup_removed_count": 3,
