@@ -1,0 +1,9 @@
+{
+  "note": "Edit this file. 'api' must reach 'db' by the name db. Networks listed here are created for you. 'bridge' is Docker's default bridge.",
+  "networks": [],
+  "containers": [
+    { "name": "api", "network": "bridge" },
+    { "name": "db", "network": "bridge" }
+  ],
+  "api_reaches": "db"
+}

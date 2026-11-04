@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 200" width="640" height="200" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">Seconds until the client gets its answer</title>
+  <desc id="d">User net, by name: 0.16 s. Default bridge, by IP: 0.16 s. Default bridge, by name: 4.04 s. Other network, by IP: 2.17 s</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">Seconds until the client gets its answer</text>
+  <text x="196" y="65" text-anchor="end" font-size="14">User net, by name</text>
+  <rect x="212" y="51" width="322" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="212" y="51" width="12.8" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">0.16 s</text>
+  <text x="196" y="99" text-anchor="end" font-size="14">Default bridge, by IP</text>
+  <rect x="212" y="85" width="322" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="212" y="85" width="12.8" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">0.16 s</text>
+  <text x="196" y="133" text-anchor="end" font-size="14">Default bridge, by name</text>
+  <rect x="212" y="119" width="322" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="212" y="119" width="322.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">4.04 s</text>
+  <text x="196" y="167" text-anchor="end" font-size="14">Other network, by IP</text>
+  <rect x="212" y="153" width="322" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="212" y="153" width="173.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="168" font-size="14">2.17 s</text>
+</svg>
