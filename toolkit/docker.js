@@ -113,7 +113,7 @@ export function safeArgs(n, what, { memory = '64m', pids = 50, tmpMb = 16 } = {}
     '--pids-limit', String(pids),
     '--tmpfs', `/tmp:rw,size=${tmpMb}m`,
     '--log-opt', 'max-size=1m',
-    '--log-opt', 'max-file=1',
+    '--log-opt', 'max-file=2',
     '--security-opt', 'no-new-privileges',
   ];
 }

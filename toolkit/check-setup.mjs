@@ -63,7 +63,7 @@ export function checkSetup({ dir = root } = {}) {
     if (info) {
       const desktop = /docker desktop/i.test(info.OperatingSystem || '');
       facts.desktop = desktop;
-      add('Machine type', 'ok', `${info.OSType}/${info.Architecture}, ${info.OperatingSystem}${desktop ? '. This is Docker Desktop, so some behaviour differs. The READMEs tell you where' : ''}`);
+      add('Machine type', 'ok', `${info.OSType}/${info.Architecture}, ${info.OperatingSystem}${desktop ? '. Some behaviour differs on Docker Desktop. The READMEs tell you where.' : ''}`);
 
       const memGb = round((info.MemTotal || 0) / GB, 1);
       facts.docker_memory_gb = memGb;
