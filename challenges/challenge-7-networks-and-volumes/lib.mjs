@@ -80,3 +80,40 @@ export async function waitTcp(host, port, timeoutMs = 20_000) {
 }
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * Run `docker compose -p <project> -f <file> <args>` with extra environment variables.
+ * Returns { code, stdout, stderr } and never throws. The project name keeps it separate from every other stack.
+ */
+export function compose(project, file, args, env = {}, opts = {}) {
+  return run(['compose', '-p', project, '-f', file, ...args], { ...opts, env, cwd: opts.cwd });
+}
+
+/** Same as compose() but throws on a non-zero exit and returns trimmed stdout. */
+export function composeOk(project, file, args, env = {}, opts = {}) {
+  const r = compose(project, file, args, env, opts);
+  if (r.code !== 0) throw new Error(`docker compose ${args.join(' ')} failed (exit ${r.code}): ${(r.stderr || r.stdout).trim()}`);
+  return r.stdout.trim();
+}
+
+/**
+ * Connect to each port on 127.0.0.1 and on every address in `addresses`.
+ * Returns [{ port, loopback, others: ['open', ...] }]. Only scan ports of containers you started.
+ */
+export async function scanPorts(ports, addresses = lanAddresses()) {
+  const rows = [];
+  for (const port of ports) {
+    const loopback = await probeTcp('127.0.0.1', port);
+    const others = [];
+    for (const a of addresses) others.push(await probeTcp(a, port));
+    rows.push({ port, loopback, others });
+  }
+  return rows;
+}
+
+/** The table scan.mjs prints. rows come from scanPorts(). */
+export function formatScan(rows, addresses) {
+  const pad = (s, n) => String(s).padEnd(n);
+  const head = `${pad('port', 7)}${pad('127.0.0.1', 11)}${addresses.map((a) => pad(a, 16)).join('') || 'no other address'}`;
+  return [head, ...rows.map((r) => `${pad(r.port, 7)}${pad(r.loopback, 11)}${r.others.map((s) => pad(s, 16)).join('')}`.trimEnd())].join('\n');
+}

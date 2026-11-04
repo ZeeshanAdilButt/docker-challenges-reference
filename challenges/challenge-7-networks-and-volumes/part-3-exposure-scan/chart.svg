@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 200" width="640" height="200" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">Ports of the stack that answer from each place</title>
+  <desc id="d">Published by Docker: 1 ports. Answer on 127.0.0.1: 1 ports. Answer on your network: 0 ports. Database port on network: 0 ports</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">Ports of the stack that answer from each place</text>
+  <text x="204" y="65" text-anchor="end" font-size="14">Published by Docker</text>
+  <rect x="220" y="51" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="51" width="314.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">1 ports</text>
+  <text x="204" y="99" text-anchor="end" font-size="14">Answer on 127.0.0.1</text>
+  <rect x="220" y="85" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="85" width="314.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">1 ports</text>
+  <text x="204" y="133" text-anchor="end" font-size="14">Answer on your network</text>
+  <rect x="220" y="119" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="119" width="0.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">0 ports</text>
+  <text x="204" y="167" text-anchor="end" font-size="14">Database port on network</text>
+  <rect x="220" y="153" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="153" width="0.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="168" font-size="14">0 ports</text>
+</svg>

@@ -1,0 +1,48 @@
+# A three-tier stack: web (nginx) -> api -> db (Postgres).
+# Fixed version: only web is published, and only on 127.0.0.1.
+# The tiers sit on two networks. "back" is internal: nothing on it is published or can leave.
+name: dkr-c7-p3
+
+x-safe: &safe
+  labels:
+    dkr.challenge: "7"
+  mem_limit: 128m
+  memswap_limit: 128m
+  pids_limit: 100
+  security_opt: ["no-new-privileges:true"]
+  logging:
+    driver: json-file
+    options: { max-size: "1m", max-file: "2" }
+
+services:
+  web:
+    <<: *safe
+    image: nginx:1.27-alpine
+    ports: ["127.0.0.1:${WEB_PORT}:80"]
+    volumes: ["./nginx.conf:/etc/nginx/conf.d/default.conf:ro"]
+    networks: [front]
+    depends_on: [api]
+
+  api:
+    <<: *safe
+    image: dkr-c7-daftar-api:1
+    networks: [front, back]
+
+  db:
+    <<: *safe
+    image: postgres:18-alpine
+    mem_limit: 256m
+    memswap_limit: 256m
+    environment:
+      POSTGRES_PASSWORD: dkr-demo-only
+    tmpfs: ["/var/lib/postgresql:size=96m"]
+    networks: [back]
+
+networks:
+  front:
+    labels:
+      dkr.challenge: "7"
+  back:
+    internal: true
+    labels:
+      dkr.challenge: "7"
