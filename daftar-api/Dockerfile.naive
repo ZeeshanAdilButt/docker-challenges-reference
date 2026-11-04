@@ -1,0 +1,15 @@
+# daftar-api, the naive variant for challenges 3 and 9.
+# Shell-form CMD runs "/bin/sh -c ...". The shell stays as PID 1, does not pass
+# SIGTERM on, and a PID 1 without a handler ignores SIGTERM.
+# So "docker stop" has to wait for its timeout and then sends SIGKILL (exit code 137).
+FROM node:24-alpine
+
+WORKDIR /app
+COPY package.json server.mjs ./
+
+ENV PORT=8080
+EXPOSE 8080
+
+USER node
+
+CMD node server.mjs; echo "server stopped"
