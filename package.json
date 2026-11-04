@@ -7,7 +7,7 @@
   "engines": { "node": ">=22" },
   "scripts": {
     "check": "node toolkit/check-setup.mjs",
-    "test": "node --test \"toolkit/test.mjs\" \"daftar-api/test.mjs\" \"challenges/**/test.mjs\"",
-    "test:challenge0": "node --test \"challenges/challenge-0-setup/**/test.mjs\""
+    "test": "node --test --test-concurrency=1 \"toolkit/test.mjs\" \"daftar-api/test.mjs\" \"tools/test.mjs\" \"challenges/**/test.mjs\"",
+    "test:challenge0": "node --test --test-concurrency=1 \"challenges/challenge-0-setup/**/test.mjs\""
   }
 }

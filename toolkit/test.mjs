@@ -89,25 +89,26 @@ test('assertDocker returns the engine version', { skip: run(['version']).code !=
 });
 
 test('cleanup removes only objects labelled for that challenge', { skip: run(['version']).code !== 0 && 'Docker is not running' }, () => {
-  // Names start with dkr-c0-tk so they are clearly ours. We remove the two we keep by hand.
-  const other = name(0, 'tk-other-label'); // labelled for challenge 90, must survive cleanup(0)
-  const plain = name(0, 'tk-no-label'); // no label at all, must survive cleanup(0)
-  const plainVolume = name(0, 'tk-plain-vol');
+  // Challenge number 97 is only for this test, so it cannot clash with the challenge tests that run in parallel.
+  // The two objects we expect to survive are removed by hand at the end.
+  const other = name(97, 'tk-other-label'); // labelled for challenge 96, must survive cleanup(97)
+  const plain = name(97, 'tk-no-label'); // no label at all, must survive cleanup(97)
+  const plainVolume = name(97, 'tk-plain-vol');
   try {
-    cleanup(0);
-    assert.equal(run(['create', '--name', name(0, 'tk-mine'), ...label(0), IMAGE, 'true']).code, 0);
-    assert.equal(run(['create', '--name', other, ...label(90), IMAGE, 'true']).code, 0);
+    cleanup(97);
+    assert.equal(run(['create', '--name', name(97, 'tk-mine'), ...label(97), IMAGE, 'true']).code, 0);
+    assert.equal(run(['create', '--name', other, ...label(96), IMAGE, 'true']).code, 0);
     assert.equal(run(['create', '--name', plain, IMAGE, 'true']).code, 0);
-    assert.equal(run(['network', 'create', ...label(0), name(0, 'tk-net')]).code, 0);
-    assert.equal(run(['volume', 'create', ...label(0), name(0, 'tk-vol')]).code, 0);
+    assert.equal(run(['network', 'create', ...label(97), name(97, 'tk-net')]).code, 0);
+    assert.equal(run(['volume', 'create', ...label(97), name(97, 'tk-vol')]).code, 0);
     assert.equal(run(['volume', 'create', plainVolume]).code, 0);
 
-    assert.deepEqual(leftovers(0), { containers: 1, networks: 1, volumes: 1 });
-    const removed = cleanup(0);
+    assert.deepEqual(leftovers(97), { containers: 1, networks: 1, volumes: 1 });
+    const removed = cleanup(97);
     assert.equal(removed.containers.length, 1);
     assert.equal(removed.networks.length, 1);
     assert.equal(removed.volumes.length, 1);
-    assert.deepEqual(leftovers(0), { containers: 0, networks: 0, volumes: 0 });
+    assert.deepEqual(leftovers(97), { containers: 0, networks: 0, volumes: 0 });
 
     assert.equal(run(['inspect', other]).code, 0, 'container with another label is still there');
     assert.equal(run(['inspect', plain]).code, 0, 'container with no label is still there');
@@ -115,6 +116,6 @@ test('cleanup removes only objects labelled for that challenge', { skip: run(['v
   } finally {
     run(['rm', '-f', other, plain]);
     run(['volume', 'rm', '-f', plainVolume]);
-    cleanup(0);
+    cleanup(97);
   }
 });
