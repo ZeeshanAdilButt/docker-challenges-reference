@@ -13,6 +13,8 @@ export const env = {
   retries: Number(process.env.STARTUP_RETRIES ?? 0),
   retryMs: Number(process.env.STARTUP_RETRY_MS ?? 1000),
   version: process.env.APP_VERSION ?? '1',
+  // Pretend to warm up: wait this long before listening (used by the CI part to model a slow start).
+  startDelayMs: Number(process.env.STARTUP_DELAY_MS ?? 0),
 };
 
 export const log = (obj) => process.stdout.write(`${JSON.stringify({ ts: new Date().toISOString(), ...obj })}\n`);

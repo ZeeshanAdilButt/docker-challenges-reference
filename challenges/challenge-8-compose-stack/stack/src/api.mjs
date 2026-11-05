@@ -8,7 +8,7 @@
 
 import http from 'node:http';
 import os from 'node:os';
-import { env, log, openCache, openDb, withRetry } from './common.mjs';
+import { env, log, openCache, openDb, sleep, withRetry } from './common.mjs';
 import { quote } from './pg.mjs';
 
 const PORT = Number(process.env.PORT ?? 8080);
@@ -86,5 +86,6 @@ try {
   process.exit(1);
 }
 
+if (env.startDelayMs) await sleep(env.startDelayMs);
 server.listen(PORT, '0.0.0.0', () => log({ event: 'listening', port: PORT, version: env.version }));
 for (const sig of ['SIGTERM', 'SIGINT']) process.on(sig, () => server.close(() => process.exit(0)));

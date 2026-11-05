@@ -1,0 +1,82 @@
+# The stack the CI job tests: db, cache, a migration job, api and worker.
+# ci.mjs passes API_PORT (a free random port), APP_VERSION and API_START_DELAY_MS through the environment.
+name: dkr-c8
+
+x-safe: &safe
+  labels:
+    dkr.challenge: "8"
+  mem_limit: 128m
+  memswap_limit: 128m
+  pids_limit: 100
+  security_opt: ["no-new-privileges:true"]
+  logging:
+    driver: json-file
+    options: { max-size: "1m", max-file: "2" }
+
+x-app: &app
+  <<: *safe
+  image: dkr-c8-stack:1
+  environment:
+    DB_HOST: db
+    DB_PASSWORD: dkr-demo-only
+    CACHE_HOST: cache
+    APP_VERSION: ${APP_VERSION:-1}
+    STARTUP_DELAY_MS: ${API_START_DELAY_MS:-0}
+  depends_on:
+    db: { condition: service_healthy }
+    cache: { condition: service_healthy }
+    migrate: { condition: service_completed_successfully }
+
+services:
+  db:
+    <<: *safe
+    image: postgres:18-alpine
+    mem_limit: 256m
+    memswap_limit: 256m
+    environment:
+      POSTGRES_PASSWORD: dkr-demo-only
+    tmpfs: ["/var/lib/postgresql:size=96m"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -h 127.0.0.1"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+      start_period: 5s
+
+  cache:
+    <<: *safe
+    image: valkey/valkey:9-alpine
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 2s
+      timeout: 3s
+      retries: 10
+
+  migrate:
+    <<: *safe
+    image: postgres:18-alpine
+    restart: "no"
+    entrypoint: ["psql", "-h", "db", "-U", "postgres", "-v", "ON_ERROR_STOP=1", "-f", "/migrations/001_create_tables.sql"]
+    environment:
+      PGPASSWORD: dkr-demo-only
+    volumes: ["../stack/migrations:/migrations:ro"]
+    depends_on:
+      db: { condition: service_healthy }
+
+  api:
+    <<: *app
+    ports: ["127.0.0.1:${API_PORT}:8080"]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8080/ready > /dev/null"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
+  worker:
+    <<: *app
+    command: ["node", "src/worker.mjs"]
+
+networks:
+  default:
+    labels:
+      dkr.challenge: "8"

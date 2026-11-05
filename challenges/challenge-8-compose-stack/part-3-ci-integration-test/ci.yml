@@ -1,0 +1,42 @@
+# The pipeline of ci.mjs as a GitHub Actions job.
+# Copy this file to .github/workflows/integration.yml in your own repository to run it on GitHub.
+# That run is yours: this challenge cannot run GitHub Actions for you. See the README for what to expect.
+name: integration
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  PART: challenges/challenge-8-compose-stack/part-3-ci-integration-test
+  API_PORT: "41080"
+
+jobs:
+  integration:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      # Pinned to a full commit SHA, not a tag: tags can be moved. This SHA is the tag v7.0.1.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Build the app image
+        run: docker build -t dkr-c8-stack:1 challenges/challenge-8-compose-stack/stack
+
+      - name: Start the stack and wait until every service is healthy
+        run: docker compose -p dkr-c8 -f "$PART/compose.yaml" up -d --wait --wait-timeout 90
+
+      - name: Run the integration test
+        env:
+          API_URL: http://127.0.0.1:41080
+        run: node --test "$PART/integration.test.mjs"
+
+      - name: Show logs when something failed
+        if: failure()
+        run: docker compose -p dkr-c8 -f "$PART/compose.yaml" logs --no-color --tail 50
+
+      - name: Tear down
+        if: always()
+        run: docker compose -p dkr-c8 -f "$PART/compose.yaml" down -v --remove-orphans
