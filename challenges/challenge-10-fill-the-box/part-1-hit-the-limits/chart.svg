@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 234" width="640" height="234" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">How far a runaway job got, with no tuning and with limits</title>
+  <desc id="d">JS leak, MB held, no tuning: 43. JS leak, MB held, limits: 22. Fork loop, helpers, no tuning: 43. Fork loop, helpers, limits: 13. File loop, files, limits: 110</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">How far a runaway job got, with no tuning and with limits</text>
+  <text x="240" y="65" text-anchor="end" font-size="14">JS leak, MB held, no tuning</text>
+  <rect x="256" y="51" width="278" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="256" y="51" width="108.7" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">43</text>
+  <text x="240" y="99" text-anchor="end" font-size="14">JS leak, MB held, limits</text>
+  <rect x="256" y="85" width="278" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="256" y="85" width="55.6" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">22</text>
+  <text x="240" y="133" text-anchor="end" font-size="14">Fork loop, helpers, no tuning</text>
+  <rect x="256" y="119" width="278" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="256" y="119" width="108.7" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">43</text>
+  <text x="240" y="167" text-anchor="end" font-size="14">Fork loop, helpers, limits</text>
+  <rect x="256" y="153" width="278" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="256" y="153" width="32.9" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="168" font-size="14">13</text>
+  <text x="240" y="201" text-anchor="end" font-size="14">File loop, files, limits</text>
+  <rect x="256" y="187" width="278" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="256" y="187" width="278.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="202" font-size="14">110</text>
+</svg>
