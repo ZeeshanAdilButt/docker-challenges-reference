@@ -57,3 +57,14 @@ See the box in each part README. The signing keys, the registry, the keys volume
 ## State when the work stopped
 
 The scanner cache volume `dkr-c12-trivy-cache` (1.7 GB) was removed at the end to give the disk back. The saved scans in `part-1-scan-an-old-image/fixtures/` and the recorded `results.md` do not need it. To run the live scan again, use `run.mjs --live`: the database downloads again (71 s on the reference connection). The pulled tool images stay on the machine: the scanner, cosign, `registry:3` and the SBOM generator.
+
+## Pipeline hooks (added for challenges 13 and 14)
+
+`hooks/scan.mjs`, `hooks/sbom.mjs` and `hooks/sign.mjs` (with `hooks/common.mjs`, `hooks/test.mjs` and the contract in `hooks/README.md`) are called by `runPipeline` in `challenge-13-ship-it/kit.mjs` as `node hooks/<stage>.mjs <image reference>`. They sit outside every `reference/` folder on purpose: learners need them in their copy, and they are infrastructure, not an exercise. Each exits 0 or 1 and prints exactly one result line `<stage> <status> key=value ...` (status `ok`, `failed` or `partial`); the grammar is parsed by `parseResult` and tested.
+
+- **scan**: pinned scanner on a saved copy of the image; fails on a HIGH or CRITICAL secret, or on a CRITICAL vulnerability that has a fix (`DKR_SCAN_MAX_CRITICAL`, default 0). Uses the cached database from part 1 (the first call downloads it: 139 MB, about 1.7 GB on disk, 70 s). `DKR_SCAN_OFFLINE=1` runs the secret scan only and reports `partial`. A scan takes 6 to 9 s with the database cached.
+- **sbom**: an SPDX document from the same pinned scanner (a different generator from the BuildKit one in part 4, because the hook only has an image, not its source). About 3 to 6 s.
+- **sign**: finds the registry container by the published port in the reference, joins its Docker network, makes a throwaway key pair in a labelled volume, signs the digest and verifies it. About 5 to 7 s. It leaves one `.sig` tag in the registry.
+- **Tests** (`hooks/test.mjs`, 12 tests): the result-line grammar, no argument, a tag refused by `sign`, no privileged flag or socket in the sources, a real SBOM, a missing image, an offline scan, a scan that fails on the secret in the part 2 image, a scan with the cached database (skipped if the database is not cached), a sign and verify in a throwaway registry, and a check that nothing labelled 12 is left.
+- **Date dependence**: a scan passes or fails with the database of the day. When the hooks were first wired into challenge 14, the web image (`nginx:1.27-alpine`, pinned months ago) failed the scan with 3 fixable CRITICAL findings; see the challenge 14 notes.
+- **Still true**: the database volume is kept (`dkr-c12-trivy-cache`, label `12-cache`) and is NOT removed by `cleanup(12)`.
