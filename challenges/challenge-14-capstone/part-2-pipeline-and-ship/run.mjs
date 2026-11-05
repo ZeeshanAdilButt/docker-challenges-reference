@@ -122,7 +122,7 @@ try {
   rec.step(
     `local pipeline for api, worker, web   stages ${config.stages.join(' > ')}   tags ${JSON.stringify(config.tags)}`,
     stageTables.join('\n'),
-    anyBadStage ? 'A service failed a stage: nothing after it ran, and nothing was pushed from it. Read the detail column.' : 'Every service passed every stage. scan, sbom and sign say "skipped" until challenge 12 gives you the tools. The digests are in the registry.',
+    anyBadStage ? 'A service failed a stage: nothing after it ran, and nothing was pushed from it. Read the detail column.' : (statuses.scan.every((x) => x === 'ok') && statuses.sbom.every((x) => x === 'ok') && statuses.sign.every((x) => x === 'ok') ? 'Every service passed every stage, including scan, SBOM and sign, which ran the tools of challenge 12. The digests are in the registry.' : 'Every service passed the stages that ran. A stage that says "skipped" is waiting for its hook from challenge 12. The digests are in the registry.'),
   );
 
   // Version 2: a second release (build and push only), to have something to roll out and to roll back from.

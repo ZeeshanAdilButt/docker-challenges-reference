@@ -55,7 +55,7 @@ docker --context dkr-c14-prod info --format "engine {{.ServerVersion}}"
 
 ```text
 engine 29.9.3   privileged: true   socket mounted: false
-registry at dkr-c14-registry:5000 (inside), 127.0.0.1:50147 (from here)
+registry at dkr-c14-registry:5000 (inside), 127.0.0.1:63545 (from here)
 ```
 
 **Note:** The same single privileged Docker-in-Docker host as challenge 13, named for this challenge. Everything you deploy lands here.
@@ -72,30 +72,30 @@ local pipeline for api, worker, web   stages lint > build > test > scan > sbom >
 
 ```text
 api
-  lint   ok         0.5 s  docker build --check: no warnings
-  build  ok         0.9 s  built api:build-1111111
-  test   ok         1.1 s  tests passed (result reused from the layer cache)
-  scan   skipped      0 s  filled in after challenge 12
-  sbom   skipped      0 s  filled in after challenge 12
-  push   ok         1.4 s  pushed sha-1111111, 1.0.0 -> ecdab31b37f6
-  sign   skipped      0 s  filled in after challenge 12
+  lint   ok         0.6 s  docker build --check: no warnings
+  build  ok         1.3 s  built api:build-1111111
+  test   ok         1.3 s  tests passed (result reused from the layer cache)
+  scan   ok         9.3 s  scan ok scanner=trivy-0.76.1 secrets=0 critical_fixable=0 high_fixable=6 total=19 os=alpin
+  sbom   ok         6.2 s  sbom ok format=SPDX-2.3 packages=181 sha256=edc1963181ed seconds=6.2
+  push   ok         5.3 s  pushed sha-1111111, 1.0.0 -> 0c1225105d0f
+  sign   ok         4.6 s  sign ok digest=sha256:0c1225105d0f verified=true key=throwaway seconds=4.5
 worker
   lint   ok         0.5 s  docker build --check: no warnings
-  build  ok         0.8 s  built worker:build-1111111
-  scan   skipped      0 s  filled in after challenge 12
-  sbom   skipped      0 s  filled in after challenge 12
+  build  ok         0.9 s  built worker:build-1111111
+  scan   ok         7.2 s  scan ok scanner=trivy-0.76.1 secrets=0 critical_fixable=0 high_fixable=2 total=194 os=debi
+  sbom   ok         4.6 s  sbom ok format=SPDX-2.3 packages=89 sha256=35977289be11 seconds=4.5
   push   ok         1.4 s  pushed sha-1111111, 1.0.0 -> 7078a20d3cca
-  sign   skipped      0 s  filled in after challenge 12
+  sign   ok         4.6 s  sign ok digest=sha256:7078a20d3cca verified=true key=throwaway seconds=4.5
 web
   lint   ok         0.5 s  docker build --check: no warnings
-  build  ok           1 s  built web:build-1111111
-  scan   skipped      0 s  filled in after challenge 12
-  sbom   skipped      0 s  filled in after challenge 12
-  push   ok         1.4 s  pushed sha-1111111, 1.0.0 -> 66d1dd928971
-  sign   skipped      0 s  filled in after challenge 12
+  build  ok         1.1 s  built web:build-1111111
+  scan   ok         7.2 s  scan ok scanner=trivy-0.76.1 secrets=0 critical_fixable=0 high_fixable=0 total=0 os=alpine
+  sbom   ok         7.9 s  sbom ok format=SPDX-2.3 packages=69 sha256=5b8d024ce9fa seconds=7.8
+  push   ok         3.8 s  pushed sha-1111111, 1.0.0 -> 20bfcdd4f5ef
+  sign   ok         4.4 s  sign ok digest=sha256:20bfcdd4f5ef verified=true key=throwaway seconds=4.3
 ```
 
-**Note:** Every service passed every stage. scan, sbom and sign say "skipped" until challenge 12 gives you the tools. The digests are in the registry.
+**Note:** Every service passed every stage, including scan, SBOM and sign, which ran the tools of challenge 12. The digests are in the registry.
 
 ## Step 4
 
@@ -109,10 +109,10 @@ DIGEST_API=... DIGEST_WORKER=... DIGEST_WEB=... docker --context dkr-c14-prod co
 **Output**
 
 ```text
-database ready in 7.6 s; first deploy of version 1 in 9.9 s
-api     running ecdab31b37f6   pushed ecdab31b37f6   same
+database ready in 7.6 s; first deploy of version 1 in 8.4 s
+api     running 0c1225105d0f   pushed 0c1225105d0f   same
 worker  running 7078a20d3cca   pushed 7078a20d3cca   same
-web     running 66d1dd928971   pushed 66d1dd928971   same
+web     running 20bfcdd4f5ef   pushed 20bfcdd4f5ef   same
 first job through the web page on the host: done
 ```
 
@@ -129,8 +129,8 @@ repeat 3 times:  deploy version 1;  roll out version 2 under load;  roll back to
 **Output**
 
 ```text
-rollout:  11 s (median)   requests 5417   failed 0   both versions answered: true
-rollback: 11.1 s (median; target under 120 s)   failed during rollback 0   back on the version 1 digests: true
+rollout:  10.4 s (median)   requests 5455   failed 0   both versions answered: true
+rollback: 10.6 s (median; target under 120 s)   failed during rollback 0   back on the version 1 digests: true
 ```
 
 **Note:** The new colour had to report healthy (all three services) before the proxy moved, so no request failed, in either direction. A rollback is a deploy of older digests that the host already has.
