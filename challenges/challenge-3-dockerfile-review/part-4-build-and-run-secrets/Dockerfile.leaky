@@ -1,0 +1,14 @@
+# The original. Do not edit: the run uses it as the "before" image.
+# A private package registry needs a token while the dependencies are installed.
+FROM node:24-alpine
+WORKDIR /app
+ARG NPM_TOKEN
+COPY package.json package-lock.json server.mjs check-secret.mjs ./
+RUN echo "//registry.example.invalid/:_authToken=${NPM_TOKEN}" > .npmrc \
+ && npm ci --omit=dev \
+ && printf %s "$NPM_TOKEN" | sha256sum | cut -c1-8 > /app/build-proof.txt \
+ && rm .npmrc
+ENV PORT=8080
+USER node
+EXPOSE 8080
+CMD ["node", "server.mjs"]

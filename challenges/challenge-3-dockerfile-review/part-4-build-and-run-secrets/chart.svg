@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 132" width="640" height="132" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">Places where the build token can be read (out of 3)</title>
+  <desc id="d">original (ARG): 2 of 3. yours (build secret): 0 of 3</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">Places where the build token can be read (out of 3)</text>
+  <text x="172" y="65" text-anchor="end" font-size="14">original (ARG)</text>
+  <rect x="188" y="51" width="346" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="188" y="51" width="346.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">2 of 3</text>
+  <text x="172" y="99" text-anchor="end" font-size="14">yours (build secret)</text>
+  <rect x="188" y="85" width="346" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="188" y="85" width="0.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">0 of 3</text>
+</svg>
