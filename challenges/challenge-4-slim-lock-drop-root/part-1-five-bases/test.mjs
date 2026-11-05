@@ -38,16 +38,17 @@ for (const [key, file] of Object.entries(BASES)) {
 
 test('every base has a size and a package count', () => {
   for (const key of Object.keys(BASES)) {
-    assert.ok(f(key, 'size_mb') > 0, `c4.p1.${key}_size_mb is missing. ${hint}`);
+    assert.ok(f(key, 'unpacked_mb') > 0, `c4.p1.${key}_unpacked_mb is missing. ${hint}`);
     assert.ok(f(key, 'packed_mb') > 0, `c4.p1.${key}_packed_mb is missing. ${hint}`);
     assert.ok(f(key, 'packages') > 0, `c4.p1.${key}_packages is missing. ${hint}`);
   }
 });
 
 test('the sizes tell the story: full > slim > alpine, and distroless is smaller than slim', () => {
-  assert.ok(f('full', 'size_mb') > f('slim', 'size_mb'));
-  assert.ok(f('slim', 'size_mb') > f('alpine', 'size_mb'));
-  assert.ok(f('distroless', 'size_mb') < f('slim', 'size_mb'));
+  for (const key of Object.keys(BASES)) assert.ok(f(key, 'unpacked_mb') > f(key, 'packed_mb'), `${key}: unpacked must be bigger than packed`);
+  assert.ok(f('full', 'unpacked_mb') > f('slim', 'unpacked_mb'));
+  assert.ok(f('slim', 'unpacked_mb') > f('alpine', 'unpacked_mb'));
+  assert.ok(f('distroless', 'unpacked_mb') < f('slim', 'unpacked_mb'));
 });
 
 test('alpine + apk leaves no package cache in the image', () => {

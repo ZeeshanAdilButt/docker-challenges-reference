@@ -13,14 +13,14 @@ docker build -f Dockerfile.full -t dkr-c4-p1-full:test daftar-api
 **Output**
 
 ```text
-#3 DONE 0.1s
+#3 DONE 0.0s
 #4 [internal] load build context
-#4 DONE 0.1s
+#4 DONE 0.0s
 #5 [1/3] FROM docker.io/library/node:24@sha256:e7add2a490bb17d97b485b8641bd88455fff7839ade0f5eba493c3508124d413
 #5 DONE 0.1s
 #6 [2/3] WORKDIR /app
 #7 [3/3] COPY package.json server.mjs ./
-#8 DONE 0.5s
+#8 DONE 0.4s
 ```
 
 **Note:** Built node:24 (Debian, full).
@@ -36,7 +36,7 @@ docker build -f Dockerfile.slim -t dkr-c4-p1-slim:test daftar-api
 **Output**
 
 ```text
-#3 DONE 0.1s
+#3 DONE 0.0s
 #4 [internal] load build context
 #4 DONE 0.0s
 #5 [1/3] FROM docker.io/library/node:24-slim@sha256:c86ecead9e55a5210ac1727de38a4ca840bf03dcaf34dc9749addbf383b1920c
@@ -59,14 +59,14 @@ docker build -f Dockerfile.alpine -t dkr-c4-p1-alpine:test daftar-api
 **Output**
 
 ```text
-#3 DONE 0.1s
+#3 DONE 0.0s
 #4 [internal] load build context
-#4 DONE 0.1s
+#4 DONE 0.0s
 #5 [1/3] FROM docker.io/library/node:24-alpine@sha256:8a32c8cf649a49915a66e81e7a609223c708d0adabf288ee3f4077d765542f85
 #5 DONE 0.1s
 #6 [2/3] WORKDIR /app
 #7 [3/3] COPY package.json server.mjs ./
-#8 DONE 0.6s
+#8 DONE 0.7s
 ```
 
 **Note:** Built node:24-alpine (musl).
@@ -83,13 +83,13 @@ docker build -f Dockerfile.alpine-os -t dkr-c4-p1-alpine-os:test daftar-api
 
 ```text
 #4 [internal] load build context
-#4 DONE 0.0s
+#4 DONE 0.1s
 #5 [1/4] FROM docker.io/library/alpine:3.23@sha256:ff7f0c727dd796aa36787bfcd9a64bf35a6ce72a73451b3359fde849b6703d63
 #5 DONE 0.1s
 #6 [2/4] RUN apk add --no-cache nodejs
 #7 [3/4] WORKDIR /app
 #8 [4/4] COPY package.json server.mjs ./
-#9 DONE 0.8s
+#9 DONE 1.7s
 ```
 
 **Note:** Built alpine:3.23 + apk nodejs.
@@ -107,12 +107,12 @@ docker build -f Dockerfile.distroless -t dkr-c4-p1-distroless:test daftar-api
 ```text
 #3 DONE 0.0s
 #4 [internal] load build context
-#4 DONE 0.1s
+#4 DONE 0.0s
 #5 [1/3] FROM gcr.io/distroless/nodejs24-debian13@sha256:03980f6fd2a3245fa06e371c36fd33528ebbc676a1d0f84e3e21d95cd291b807
-#5 DONE 0.2s
+#5 DONE 0.1s
 #6 [2/3] WORKDIR /app
 #7 [3/3] COPY package.json server.mjs ./
-#8 DONE 0.6s
+#8 DONE 0.3s
 ```
 
 **Note:** Built distroless nodejs24.
@@ -128,15 +128,15 @@ node challenges/challenge-4-slim-lock-drop-root/part-1-five-bases/run.mjs   (the
 **Output**
 
 ```text
-base                          unpacked  packed  packages  shell  glibc  start   idle mem
-node:24 (Debian, full)        1630.5 MB 410 MB  413       yes    yes    1019 ms 16.2 MiB
-node:24-slim (Debian, slim)   330.4 MB  81.1 MB 88        yes    yes    1411 ms 16.2 MiB
-node:24-alpine (musl)         243.6 MB  62.5 MB 19        yes    no     1021 ms 17.1 MiB
-alpine:3.23 + apk nodejs      108.6 MB  29.9 MB 30        yes    no     1094 ms 16.4 MiB
-distroless nodejs24           214.8 MB  55.5 MB 14        no     yes    1767 ms 17.3 MiB
+base                          unpacked  packed  Size field  packages  shell  glibc  start   idle mem
+node:24 (Debian, full)        1136.7 MB 410 MB  1630.5 MB   413       yes    yes    786 ms  16.2 MiB
+node:24-slim (Debian, slim)   230.4 MB  81.1 MB 330.4 MB    88        yes    yes    942 ms  16.2 MiB
+node:24-alpine (musl)         172 MB    62.5 MB 243.6 MB    19        yes    no     1108 ms 16.9 MiB
+alpine:3.23 + apk nodejs      77.2 MB   29.9 MB 108.6 MB    30        yes    no     981 ms  16.7 MiB
+distroless nodejs24           154.8 MB  55.5 MB 214.8 MB    14        no     yes    739 ms  17.2 MiB
 ```
 
-**Note:** Same app, five bases. Size, packages and tools change a lot. Idle memory is the same. Start time is about one second on all of them and moves from run to run.
+**Note:** Same app, five bases. Unpacked and packed sizes (from the layers), packages and tools change a lot. Idle memory is the same. Start time is about one second on all of them and moves from run to run.
 
 ## Step 7
 

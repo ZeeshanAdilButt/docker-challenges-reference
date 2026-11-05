@@ -9,7 +9,8 @@ Every number a chapter may quote, with its meaning and how it was measured. Valu
 | Fact | Meaning | How it was measured |
 |---|---|---|
 | `c4.p1.<key>_built` | The Dockerfile built | exit code of `docker build` |
-| `c4.p1.<key>_size_mb` | Unpacked size in MB (what `docker images` shows) | `docker image inspect --format {{.Size}}` / 1,000,000 |
+| `c4.p1.<key>_unpacked_mb` | Unpacked size in MB: bytes of all files in all layers | each layer of the OCI export is unzipped and its regular files are added up |
+| `c4.p1.<key>_docker_size_mb` | The `Size` field of `docker image inspect`, in MB | `docker image inspect --format {{.Size}}` / 1,000,000. With the containerd image store it is about unpacked plus packed plus file system overhead, so do not quote it as a size |
 | `c4.p1.<key>_packed_mb` | Packed size in MB (what a registry stores and a pull downloads) | layers plus config of the image exported with `docker buildx build --output type=oci` |
 | `c4.p1.<key>_packages` | Operating system packages in the image | `Package:` lines in `/var/lib/dpkg/status`, files in `/var/lib/dpkg/status.d`, or `P:` lines in `/lib/apk/db/installed`, counted by the image's own node |
 | `c4.p1.<key>_node_major` | Node major version in the image | `process.version` inside the image |

@@ -4,7 +4,7 @@
 
 ## The problem
 
-Your team ships one small Node service. The image is 1.6 GB. Someone says "use Alpine", someone else says "use distroless", and a third person says "Alpine broke our build once". Each of them is right about something. You need numbers, not opinions: how big is each choice, what is in it, and what do you lose?
+Your team ships one small Node service. `docker images` says the image is 1.6 GB. Someone says "use Alpine", someone else says "use distroless", and a third person says "Alpine broke our build once". Each of them is right about something. You need numbers, not opinions: how big is each choice, what is in it, and what do you lose?
 
 ## The idea
 
@@ -55,17 +55,18 @@ Add `--record` to step 4 if you want your own `results.md` and `chart.svg`.
 The table printed at the end of step 4 (reference machine, your numbers will differ a little):
 
 ```text
-base                          unpacked  packed  packages  shell  glibc  start   idle mem
-node:24 (Debian, full)        1630.5 MB 410 MB  413       yes    yes    1019 ms 16.2 MiB
-node:24-slim (Debian, slim)   330.4 MB  81.1 MB 88        yes    yes    1411 ms 16.2 MiB
-node:24-alpine (musl)         243.6 MB  62.5 MB 19        yes    no     1021 ms 17.1 MiB
-alpine:3.23 + apk nodejs      108.6 MB  29.9 MB 30        yes    no     1094 ms 16.4 MiB
-distroless nodejs24           214.8 MB  55.5 MB 14        no     yes    1767 ms 17.3 MiB
+base                          unpacked  packed  Size field  packages  shell  glibc  start   idle mem
+node:24 (Debian, full)        1136.7 MB 410 MB  1630.5 MB   413       yes    yes    786 ms  16.2 MiB
+node:24-slim (Debian, slim)   230.4 MB  81.1 MB 330.4 MB    88        yes    yes    942 ms  16.2 MiB
+node:24-alpine (musl)         172 MB    62.5 MB 243.6 MB    19        yes    no     1108 ms 16.9 MiB
+alpine:3.23 + apk nodejs      77.2 MB   29.9 MB 108.6 MB    30        yes    no     981 ms  16.7 MiB
+distroless nodejs24           154.8 MB  55.5 MB 214.8 MB    14        no     yes    739 ms  17.2 MiB
 ```
 
 Read it like this:
 
-- The same 150 lines of code give images from 109 MB to 1.6 GB.
+- The same 150 lines of code give images from 77 MB to 1.1 GB unpacked (30 MB to 410 MB packed).
+- The column `Size field` is what `docker images` and `docker image inspect` report on a Docker with the containerd image store. It is neither the packed nor the unpacked size: it is roughly the unpacked files plus the packed blobs, plus some file system overhead. Do not quote it as "the size of the image". Use unpacked for disk, packed for what a pull downloads.
 - Idle memory is the same on every base. The base changes the disk and the pull, not the running process.
 - Start time is about one second everywhere and changes from run to run. Do not pick a base for start time.
 - `glibc: no` on both Alpine rows is the compatibility cost. A program built for Ubuntu (`uname` here) cannot start.
@@ -78,11 +79,12 @@ The full recorded run is in [results.md](results.md).
 
 ## Where each number comes from
 
-Facts are named `c4.p1.<key>_<what>`, for example `c4.p1.slim_size_mb`.
+Facts are named `c4.p1.<key>_<what>`, for example `c4.p1.slim_unpacked_mb`.
 
 | Fact | Where it comes from |
 |---|---|
-| `*_size_mb` | `docker image inspect --format {{.Size}}`, divided by 1,000,000. This is the unpacked size, the one `docker images` shows. |
+| `*_unpacked_mb` | The bytes of all files in all layers, added up. `run.mjs` reads the layers from the OCI export, unzips each one and adds up the sizes of its regular files. |
+| `*_docker_size_mb` | `docker image inspect --format {{.Size}}`, divided by 1,000,000, kept as its own number. With the containerd image store it is not the unpacked size (see above). |
 | `*_packed_mb` | The size of the layers and config in the image when exported with `docker buildx build --output type=oci`. This is what a registry stores and a pull downloads. |
 | `*_packages` | Counted inside the image by its own `node`: `Package:` lines in `/var/lib/dpkg/status`, files in `/var/lib/dpkg/status.d` (distroless), or `P:` lines in `/lib/apk/db/installed` (Alpine). |
 | `*_has_shell` | `docker run --entrypoint sh <image> -c true` exits with 0. |
@@ -94,7 +96,7 @@ Facts are named `c4.p1.<key>_<what>`, for example `c4.p1.slim_size_mb`.
 
 ## What is different on Docker Desktop
 
-Docker Desktop on Windows or Mac keeps its images in a disk file inside its virtual machine, so the first build of `node:24` may take a minute while Docker unpacks 1.6 GB. The numbers above were recorded on Docker Desktop with the containerd image store (the default since Docker Engine 29). With the older classic image store, `docker image inspect` can report a slightly different unpacked size, and the packed size is the number that stays the same. On Linux, startup is usually faster than the numbers above, because there is no virtual machine between you and the container.
+Docker Desktop on Windows or Mac keeps its images in a disk file inside its virtual machine, so the first build of `node:24` may take a minute while Docker unpacks 1.1 GB. The numbers above were recorded on Docker Desktop with the containerd image store (the default since Docker Engine 29). With the older classic image store the `Size` field may mean something else, which is one more reason this part adds up the layers itself. On Linux, startup is usually faster than the numbers above, because there is no virtual machine between you and the container.
 
 ## Stuck?
 

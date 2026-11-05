@@ -79,13 +79,18 @@ try {
     rec.step(`docker build -f ${b.file} -t ${tagOf(b)} daftar-api`, built.ok ? buildLines.join('\n') : built.out.split(/\r?\n/).slice(-12).join('\n'), built.ok ? `Built ${b.label}.` : `The build of ${b.label} failed. Read the last lines above.`);
     if (!built.ok) continue;
 
-    // Step 3: sizes. Unpacked is what `docker images` shows. Packed is what a registry stores and a pull downloads.
-    const unpacked = imageBytes(tagOf(b));
+    // Step 3: sizes. Unpacked = bytes of the files in all layers. Packed = what a registry stores and a pull downloads.
+    // docker image inspect Size is neither: with the containerd image store it adds the packed blobs to the unpacked files.
+    // We keep it as its own fact so you can see the difference.
     const oci = ociExport({ dockerfile, context });
-    row.sizeMb = mb(unpacked);
+    row.fieldMb = mb(imageBytes(tagOf(b)));
+    row.sizeMb = oci.ok ? mb(oci.unpackedBytes) : NaN;
     row.packedMb = oci.ok ? mb(oci.packedBytes) : NaN;
-    facts[`${k}_size_mb`] = row.sizeMb;
-    if (oci.ok) facts[`${k}_packed_mb`] = row.packedMb;
+    facts[`${k}_docker_size_mb`] = row.fieldMb;
+    if (oci.ok) {
+      facts[`${k}_unpacked_mb`] = row.sizeMb;
+      facts[`${k}_packed_mb`] = row.packedMb;
+    }
 
     // Step 4: what is inside (packages, libc, shell, leftover package cache)
     const probe = run(['run', '--rm', ...safeArgs(CHALLENGE, 'probe'), '--entrypoint', b.node, tagOf(b), '-e', PROBE]);
@@ -157,11 +162,12 @@ try {
   }
 
   // One table for the recorded run
-  const lines = ['base                          unpacked  packed  packages  shell  glibc  start   idle mem', ...results.map((r) =>
+  const lines = ['base                          unpacked  packed  Size field  packages  shell  glibc  start   idle mem', ...results.map((r) =>
     [
       r.label.padEnd(30),
       r.built ? `${r.sizeMb} MB`.padEnd(10) : 'build failed'.padEnd(10),
       Number.isFinite(r.packedMb) ? `${r.packedMb} MB`.padEnd(8) : ''.padEnd(8),
+      `${r.fieldMb} MB`.padEnd(12),
       String(r.packages ?? '').padEnd(10),
       (r.shell ? 'yes' : 'no').padEnd(7),
       (r.glibcOk ? 'yes' : 'no').padEnd(7),
@@ -169,7 +175,7 @@ try {
       r.rssMb !== undefined ? `${r.rssMb} MiB` : '',
     ].join(''),
   )];
-  rec.step('node challenges/challenge-4-slim-lock-drop-root/part-1-five-bases/run.mjs   (the table at the end)', lines.join('\n'), 'Same app, five bases. Size, packages and tools change a lot. Idle memory is the same. Start time is about one second on all of them and moves from run to run.');
+  rec.step('node challenges/challenge-4-slim-lock-drop-root/part-1-five-bases/run.mjs   (the table at the end)', lines.join('\n'), 'Same app, five bases. Unpacked and packed sizes (from the layers), packages and tools change a lot. Idle memory is the same. Start time is about one second on all of them and moves from run to run.');
 
   const failed = results.filter((r) => !r.health);
   for (const r of failed) {
