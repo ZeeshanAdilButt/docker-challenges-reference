@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daftar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Daftar</h1>
+    <p>Type a sentence. The worker shouts it back and counts the words.</p>
+    <form id="form">
+      <input id="text" maxlength="200" placeholder="Something to process" required>
+      <button>Send</button>
+    </form>
+    <p id="status" role="status"></p>
+    <table>
+      <thead><tr><th>#</th><th>Text</th><th>Status</th><th>Result</th></tr></thead>
+      <tbody id="jobs"></tbody>
+    </table>
+    <p class="small">version <span id="version">?</span></p>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

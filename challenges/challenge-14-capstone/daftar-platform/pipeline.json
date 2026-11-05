@@ -1,0 +1,4 @@
+{
+  "stages": ["build", "push", "test", "scan"],
+  "tags": ["latest"]
+}

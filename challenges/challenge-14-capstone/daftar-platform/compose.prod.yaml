@@ -1,0 +1,26 @@
+# The Daftar platform on the production host. STARTER: it starts, and it is not fit for production.
+# The deploy tool passes these values in the environment:
+#   REGISTRY, DIGEST_API, DIGEST_WORKER, DIGEST_WEB   where the images are and which digests to run
+#   DATABASE_URL                                      the address of the database, with its password
+# The database itself is data.compose.yaml (fixed). Find what is wrong here and fix it.
+services:
+  api:
+    image: ${REGISTRY}/dkr-c14/api:latest
+    environment:
+      DATABASE_URL: postgres://daftar:supersecret-db-pass-2026@db:5432/daftar
+    networks: [default, data]
+
+  worker:
+    image: ${REGISTRY}/dkr-c14/worker:latest
+    environment:
+      API_URL: http://api:8080
+
+  web:
+    image: ${REGISTRY}/dkr-c14/web:latest
+    networks: [default, edge]
+
+networks:
+  data:
+    external: true
+  edge:
+    external: true

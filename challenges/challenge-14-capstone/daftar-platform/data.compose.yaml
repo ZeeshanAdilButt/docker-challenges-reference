@@ -1,0 +1,29 @@
+# The database of the production host. This file is fixed: it is not part of your work.
+# One Postgres with its data on a volume, on the network "data". Only the api joins that network.
+# run.mjs starts it once and never replaces it during a rollout.
+services:
+  db:
+    image: ${REGISTRY}/dkr-c14/postgres@${DIGEST_DB:?set DIGEST_DB}
+    environment:
+      POSTGRES_USER: daftar
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      POSTGRES_DB: daftar
+    volumes:
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U daftar -d daftar"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+      start_period: 5s
+    mem_limit: 256m
+    pids_limit: 100
+    restart: unless-stopped
+    networks: [data]
+
+networks:
+  data:
+    external: true
+
+volumes:
+  pgdata:
