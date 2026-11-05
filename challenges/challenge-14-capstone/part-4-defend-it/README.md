@@ -27,7 +27,7 @@ You should also record the walkthrough, out loud, once. A written script that yo
 | 4 | Run steps 2 and 1 again, until it is green | Parts 1 to 3 must be done: the numbers in your defence come from them. |
 | 5 | `node toolkit/show-facts.mjs c14` | Shows every number the capstone saved. Quote them with their units. |
 
-The pass mark is 80 % of the points that can be earned today. The criteria for scan, SBOM and signing are **pending** until you have done challenge 12 and wired its tools in: they are listed, they earn nothing and they do not count against you. When they are wired in, they count.
+The pass mark is 80 % of the points that can be earned today. The criteria for scan, SBOM and signing (9 points) count once the hooks of challenge 12 run in your pipeline. If a hook file is missing they are **pending**: listed, earning nothing and not counted against you.
 
 ## What you should see
 

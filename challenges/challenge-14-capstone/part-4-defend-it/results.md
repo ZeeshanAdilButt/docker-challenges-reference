@@ -13,12 +13,14 @@ read DEFENCE.md: the five sections, the words, and the numbers followed by a uni
 **Output**
 
 ```text
-sections found: 5 of 5   words: 671 (about 4.5 minutes at 150 words a minute; the range is 300 to 800)
-numbers quoted from your own facts: 10 of 12 that could be quoted
+sections found: 5 of 5   words: 755 (about 5 minutes at 150 words a minute; the range is 300 to 800)
+numbers quoted from your own facts: 12 of 12 that could be quoted
   c14.p1.api_size_mb
   c14.p1.worker_size_mb
   c14.p1.web_size_mb
+  c14.p1.api_build_cold_s
   c14.p1.api_edit_rebuild_s
+  c14.p1.compose_up_s
   c14.p2.first_deploy_s
   c14.p2.rollout_s
   c14.p2.rollback_s
@@ -73,9 +75,9 @@ pass      2  run and recover the dev stack has a profile for tools and watch on 
 pass      4  security        no secret in any image (history, environment or files)
 ... (15 lines left out)
 pass      3  security        compose.prod.yaml: no literal secret, health checks, limits and restart on eve
-pending   3  security        every image is scanned before the push, with a before and after report
-pending   3  security        every image has an SBOM
-pending   3  security        every pushed digest is signed
+pass      3  security        every image is scanned before the push, with a before and after report
+pass      3  security        every image has an SBOM
+pass      3  security        every pushed digest is signed
 pass      5  run and recover kill: the crashed api comes back within 20 seconds and no job is lost
 pass      5  run and recover starve: a memory hog is stopped by its limit, restarted, and the worker keeps 
 pass      5  run and recover misconfigure: a wrong database password is caught by the health gate within 30
@@ -86,7 +88,7 @@ pass      6  evidence        the defence quotes at least six numbers from your o
 pass      8  communication   PROBES.md answers three probes and one troubleshooting question, each in 60 to
 ```
 
-**Note:** Score: 140 of 140 points available, 100 %. 3 criteria are pending until challenge 12 gives you scan, SBOM and signing tools; they are not counted. The pass mark is 80 %.
+**Note:** Score: 149 of 149 points available, 100 %. The pass mark is 80 %.
 
 ## Step 4
 
@@ -102,7 +104,7 @@ the score for each area
 images            21 of  21
 build and cache   20 of  20
 run and recover   43 of  43
-security          23 of  23
+security          32 of  32
 evidence          11 of  11
 communication     22 of  22
 ```

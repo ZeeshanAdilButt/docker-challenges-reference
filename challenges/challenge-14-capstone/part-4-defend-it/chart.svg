@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 268" width="640" height="268" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
   <title id="t">Rubric points earned by area (of the points available)</title>
-  <desc id="d">images (of 21): 21 points. build and cache (of 20): 20 points. run and recover (of 43): 43 points. security (of 23): 23 points. evidence (of 11): 11 points. communication (of 22): 22 points</desc>
+  <desc id="d">images (of 21): 21 points. build and cache (of 20): 20 points. run and recover (of 43): 43 points. security (of 32): 32 points. evidence (of 11): 11 points. communication (of 22): 22 points</desc>
   <text x="0" y="24" font-size="17" font-weight="600">Rubric points earned by area (of the points available)</text>
   <text x="196" y="65" text-anchor="end" font-size="14">images (of 21)</text>
   <rect x="212" y="51" width="322" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
@@ -14,10 +14,10 @@
   <rect x="212" y="119" width="322" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
   <rect x="212" y="119" width="322.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
   <text x="544" y="134" font-size="14">43 points</text>
-  <text x="196" y="167" text-anchor="end" font-size="14">security (of 23)</text>
+  <text x="196" y="167" text-anchor="end" font-size="14">security (of 32)</text>
   <rect x="212" y="153" width="322" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
-  <rect x="212" y="153" width="172.2" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
-  <text x="544" y="168" font-size="14">23 points</text>
+  <rect x="212" y="153" width="239.6" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="168" font-size="14">32 points</text>
   <text x="196" y="201" text-anchor="end" font-size="14">evidence (of 11)</text>
   <rect x="212" y="187" width="322" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
   <rect x="212" y="187" width="82.4" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
