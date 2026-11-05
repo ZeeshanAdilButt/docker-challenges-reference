@@ -7,16 +7,16 @@ Recorded run. Machine: win32, Docker Engine 29.9.2, Node 22.22.2. Date: 2026-11-
 **Command**
 
 ```sh
-docker run -d -p 127.0.0.1:56674:5000 -v dkr-c6-registry-data:/var/lib/registry -e REGISTRY_STORAGE_DELETE_ENABLED=true registry:3   then   curl -i http://127.0.0.1:<port>/v2/
+docker run -d -p 127.0.0.1:57880:5000 -v dkr-c6-registry-data:/var/lib/registry -e REGISTRY_STORAGE_DELETE_ENABLED=true registry:3   then   curl -i http://127.0.0.1:<port>/v2/
 ```
 
 **Output**
 
 ```text
-published as 127.0.0.1:56674
+published as 127.0.0.1:57880
 HTTP 200
 docker-distribution-api-version: registry/2.0
-image registry:3: 86.6 MB unpacked
+image registry:3: 64.6 MB unpacked, 20.5 MB packed
 ```
 
 **Note:** A registry is one container that answers HTTP on /v2/. It listens only on this machine.
@@ -26,7 +26,7 @@ image registry:3: 86.6 MB unpacked
 **Command**
 
 ```sh
-docker push 127.0.0.1:56674/dkr-c6/hello:1   then   docker push 127.0.0.1:56674/dkr-c6/hello:2
+docker push 127.0.0.1:57880/dkr-c6/hello:1   then   docker push 127.0.0.1:57880/dkr-c6/hello:2
 ```
 
 **Output**
@@ -48,7 +48,7 @@ after the second push: 7 blobs, 4020 KB
 **Command**
 
 ```sh
-docker image rm 127.0.0.1:56674/dkr-c6/hello:1   then   docker pull 127.0.0.1:56674/dkr-c6/hello:1
+docker image rm 127.0.0.1:57880/dkr-c6/hello:1   then   docker pull 127.0.0.1:57880/dkr-c6/hello:1
 ```
 
 **Output**
@@ -58,11 +58,11 @@ docker image rm 127.0.0.1:56674/dkr-c6/hello:1   then   docker pull 127.0.0.1:56
 da82efb10e76: Pulling fs layer
 5e9b4a97f639: Pulling fs layer
 da82efb10e76: Already exists
-... (3 lines left out)
+... (2 lines left out)
 Digest: sha256:c64a56b392f4c5f8bb6b7ae408b2665e3d9da37ed83c5ec63610cee05fbedd09
 Status: Downloaded newer image for <registry>/dkr-c6/hello:1
 <registry>/dkr-c6/hello:1
-pull times: 0.6, 0.8, 0.6 s (median 0.6 s)
+pull times: 1, 0.4, 0.6 s (median 0.6 s)
 ```
 
 **Note:** A pull from a registry on this machine is fast. The numbers show the steps, not the speed of the internet.

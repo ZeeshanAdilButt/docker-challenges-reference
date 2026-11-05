@@ -5,12 +5,14 @@
 
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { writeFileSync } from 'node:fs';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 
 import { assertDocker, cleanup, run } from '../../../toolkit/docker.js';
 import { Recorder } from '../../../toolkit/record.js';
 import { barsSvg } from '../../../toolkit/bars.js';
 import { median } from '../../../toolkit/stats.js';
+import { openImage, layerBytes } from '../../challenge-2-take-an-image-apart/lib/image.mjs';
 import { CHALLENGE, REGISTRY_IMAGE, buildTiny, freePort, clip, createVolume, mb, pick, readFlags, removeImages, saveFacts, secs, startRegistry } from '../lib.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -42,14 +44,23 @@ try {
 
   // Step 1: start the registry with your flags and ask it who it is.
   let reg = await startRegistry({ flags });
-  const size = Number(run(['image', 'inspect', '--format', '{{.Size}}', REGISTRY_IMAGE]).stdout.trim());
-  facts['c6.p1.registry_image_mb'] = mb(size);
+  // docker image inspect Size is not the size of the files on the containerd image store: add up the layers.
+  const saveDir = mkdtempSync(join(tmpdir(), 'dkr-c6-save-'));
+  try {
+    const saved = run(['save', '-o', join(saveDir, 'registry.tar'), REGISTRY_IMAGE], { timeoutMs: 300_000 });
+    if (saved.code !== 0) throw new Error(`docker save failed: ${saved.stderr.trim()}`);
+    const img = openImage(join(saveDir, 'registry.tar'));
+    facts['c6.p1.registry_image_unpacked_mb'] = mb(img.layers.reduce((sum, l) => sum + layerBytes(l), 0));
+    facts['c6.p1.registry_image_packed_mb'] = mb(img.layers.reduce((sum, l) => sum + l.size, 0));
+  } finally {
+    rmSync(saveDir, { recursive: true, force: true });
+  }
   const ping = await fetch(`${reg.base}/v2/`);
   const bound = run(['port', reg.name, '5000/tcp']).stdout.trim().split(/\r?\n/)[0];
   facts['c6.p1.bound_host'] = bound.replace(/:\d+$/, '');
   rec.step(
     `docker run -d ${flags.join(' ')} ${REGISTRY_IMAGE}   then   curl -i http://127.0.0.1:<port>/v2/`,
-    `published as ${bound}\nHTTP ${ping.status}\ndocker-distribution-api-version: ${ping.headers.get('docker-distribution-api-version')}\nimage ${REGISTRY_IMAGE}: ${facts['c6.p1.registry_image_mb']} MB unpacked`,
+    `published as ${bound}\nHTTP ${ping.status}\ndocker-distribution-api-version: ${ping.headers.get('docker-distribution-api-version')}\nimage ${REGISTRY_IMAGE}: ${facts['c6.p1.registry_image_unpacked_mb']} MB unpacked, ${facts['c6.p1.registry_image_packed_mb']} MB packed`,
     facts['c6.p1.bound_host'] === '127.0.0.1' ? 'A registry is one container that answers HTTP on /v2/. It listens only on this machine.' : 'The registry listens on every network interface and has no password. Anyone who can reach this machine can push to it.',
   );
 

@@ -66,7 +66,7 @@ The exact numbers are in [results.md](results.md). The chart compares the storag
 | `c6.p1.pull_s` | Median of three `docker pull` runs. The local copy is removed before each one. This is a registry on the same machine, so it measures the steps, not the internet. |
 | `c6.p1.survives_recreate` | `GET /v2/_catalog` of the new container lists `dkr-c6/hello`. |
 | `c6.p1.delete_enabled` | The container has `REGISTRY_STORAGE_DELETE_ENABLED=true` in `docker inspect`. |
-| `c6.p1.registry_image_mb` | `docker image inspect`, field `Size`, unpacked. |
+| `c6.p1.registry_image_unpacked_mb`, `c6.p1.registry_image_packed_mb` | `docker save` of `registry:3`, then the layers are added up: the files they hold (unpacked) and their own size (packed). |
 
 ## What is different on Docker Desktop
 
