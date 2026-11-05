@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 234" width="640" height="234" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">Tags pushed for each kind of build</title>
+  <desc id="d">push to main: 2 tags. push to a feature branch: 2 tags. pull request: 2 tags. release v1.2.3: 4 tags. pre-release v2.0.0-rc.1: 2 tags</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">Tags pushed for each kind of build</text>
+  <text x="204" y="65" text-anchor="end" font-size="14">push to main</text>
+  <rect x="220" y="51" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="51" width="157.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">2 tags</text>
+  <text x="204" y="99" text-anchor="end" font-size="14">push to a feature branch</text>
+  <rect x="220" y="85" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="85" width="157.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">2 tags</text>
+  <text x="204" y="133" text-anchor="end" font-size="14">pull request</text>
+  <rect x="220" y="119" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="119" width="157.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">2 tags</text>
+  <text x="204" y="167" text-anchor="end" font-size="14">release v1.2.3</text>
+  <rect x="220" y="153" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="153" width="314.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="168" font-size="14">4 tags</text>
+  <text x="204" y="201" text-anchor="end" font-size="14">pre-release v2.0.0-rc.1</text>
+  <rect x="220" y="187" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="187" width="157.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="202" font-size="14">2 tags</text>
+</svg>

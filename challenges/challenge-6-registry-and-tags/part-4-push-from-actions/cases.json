@@ -1,0 +1,7 @@
+[
+  { "name": "push to main", "input": { "ref": "refs/heads/main", "sha": "3f2a9c1d5e7b8a90123456789abcdef012345678" }, "tags": ["sha-3f2a9c1", "main"] },
+  { "name": "push to a feature branch", "input": { "ref": "refs/heads/feature/login-page", "sha": "9a8b7c6d5e4f30211234567890abcdef12345678" }, "tags": ["sha-9a8b7c6", "feature-login-page"] },
+  { "name": "pull request", "input": { "ref": "refs/pull/12/merge", "sha": "1111111aaaaaaa2222222bbbbbbb3333333ccccc" }, "tags": ["sha-1111111", "pr-12"] },
+  { "name": "release v1.2.3", "input": { "ref": "refs/tags/v1.2.3", "sha": "abcdef0123456789abcdef0123456789abcdef01" }, "tags": ["sha-abcdef0", "1.2.3", "1.2", "latest"] },
+  { "name": "pre-release v2.0.0-rc.1", "input": { "ref": "refs/tags/v2.0.0-rc.1", "sha": "0123456789abcdef0123456789abcdef01234567" }, "tags": ["sha-0123456", "2.0.0-rc.1"] }
+]
