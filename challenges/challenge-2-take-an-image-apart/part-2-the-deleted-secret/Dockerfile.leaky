@@ -1,0 +1,10 @@
+# The image with a secret in it. Do not fix this file: it is the thing you take apart.
+# The secret is made up (config/prod.env). The build deletes it again in a later step.
+FROM alpine:3.23
+WORKDIR /app
+COPY config/prod.env /app/prod.env
+COPY seed.bin /app/seed.bin
+COPY app.sh /app/app.sh
+RUN . /app/prod.env && [ -n "$DEMO_API_KEY" ] && echo "config checked: ok" > /app/warm.txt
+RUN rm /app/prod.env /app/seed.bin
+CMD ["sh", "/app/app.sh"]

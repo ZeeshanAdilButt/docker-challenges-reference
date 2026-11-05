@@ -1,0 +1,15 @@
+# Your fix. Right now this is a copy of Dockerfile.leaky, so it leaks the same way.
+#
+# Goal: the final image must run the same (prints "config checked: ok" and "service ready"),
+# but the secret in config/prod.env must not be in ANY layer of it, and nothing may be
+# "deleted in a later layer" (no whiteouts).
+#
+# Hint: a build can have more than one stage. Only the last stage becomes the image.
+FROM alpine:3.23
+WORKDIR /app
+COPY config/prod.env /app/prod.env
+COPY seed.bin /app/seed.bin
+COPY app.sh /app/app.sh
+RUN . /app/prod.env && [ -n "$DEMO_API_KEY" ] && echo "config checked: ok" > /app/warm.txt
+RUN rm /app/prod.env /app/seed.bin
+CMD ["sh", "/app/app.sh"]

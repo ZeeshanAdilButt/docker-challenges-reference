@@ -1,0 +1,12 @@
+# Reference fix: two stages. The secret is used in the first stage only.
+# Only the last stage becomes the image, so the secret never enters one of its layers.
+FROM alpine:3.23 AS build
+WORKDIR /build
+COPY config/prod.env /build/prod.env
+RUN . /build/prod.env && [ -n "$DEMO_API_KEY" ] && echo "config checked: ok" > /build/warm.txt
+
+FROM alpine:3.23
+WORKDIR /app
+COPY --from=build /build/warm.txt /app/warm.txt
+COPY app.sh /app/app.sh
+CMD ["sh", "/app/app.sh"]
