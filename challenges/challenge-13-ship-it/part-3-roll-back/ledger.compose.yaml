@@ -1,0 +1,27 @@
+# How the ledger service runs on the production host. This file is fixed: the image is named by digest,
+# the data lives on a volume that outlives every release, and a health check gates the rollout.
+# Do not edit it. You edit rollback.mjs and release-plan.json.
+services:
+  api:
+    image: ${REGISTRY}/dkr-c13/ledger@${DIGEST:?set DIGEST}
+    environment:
+      WARMUP_MS: "2000"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/ready"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+    volumes:
+      - data:/data
+    mem_limit: 128m
+    pids_limit: 100
+    networks: [edge]
+
+volumes:
+  data:
+    external: true
+    name: ledger-data
+
+networks:
+  edge:
+    external: true

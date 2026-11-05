@@ -1,0 +1,8 @@
+{
+  "name": "ledger",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A tiny customer list with a database file, used to show why a rollback and a schema change interact. No dependencies.",
+  "engines": { "node": ">=22.13" }
+}
