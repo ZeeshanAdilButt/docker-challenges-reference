@@ -92,9 +92,9 @@ export function createVolume(name) {
   return run(['volume', 'create', ...label(CHALLENGE), name]);
 }
 
-/** The requests a registry logged since a moment: [{ method, uri, status }]. */
-export function registryRequests(name, sinceIso) {
-  const r = run(['logs', '--since', sinceIso, name]);
+/** All requests a registry has logged so far: [{ method, uri, status }]. Take the count before an action, then slice. */
+export function registryRequests(name) {
+  const r = run(['logs', name]);
   const out = [];
   for (const line of (r.stdout + r.stderr).split(/\r?\n/)) {
     if (!/msg="response completed"/.test(line)) continue;

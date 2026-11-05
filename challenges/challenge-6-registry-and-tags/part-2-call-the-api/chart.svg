@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 166" width="640" height="166" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">HTTP requests when a fresh machine pulls one image</title>
+  <desc id="d">Ping (/v2/): 1 requests. Manifest: 1 requests. Blob (config + layers): 4 requests</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">HTTP requests when a fresh machine pulls one image</text>
+  <text x="188" y="65" text-anchor="end" font-size="14">Ping (/v2/)</text>
+  <rect x="204" y="51" width="330" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="204" y="51" width="82.5" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">1 requests</text>
+  <text x="188" y="99" text-anchor="end" font-size="14">Manifest</text>
+  <rect x="204" y="85" width="330" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="204" y="85" width="82.5" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">1 requests</text>
+  <text x="188" y="133" text-anchor="end" font-size="14">Blob (config + layers)</text>
+  <rect x="204" y="119" width="330" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="204" y="119" width="330.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">4 requests</text>
+</svg>
