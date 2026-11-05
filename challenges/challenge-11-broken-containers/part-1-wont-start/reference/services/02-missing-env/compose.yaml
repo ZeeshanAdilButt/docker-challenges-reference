@@ -1,0 +1,32 @@
+name: dkr-c11-missing-env
+
+# The safety cage for every challenge 11 service. Do not remove it.
+x-cage: &cage
+  labels:
+    dkr.challenge: "11"
+  mem_limit: 64m
+  memswap_limit: 64m
+  pids_limit: 50
+  logging:
+    driver: json-file
+    options:
+      max-size: 1m
+      max-file: "2"
+  security_opt:
+    - no-new-privileges:true
+
+services:
+  api:
+    <<: *cage
+    container_name: dkr-c11-missing-env
+    image: dkr-c11/missing-env:1
+    build: .
+    environment:
+      DATABASE_URL: postgres://shop:secret@db.internal:5432/shop
+    ports:
+      - "127.0.0.1:18102:8080"
+
+networks:
+  default:
+    labels:
+      dkr.challenge: "11"

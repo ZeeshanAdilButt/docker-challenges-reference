@@ -1,0 +1,29 @@
+name: dkr-c11-exit-137
+
+services:
+  api:
+    container_name: dkr-c11-exit-137
+    image: dkr-c11/exit-137:1
+    build: .
+    labels:
+      dkr.challenge: "11"
+    environment:
+      PRELOAD_MB: "16"
+    # Keep mem_limit and memswap_limit equal: equal means no swap.
+    mem_limit: 64m
+    memswap_limit: 64m
+    pids_limit: 50
+    logging:
+      driver: json-file
+      options:
+        max-size: 1m
+        max-file: "2"
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "127.0.0.1:18104:8080"
+
+networks:
+  default:
+    labels:
+      dkr.challenge: "11"
