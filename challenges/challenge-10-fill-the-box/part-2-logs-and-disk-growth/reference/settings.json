@@ -1,0 +1,8 @@
+{
+  "log": {
+    "driver": "json-file",
+    "max_size": "2m",
+    "max_file": "3"
+  },
+  "tmpfs_mb": 16
+}
