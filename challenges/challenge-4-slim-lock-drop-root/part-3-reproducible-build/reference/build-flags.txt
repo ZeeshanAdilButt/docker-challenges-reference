@@ -1,0 +1,6 @@
+# Flags for `docker buildx build`. One or more per line. Lines starting with # are ignored.
+# SOURCE_DATE_EPOCH is a fixed time (seconds since 1970). In a pipeline use the commit time:
+#   git log -1 --pretty=%ct
+--build-arg SOURCE_DATE_EPOCH=1700000000
+# rewrite-timestamp sets every file in every layer to that time, so file dates cannot change the digest.
+--output type=oci,rewrite-timestamp=true

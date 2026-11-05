@@ -1,0 +1,4 @@
+# Flags for `docker buildx build`. One or more per line. Lines starting with # are ignored.
+# run.mjs adds the Dockerfile, --no-cache, the build folder and the file name for the output.
+# Keep an --output line with type=oci: run.mjs reads the image digest from it.
+--output type=oci

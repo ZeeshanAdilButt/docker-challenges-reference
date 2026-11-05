@@ -1,0 +1,6 @@
+# Used by run.mjs to show a base tag that moves. Do not edit.
+ARG BASE
+FROM ${BASE}
+WORKDIR /app
+COPY package.json server.mjs ./
+CMD ["node", "server.mjs"]
