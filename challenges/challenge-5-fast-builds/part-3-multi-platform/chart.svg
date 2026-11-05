@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 166" width="640" height="166" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">Platforms: your bake file, this builder, the official Node image</title>
+  <desc id="d">Your bake file: 2 platforms. Official node:24-alpine: 3 platforms. This builder can build: 9 platforms</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">Platforms: your bake file, this builder, the official Node image</text>
+  <text x="196" y="65" text-anchor="end" font-size="14">Your bake file</text>
+  <rect x="212" y="51" width="322" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="212" y="51" width="71.6" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">2 platforms</text>
+  <text x="196" y="99" text-anchor="end" font-size="14">Official node:24-alpine</text>
+  <rect x="212" y="85" width="322" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="212" y="85" width="107.3" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">3 platforms</text>
+  <text x="196" y="133" text-anchor="end" font-size="14">This builder can build</text>
+  <rect x="212" y="119" width="322" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="212" y="119" width="322.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">9 platforms</text>
+</svg>

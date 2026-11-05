@@ -1,0 +1,22 @@
+{
+  "name": "daftar-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "daftar-api with a realistic dependency list, so the install step has work to do.",
+  "type": "module",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "express": "4.21.2",
+    "pino": "9.6.0",
+    "zod": "3.24.2"
+  },
+  "devDependencies": {
+    "typescript": "5.7.3",
+    "eslint": "9.20.0",
+    "prettier": "3.5.1",
+    "vitest": "3.0.5"
+  }
+}
