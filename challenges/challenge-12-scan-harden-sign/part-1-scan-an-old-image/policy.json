@@ -1,0 +1,5 @@
+{
+  "runtime_packages": ["nginx", "libssl3", "libcrypto3", "libssl1.1", "libcrypto1.1", "pcre", "pcre2", "zlib", "musl"],
+  "max_fix_now": 0,
+  "fail_on_end_of_life": true
+}

@@ -1,0 +1,19 @@
+{
+ "Image": "alpine:3.23",
+ "ScannerImage": "aquasec/trivy:0.76.1@sha256:790fd66d1697395d8693d1acaa1ea702406a20f109b6fc7bac8db623eca6c06c",
+ "DbUpdatedAt": "2026-11-05T07:00:54.926777429Z",
+ "Metadata": {
+  "OS": {
+   "Family": "alpine",
+   "Name": "3.23.7"
+  }
+ },
+ "Results": [
+  {
+   "Target": "alpine:3.23 (alpine 3.23.7)",
+   "Class": "os-pkgs",
+   "Type": "alpine",
+   "Vulnerabilities": []
+  }
+ ]
+}

@@ -1,0 +1,1965 @@
+{
+ "Image": "nginx:1.27-alpine",
+ "ScannerImage": "aquasec/trivy:0.76.1@sha256:790fd66d1697395d8693d1acaa1ea702406a20f109b6fc7bac8db623eca6c06c",
+ "DbUpdatedAt": "2026-11-05T07:00:54.926777429Z",
+ "Metadata": {
+  "OS": {
+   "Family": "alpine",
+   "Name": "3.21.3",
+   "EOSL": true
+  }
+ },
+ "Results": [
+  {
+   "Target": "nginx:1.27-alpine (alpine 3.21.3)",
+   "Class": "os-pkgs",
+   "Type": "alpine",
+   "Vulnerabilities": [
+    {
+     "VulnerabilityID": "CVE-2026-111497",
+     "PkgName": "brotli-libs",
+     "InstalledVersion": "1.1.0-r2",
+     "FixedVersion": "1.1.1-r0",
+     "Status": "fixed",
+     "Severity": "CRITICAL",
+     "Title": "brotli: Out-of-Bounds Write in Google Brotli Decoder"
+    },
+    {
+     "VulnerabilityID": "CVE-2024-58251",
+     "PkgName": "busybox",
+     "InstalledVersion": "1.37.0-r12",
+     "FixedVersion": "1.37.0-r14",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "In netstat in BusyBox through 1.37.0, local users can launch of networ ..."
+    },
+    {
+     "VulnerabilityID": "CVE-2025-46394",
+     "PkgName": "busybox",
+     "InstalledVersion": "1.37.0-r12",
+     "FixedVersion": "1.37.0-r14",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "In tar in BusyBox through 1.37.0, a TAR archive can have filenames hid ..."
+    },
+    {
+     "VulnerabilityID": "CVE-2024-58251",
+     "PkgName": "busybox-binsh",
+     "InstalledVersion": "1.37.0-r12",
+     "FixedVersion": "1.37.0-r14",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "In netstat in BusyBox through 1.37.0, local users can launch of networ ..."
+    },
+    {
+     "VulnerabilityID": "CVE-2025-46394",
+     "PkgName": "busybox-binsh",
+     "InstalledVersion": "1.37.0-r12",
+     "FixedVersion": "1.37.0-r14",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "In tar in BusyBox through 1.37.0, a TAR archive can have filenames hid ..."
+    },
+    {
+     "VulnerabilityID": "CVE-2026-33630",
+     "PkgName": "c-ares",
+     "InstalledVersion": "1.34.5-r0",
+     "FixedVersion": "1.34.8-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "c-ares: c-ares: Use-after-free / double-free in query-completion handling"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-62408",
+     "PkgName": "c-ares",
+     "InstalledVersion": "1.34.5-r0",
+     "FixedVersion": "1.34.6-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "c-ares: c-ares: Denial of Service due to query termination after maximum attempts"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-5773",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "curl: libcurl: Wrong file transfer due to incorrect SMB connection reuse"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-6276",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "curl: libcurl: Information disclosure due to cookie leak when reusing connections with custom Host headers"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-8286",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "curl: curl: Insecure connection establishment due to TLS configuration mismatch"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-8927",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "curl: Information disclosure due to uncleared proxy authentication state"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-92392",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "curl: curl: HTTP/2 upload Use-After-Free"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-13034",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: Public key pinning bypass via QUIC and GnuTLS allows server impersonation"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-4947",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.0-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libcurl: curl: QUIC certificate check skip with wolfSSL"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-5025",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.0-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: libcurl: QUIC Certificate Pinning Bypass"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-5399",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: libcurl: WebSocket endless loop"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-9086",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: libcurl: Curl out of bounds read for cookie path"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-3783",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: curl: Information disclosure via OAuth2 bearer token leakage during HTTP(S) redirect"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-3784",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: curl: Unauthorized access due to improper HTTP proxy connection reuse"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-3805",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: curl: Arbitrary code execution or Denial of Service via use-after-free in SMB request handling"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-4873",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: curl: Information disclosure due to incorrect TLS connection reuse"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-5545",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: libcurl: Authentication bypass due to incorrect HTTP Negotiate connection reuse"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-6253",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: curl: Proxy credential disclosure via redirects to unauthenticated proxies"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-6429",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: libcurl: Credential leak via reused proxy connection during HTTP redirects"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-7168",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: libcurl: Information disclosure via incorrect Proxy-Authorization header reuse"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-8924",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: curl: Cookie injection via malicious HTTP server using super cookies"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-10148",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r2",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "curl: predictable WebSocket mask"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-14524",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "curl: Information disclosure via cross-protocol redirect with OAuth2 bearer token"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-14819",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "curl: libcurl: Improper certificate validation due to cached TLS settings reuse"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-1965_1",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "UNKNOWN",
+     "Title": ""
+    },
+    {
+     "VulnerabilityID": "CVE-2026-1965_2",
+     "PkgName": "curl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "UNKNOWN",
+     "Title": ""
+    },
+    {
+     "VulnerabilityID": "CVE-2026-31789",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r0",
+     "Status": "fixed",
+     "Severity": "CRITICAL",
+     "Title": "openssl: OpenSSL: Heap buffer overflow on 32-bit systems from large X.509 certificate processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-15467",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "openssl: OpenSSL: Remote code execution or Denial of Service via oversized Initialization Vector in CMS parsing"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-69421",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "openssl: OpenSSL: Denial of Service via malformed PKCS#12 file processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-28387",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "openssl: OpenSSL: Arbitrary code execution due to use-after-free in DANE TLSA authentication"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-28388",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "openssl: OpenSSL: Denial of Service due to NULL pointer dereference in delta CRL processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-28389",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "openssl: OpenSSL: Denial of Service vulnerability in CMS processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-28390",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "openssl: OpenSSL: Denial of Service due to NULL pointer dereference in CMS EnvelopedData processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-45447",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "openssl: Heap Use-After-Free in OpenSSL PKCS7_verify()"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-84782",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "openssl: compat-openssl: openssl: Information disclosure via DTLS handshake retransmission"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-69419",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: OpenSSL: Arbitrary code execution due to out-of-bounds write in PKCS#12 processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-9230",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.5-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: Out-of-bounds read & write in RFC 3211 KEK Unwrap"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-9231",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.5-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: Timing side-channel in SM2 algorithm on 64 bit ARM"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-31790",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: openssl: Information Disclosure from Uninitialized Memory via Invalid RSA Public Key"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-34182",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: CMS AuthEnvelopedData Processing May Accept Forged Messages"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-34183",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: Unbounded Memory Growth in the QUIC PATH_CHALLENGE Handler"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-45445",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: AES-OCB IV Ignored on EVP_Cipher() Path"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-54872",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: OpenSSL: Private key recovery via timing side-channel in generic elliptic curve operations"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-54875",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: openssl: information disclosure via non-constant-time SM2 scalar multiplication on ARM64 and RISC-V"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-63072",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: heap buffer overflow in CMS key unwrapping"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-63076",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: invalid pointer dereference in CMP server via crafted protectionAlg"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-72897",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: openssl: Denial of Service via out-of-bounds write during TLS context switch"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-75804",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: OpenSSL: Denial of Service via unenforced QUIC connection flow control"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-75805",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: openssl: Denial of Service via crafted CMP certificate revocation response"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-75806",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: OpenSSL: Denial of Service via undersized DTLS record"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-77696",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: OpenSSL: Private key recovery via SM2 timing side-channel"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-84784",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: OpenSSL: Denial of Service via unbounded QUIC connection identifier backlog"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-15468",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: OpenSSL: Denial of Service via NULL pointer dereference in QUIC protocol handling"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-66199",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: OpenSSL: Denial of Service due to excessive memory allocation in TLS 1.3 certificate compression"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-68160",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: OpenSSL: Denial of Service due to out-of-bounds write in BIO filter"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-69418",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: OpenSSL: Information disclosure and data tampering via specific low-level OCB encryption/decryption calls"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-69420",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: OpenSSL: Denial of Service via malformed TimeStamp Response"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-9232",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.5-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: Out-of-bounds read in HTTP client no_proxy handling"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-22795",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: OpenSSL: Denial of Service due to type confusion in PKCS#12 file processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-22796",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: OpenSSL: Denial of Service via type confusion in PKCS#7 signature verification"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-35189",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: openssl: Denial of Service via excessive memory allocation in CRL distribution point processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-42766",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: Possible NULL Dereference in Password-Based CMS Decryption"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-42768",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: Multi-RecipientInfo Bleichenbacher Oracle in CMS_decrypt() and PKCS7_decrypt()"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-42770",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: FFC-DH Peer Validation Uses Attacker-Supplied q"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-45446",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: Incorrect Tag Processing for Empty Messages in AES-GCM-SIV and AES-SIV modes"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-63073",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: untrusted sender DN used as format string in CMP response validation"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-75803",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: openssl: AEAD forgeries possible with empty ciphertext in EVP_Cipher()"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-9076",
+     "PkgName": "libcrypto3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: OpenSSL: Denial of Service due to heap out-of-bounds read in CMS password-based decryption"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-5773",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "curl: libcurl: Wrong file transfer due to incorrect SMB connection reuse"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-6276",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "curl: libcurl: Information disclosure due to cookie leak when reusing connections with custom Host headers"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-8286",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "curl: curl: Insecure connection establishment due to TLS configuration mismatch"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-8927",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "curl: Information disclosure due to uncleared proxy authentication state"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-92392",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "curl: curl: HTTP/2 upload Use-After-Free"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-13034",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: Public key pinning bypass via QUIC and GnuTLS allows server impersonation"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-4947",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.0-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libcurl: curl: QUIC certificate check skip with wolfSSL"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-5025",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.0-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: libcurl: QUIC Certificate Pinning Bypass"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-5399",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: libcurl: WebSocket endless loop"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-9086",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: libcurl: Curl out of bounds read for cookie path"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-3783",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: curl: Information disclosure via OAuth2 bearer token leakage during HTTP(S) redirect"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-3784",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: curl: Unauthorized access due to improper HTTP proxy connection reuse"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-3805",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: curl: Arbitrary code execution or Denial of Service via use-after-free in SMB request handling"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-4873",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: curl: Information disclosure due to incorrect TLS connection reuse"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-5545",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: libcurl: Authentication bypass due to incorrect HTTP Negotiate connection reuse"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-6253",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: curl: Proxy credential disclosure via redirects to unauthenticated proxies"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-6429",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: libcurl: Credential leak via reused proxy connection during HTTP redirects"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-7168",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: libcurl: Information disclosure via incorrect Proxy-Authorization header reuse"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-8924",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "curl: curl: Cookie injection via malicious HTTP server using super cookies"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-10148",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r2",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "curl: predictable WebSocket mask"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-14524",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "curl: Information disclosure via cross-protocol redirect with OAuth2 bearer token"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-14819",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "curl: libcurl: Improper certificate validation due to cached TLS settings reuse"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-1965_1",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "UNKNOWN",
+     "Title": ""
+    },
+    {
+     "VulnerabilityID": "CVE-2026-1965_2",
+     "PkgName": "libcurl",
+     "InstalledVersion": "8.12.1-r1",
+     "FixedVersion": "8.14.1-r3",
+     "Status": "fixed",
+     "Severity": "UNKNOWN",
+     "Title": ""
+    },
+    {
+     "VulnerabilityID": "CVE-2025-59375",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.7.2-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "firefox: thunderbird: expat: libexpat in Expat allows attackers to trigger large dynamic memory allocations via a small document that is submitted for parsing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-113351",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.10.0-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "expat: expat: Denial of Service via improper memory tracking in XML_ParserReset"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-117610",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.10.0-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "expat: expat: Denial of Service via NULL pointer dereference in external entity parsing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-118370",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.10.0-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "expat: expat: Denial of Service via integer overflow during XML attribute parsing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-25210",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.7.4-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "libexpat: libexpat: Information disclosure and data integrity issues due to integer overflow in buffer reallocation"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-45186",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.1-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "libexpat: denial of service via crafted XML input"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-66046",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.4-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "expat: Expat: Denial of Service via quadratic complexity in attribute processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-76641",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.4-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "expat: Expat: Denial of Service via XML external entity parsing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-76956",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.4-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "libexpat: libexpat: Denial of Service via hash flooding attack with crafted XML"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-76957",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.4-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "libexpat: libexpat: Memory corruption vulnerability allows arbitrary code execution or denial of service"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-77214",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.9.0-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "expat: expat: Information disclosure via heap buffer over-read in XML_ParseBuffer"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-93990",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.5-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "expat: Expat: XML Injection via Malformed UTF-16 Input"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-102633",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.9.0-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "expat: expat: Denial of Service via integer overflow in expat_realloc"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-32776",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.7.5-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libexpat: libexpat: Denial of Service due to NULL pointer dereference"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-32777",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.7.5-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libexpat: libexpat: Denial of Service via infinite loop in DTD content parsing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-32778",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.7.5-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libexpat: libexpat: Denial of Service via NULL pointer dereference after out-of-memory condition"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-50219",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.2-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "expat: libexpat: Use-after-free vulnerability due to improper handler call depth tracking"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-56131",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.2-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libexpat: libexpat: Use-after-free vulnerability due to insufficient handler call depth tracking"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-56132",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.2-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "expat: libexpat: Arbitrary Code Execution via Heap-based Buffer Overflow"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-56403",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.2-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libexpat: libexpat: Arbitrary code execution due to integer overflow in storeAtts"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-56404",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.2-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libexpat: libexpat: Arbitrary Code Execution via integer overflow in addBinding"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-56405",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.2-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libexpat: libexpat: Information disclosure and arbitrary code execution via integer overflow"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-56406",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.2-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libexpat: libexpat: Arbitrary code execution via integer overflow in XML_ParseBuffer"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-56407",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.2-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libexpat: libexpat: Arbitrary code execution due to integer overflow"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-56408",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.2-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libexpat: libexpat: Information disclosure and arbitrary code execution via integer overflow"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-56409",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.2-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libexpat: libexpat: Integer overflow in xmlwf may lead to information disclosure or arbitrary code execution"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-56410",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.2-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libexpat: libexpat: Integer overflow in xmlwf can lead to information disclosure and arbitrary code execution."
+    },
+    {
+     "VulnerabilityID": "CVE-2026-56411",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.2-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "expat: libexpat: Integer Overflow Vulnerability Leading to Information Disclosure or Code Execution"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-56412",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.2-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libexpat: libexpat: Use-after-free vulnerability due to improper handling of XML CDATA sections"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-24515",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.7.4-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "libexpat: libexpat null pointer dereference"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-41080",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.8.1-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "libexpat: expat: libexpat: Denial of Service via hash flooding with crafted XML"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-115506",
+     "PkgName": "libexpat",
+     "InstalledVersion": "2.7.0-r0",
+     "FixedVersion": "2.10.0-r0",
+     "Status": "fixed",
+     "Severity": "UNKNOWN",
+     "Title": "libexpat through 2.9.0 contains a denial of service vulnerability beca ..."
+    },
+    {
+     "VulnerabilityID": "CVE-2025-64720",
+     "PkgName": "libpng",
+     "InstalledVersion": "1.6.47-r0",
+     "FixedVersion": "1.6.53-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "libpng: LIBPNG buffer overflow"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-65018",
+     "PkgName": "libpng",
+     "InstalledVersion": "1.6.47-r0",
+     "FixedVersion": "1.6.53-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "libpng: LIBPNG heap buffer overflow"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-66293",
+     "PkgName": "libpng",
+     "InstalledVersion": "1.6.47-r0",
+     "FixedVersion": "1.6.53-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "libpng: LIBPNG out-of-bounds read in png_image_read_composite"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-22695",
+     "PkgName": "libpng",
+     "InstalledVersion": "1.6.47-r0",
+     "FixedVersion": "1.6.54-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "libpng: libpng: Denial of service and information disclosure via heap buffer over-read in png_image_finish_read"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-22801",
+     "PkgName": "libpng",
+     "InstalledVersion": "1.6.47-r0",
+     "FixedVersion": "1.6.54-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "libpng: libpng: Information disclosure and denial of service via integer truncation in simplified write API"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-25646",
+     "PkgName": "libpng",
+     "InstalledVersion": "1.6.47-r0",
+     "FixedVersion": "1.6.55-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "libpng: LIBPNG has a heap buffer overflow in png_set_quantize"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-64505",
+     "PkgName": "libpng",
+     "InstalledVersion": "1.6.47-r0",
+     "FixedVersion": "1.6.53-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libpng: LIBPNG heap buffer overflow via malformed palette index"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-64506",
+     "PkgName": "libpng",
+     "InstalledVersion": "1.6.47-r0",
+     "FixedVersion": "1.6.53-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libpng: LIBPNG heap buffer over-read"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-33416",
+     "PkgName": "libpng",
+     "InstalledVersion": "1.6.47-r0",
+     "FixedVersion": "1.6.56-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libpng: libpng: Arbitrary code execution due to use-after-free vulnerability"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-33636",
+     "PkgName": "libpng",
+     "InstalledVersion": "1.6.47-r0",
+     "FixedVersion": "1.6.56-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libpng: libpng: Information disclosure and denial of service via out-of-bounds read/write in Neon palette expansion"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-34757",
+     "PkgName": "libpng",
+     "InstalledVersion": "1.6.47-r0",
+     "FixedVersion": "1.6.57-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libpng: libpng: Information disclosure and data corruption via use-after-free vulnerability"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-40930",
+     "PkgName": "libpng",
+     "InstalledVersion": "1.6.47-r0",
+     "FixedVersion": "1.6.59-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libpng: libpng: Data integrity and availability impact due to improper APNG chunk handling"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-46675",
+     "PkgName": "libpng",
+     "InstalledVersion": "1.6.47-r0",
+     "FixedVersion": "1.6.59-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libpng: libpng: Use-after-free in sequential reader when png_read_end called without reading image rows"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-31789",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r0",
+     "Status": "fixed",
+     "Severity": "CRITICAL",
+     "Title": "openssl: OpenSSL: Heap buffer overflow on 32-bit systems from large X.509 certificate processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-15467",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "openssl: OpenSSL: Remote code execution or Denial of Service via oversized Initialization Vector in CMS parsing"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-69421",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "openssl: OpenSSL: Denial of Service via malformed PKCS#12 file processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-28387",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "openssl: OpenSSL: Arbitrary code execution due to use-after-free in DANE TLSA authentication"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-28388",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "openssl: OpenSSL: Denial of Service due to NULL pointer dereference in delta CRL processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-28389",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "openssl: OpenSSL: Denial of Service vulnerability in CMS processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-28390",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "openssl: OpenSSL: Denial of Service due to NULL pointer dereference in CMS EnvelopedData processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-45447",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "openssl: Heap Use-After-Free in OpenSSL PKCS7_verify()"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-84782",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "openssl: compat-openssl: openssl: Information disclosure via DTLS handshake retransmission"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-69419",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: OpenSSL: Arbitrary code execution due to out-of-bounds write in PKCS#12 processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-9230",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.5-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: Out-of-bounds read & write in RFC 3211 KEK Unwrap"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-9231",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.5-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: Timing side-channel in SM2 algorithm on 64 bit ARM"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-31790",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: openssl: Information Disclosure from Uninitialized Memory via Invalid RSA Public Key"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-34182",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: CMS AuthEnvelopedData Processing May Accept Forged Messages"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-34183",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: Unbounded Memory Growth in the QUIC PATH_CHALLENGE Handler"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-45445",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: AES-OCB IV Ignored on EVP_Cipher() Path"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-54872",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: OpenSSL: Private key recovery via timing side-channel in generic elliptic curve operations"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-54875",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: openssl: information disclosure via non-constant-time SM2 scalar multiplication on ARM64 and RISC-V"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-63072",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: heap buffer overflow in CMS key unwrapping"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-63076",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: invalid pointer dereference in CMP server via crafted protectionAlg"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-72897",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: openssl: Denial of Service via out-of-bounds write during TLS context switch"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-75804",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: OpenSSL: Denial of Service via unenforced QUIC connection flow control"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-75805",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: openssl: Denial of Service via crafted CMP certificate revocation response"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-75806",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: OpenSSL: Denial of Service via undersized DTLS record"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-77696",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: OpenSSL: Private key recovery via SM2 timing side-channel"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-84784",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "openssl: OpenSSL: Denial of Service via unbounded QUIC connection identifier backlog"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-15468",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: OpenSSL: Denial of Service via NULL pointer dereference in QUIC protocol handling"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-66199",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: OpenSSL: Denial of Service due to excessive memory allocation in TLS 1.3 certificate compression"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-68160",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: OpenSSL: Denial of Service due to out-of-bounds write in BIO filter"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-69418",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: OpenSSL: Information disclosure and data tampering via specific low-level OCB encryption/decryption calls"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-69420",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: OpenSSL: Denial of Service via malformed TimeStamp Response"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-9232",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.5-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: Out-of-bounds read in HTTP client no_proxy handling"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-22795",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: OpenSSL: Denial of Service due to type confusion in PKCS#12 file processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-22796",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.6-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: OpenSSL: Denial of Service via type confusion in PKCS#7 signature verification"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-35189",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r2",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: openssl: Denial of Service via excessive memory allocation in CRL distribution point processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-42766",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: Possible NULL Dereference in Password-Based CMS Decryption"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-42768",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: Multi-RecipientInfo Bleichenbacher Oracle in CMS_decrypt() and PKCS7_decrypt()"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-42770",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: FFC-DH Peer Validation Uses Attacker-Supplied q"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-45446",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: Incorrect Tag Processing for Empty Messages in AES-GCM-SIV and AES-SIV modes"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-63073",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: untrusted sender DN used as format string in CMP response validation"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-75803",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: openssl: AEAD forgeries possible with empty ciphertext in EVP_Cipher()"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-9076",
+     "PkgName": "libssl3",
+     "InstalledVersion": "3.3.3-r0",
+     "FixedVersion": "3.3.7-r1",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "openssl: OpenSSL: Denial of Service due to heap out-of-bounds read in CMS password-based decryption"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-32414",
+     "PkgName": "libxml2",
+     "InstalledVersion": "2.13.4-r5",
+     "FixedVersion": "2.13.4-r6",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "libxml2: Out-of-Bounds Read in libxml2"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-32415",
+     "PkgName": "libxml2",
+     "InstalledVersion": "2.13.4-r5",
+     "FixedVersion": "2.13.4-r6",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "libxml2: Out-of-bounds Read in xmlSchemaIDCFillNodeTables"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-49794",
+     "PkgName": "libxml2",
+     "InstalledVersion": "2.13.4-r5",
+     "FixedVersion": "2.13.9-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "libxml: Heap use after free (UAF) leads to Denial of service (DoS)"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-49795",
+     "PkgName": "libxml2",
+     "InstalledVersion": "2.13.4-r5",
+     "FixedVersion": "2.13.9-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "libxml: Null pointer dereference leads to Denial of service (DoS)"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-49796",
+     "PkgName": "libxml2",
+     "InstalledVersion": "2.13.4-r5",
+     "FixedVersion": "2.13.9-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "libxml: Type confusion leads to Denial of service (DoS)"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-6732",
+     "PkgName": "libxml2",
+     "InstalledVersion": "2.13.4-r5",
+     "FixedVersion": "2.13.9-r1",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "libxml2: libxml2: Denial of Service via crafted XSD-validated document"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-6021",
+     "PkgName": "libxml2",
+     "InstalledVersion": "2.13.4-r5",
+     "FixedVersion": "2.13.9-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libxml2: Integer Overflow in xmlBuildQName() Leads to Stack Buffer Overflow in libxml2"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-6170",
+     "PkgName": "libxml2",
+     "InstalledVersion": "2.13.4-r5",
+     "FixedVersion": "2.13.9-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "libxml2: Stack Buffer Overflow in xmllint Interactive Shell Command Handling"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-4367",
+     "PkgName": "libxpm",
+     "InstalledVersion": "3.5.17-r0",
+     "FixedVersion": "3.5.19-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "libXpm: libXpm: Denial of Service via out-of-bounds read in XPM file parsing"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-40200",
+     "PkgName": "musl",
+     "InstalledVersion": "1.2.5-r9",
+     "FixedVersion": "1.2.5-r11",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "musl: musl libc: Arbitrary code execution and denial of service via stack-based memory corruption in qsort"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-6042",
+     "PkgName": "musl",
+     "InstalledVersion": "1.2.5-r9",
+     "FixedVersion": "1.2.5-r10",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "musl libc: GB18030 4-byte Decoder: musl libc: Denial of Service via inefficient algorithmic complexity in iconv"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-107891",
+     "PkgName": "musl",
+     "InstalledVersion": "1.2.5-r9",
+     "FixedVersion": "1.2.5-r12",
+     "Status": "fixed",
+     "Severity": "UNKNOWN",
+     "Title": "Title Not Available"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-40200",
+     "PkgName": "musl-utils",
+     "InstalledVersion": "1.2.5-r9",
+     "FixedVersion": "1.2.5-r11",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "musl: musl libc: Arbitrary code execution and denial of service via stack-based memory corruption in qsort"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-6042",
+     "PkgName": "musl-utils",
+     "InstalledVersion": "1.2.5-r9",
+     "FixedVersion": "1.2.5-r10",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "musl libc: GB18030 4-byte Decoder: musl libc: Denial of Service via inefficient algorithmic complexity in iconv"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-107891",
+     "PkgName": "musl-utils",
+     "InstalledVersion": "1.2.5-r9",
+     "FixedVersion": "1.2.5-r12",
+     "Status": "fixed",
+     "Severity": "UNKNOWN",
+     "Title": "Title Not Available"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-27135",
+     "PkgName": "nghttp2-libs",
+     "InstalledVersion": "1.64.0-r0",
+     "FixedVersion": "1.68.1",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "nghttp2: nghttp2: Denial of Service via malformed HTTP/2 frames after session termination"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-103111",
+     "PkgName": "pcre2",
+     "InstalledVersion": "10.43-r0",
+     "FixedVersion": "10.43-r1",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "pcre2: pcre2: Out-of-bounds write via crafted regular expression"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-86145",
+     "PkgName": "pcre2",
+     "InstalledVersion": "10.43-r0",
+     "FixedVersion": "10.43-r1",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "pcre2: PCRE2: Out-of-bounds write allows arbitrary code execution via crafted regular expressions"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-89157",
+     "PkgName": "pcre2",
+     "InstalledVersion": "10.43-r0",
+     "FixedVersion": "10.43-r1",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "pcre2: PCRE2: Out-of-bounds write via large pattern input"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-89161",
+     "PkgName": "pcre2",
+     "InstalledVersion": "10.43-r0",
+     "FixedVersion": "10.43-r1",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "pcre2: PCRE2: Memory corruption vulnerability in pcre2_jit_match"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-89156",
+     "PkgName": "pcre2",
+     "InstalledVersion": "10.43-r0",
+     "FixedVersion": "10.43-r1",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "PCRE2: PCRE2: Out-of-bounds read via invalid UTF data during JIT fallback"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-89158",
+     "PkgName": "pcre2",
+     "InstalledVersion": "10.43-r0",
+     "FixedVersion": "10.43-r1",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "PCRE2: PCRE2: Out-of-bounds write via integer overflow on 32-bit platforms"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-89160",
+     "PkgName": "pcre2",
+     "InstalledVersion": "10.43-r0",
+     "FixedVersion": "10.43-r1",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "pcre2: PCRE2: Denial of Service via out-of-bounds read during invalid UTF matching"
+    },
+    {
+     "VulnerabilityID": "CVE-2024-58251",
+     "PkgName": "ssl_client",
+     "InstalledVersion": "1.37.0-r12",
+     "FixedVersion": "1.37.0-r14",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "In netstat in BusyBox through 1.37.0, local users can launch of networ ..."
+    },
+    {
+     "VulnerabilityID": "CVE-2025-46394",
+     "PkgName": "ssl_client",
+     "InstalledVersion": "1.37.0-r12",
+     "FixedVersion": "1.37.0-r14",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "In tar in BusyBox through 1.37.0, a TAR archive can have filenames hid ..."
+    },
+    {
+     "VulnerabilityID": "CVE-2026-4775",
+     "PkgName": "tiff",
+     "InstalledVersion": "4.7.0-r0",
+     "FixedVersion": "4.7.2-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "libtiff: libtiff: Arbitrary code execution or denial of service via signed integer overflow in TIFF file processing"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-8961",
+     "PkgName": "tiff",
+     "InstalledVersion": "4.7.0-r0",
+     "FixedVersion": "4.7.1-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "libtiff: LibTIFF memory corruption"
+    },
+    {
+     "VulnerabilityID": "CVE-2025-9165",
+     "PkgName": "tiff",
+     "InstalledVersion": "4.7.0-r0",
+     "FixedVersion": "4.7.1-r0",
+     "Status": "fixed",
+     "Severity": "LOW",
+     "Title": "libtiff: LibTIFF memory leak"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-34743",
+     "PkgName": "xz-libs",
+     "InstalledVersion": "5.6.3-r1",
+     "FixedVersion": "5.8.3-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "xz: XZ Utils: Denial of Service via buffer overflow in index decoding"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-22184",
+     "PkgName": "zlib",
+     "InstalledVersion": "1.3.1-r2",
+     "FixedVersion": "1.3.2-r0",
+     "Status": "fixed",
+     "Severity": "HIGH",
+     "Title": "zlib: zlib: Arbitrary code execution via buffer overflow in untgz utility"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-27171",
+     "PkgName": "zlib",
+     "InstalledVersion": "1.3.1-r2",
+     "FixedVersion": "1.3.2-r0",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "zlib: zlib: Denial of Service via infinite loop in CRC32 combine functions"
+    },
+    {
+     "VulnerabilityID": "CVE-2026-85091",
+     "PkgName": "zlib",
+     "InstalledVersion": "1.3.1-r2",
+     "FixedVersion": "1.3.2-r1",
+     "Status": "fixed",
+     "Severity": "MEDIUM",
+     "Title": "zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer overflow vul ..."
+    }
+   ]
+  }
+ ]
+}
