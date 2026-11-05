@@ -1,0 +1,4 @@
+# Extra flags for `docker run`. One or more per line. Lines starting with # are ignored.
+--read-only
+--cap-drop ALL
+-v dkr-c4-p2-data:/app/data

@@ -1,0 +1,5 @@
+# Extra flags for `docker run`. One or more per line. Lines starting with # are ignored.
+# run.mjs adds a name, a label, memory, process and log limits for you.
+# This named volume is already created for you. It is the place the app may keep data:
+#   -v dkr-c4-p2-data:/app/data
+# Not allowed here: --privileged, --cap-add, host networking, host PID, the Docker socket.
