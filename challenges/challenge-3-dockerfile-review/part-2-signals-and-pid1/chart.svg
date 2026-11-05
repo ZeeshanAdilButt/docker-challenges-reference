@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 404" width="640" height="404" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">Time for docker stop to finish (no -t, median of 3)</title>
+  <desc id="d">CMD node ...; echo: 4.4 s. CMD node server.mjs: 1.1 s. CMD npm start: 0.6 s. CMD [&quot;npm&quot;,&quot;start&quot;]: 1.5 s. entrypoint.sh, no exec: 3.8 s. entrypoint.sh, with exec: 0.9 s. CMD [&quot;node&quot;, ...]: 0.5 s. CMD node ...; echo +init: 0.5 s. CMD [&quot;node&quot;, ...] +init: 1.7 s. your Dockerfile.signals: 0.8 s</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">Time for docker stop to finish (no -t, median of 3)</text>
+  <text x="204" y="65" text-anchor="end" font-size="14">CMD node ...; echo</text>
+  <rect x="220" y="51" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="51" width="314.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">4.4 s</text>
+  <text x="204" y="99" text-anchor="end" font-size="14">CMD node server.mjs</text>
+  <rect x="220" y="85" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="85" width="78.5" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">1.1 s</text>
+  <text x="204" y="133" text-anchor="end" font-size="14">CMD npm start</text>
+  <rect x="220" y="119" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="119" width="42.8" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">0.6 s</text>
+  <text x="204" y="167" text-anchor="end" font-size="14">CMD [&quot;npm&quot;,&quot;start&quot;]</text>
+  <rect x="220" y="153" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="153" width="107.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="168" font-size="14">1.5 s</text>
+  <text x="204" y="201" text-anchor="end" font-size="14">entrypoint.sh, no exec</text>
+  <rect x="220" y="187" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="187" width="271.2" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="202" font-size="14">3.8 s</text>
+  <text x="204" y="235" text-anchor="end" font-size="14">entrypoint.sh, with exec</text>
+  <rect x="220" y="221" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="221" width="64.2" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="236" font-size="14">0.9 s</text>
+  <text x="204" y="269" text-anchor="end" font-size="14">CMD [&quot;node&quot;, ...]</text>
+  <rect x="220" y="255" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="255" width="35.7" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="270" font-size="14">0.5 s</text>
+  <text x="204" y="303" text-anchor="end" font-size="14">CMD node ...; echo +init</text>
+  <rect x="220" y="289" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="289" width="35.7" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="304" font-size="14">0.5 s</text>
+  <text x="204" y="337" text-anchor="end" font-size="14">CMD [&quot;node&quot;, ...] +init</text>
+  <rect x="220" y="323" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="323" width="121.3" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="338" font-size="14">1.7 s</text>
+  <text x="204" y="371" text-anchor="end" font-size="14">your Dockerfile.signals</text>
+  <rect x="220" y="357" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="357" width="57.1" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="372" font-size="14">0.8 s</text>
+</svg>

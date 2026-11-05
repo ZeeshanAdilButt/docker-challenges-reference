@@ -1,0 +1,8 @@
+# Variant 4: an entrypoint script that ends with exec, so node replaces the shell.
+FROM node:24-alpine
+WORKDIR /app
+COPY package.json server.mjs ./
+COPY entrypoint-exec.sh /entrypoint.sh
+ENV PORT=8080
+USER node
+ENTRYPOINT ["/entrypoint.sh"]

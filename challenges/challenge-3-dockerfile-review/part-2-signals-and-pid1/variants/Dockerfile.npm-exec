@@ -1,0 +1,7 @@
+# Variant 2: exec form, but through npm. npm is PID 1, node is its child.
+FROM node:24-alpine
+WORKDIR /app
+COPY package.json server.mjs ./
+ENV PORT=8080
+USER node
+CMD ["npm", "start"]

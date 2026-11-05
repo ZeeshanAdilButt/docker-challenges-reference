@@ -1,0 +1,7 @@
+# Variant: shell form with one command. Some shells run the last command directly, some do not.
+FROM node:24-alpine
+WORKDIR /app
+COPY package.json server.mjs ./
+ENV PORT=8080
+USER node
+CMD node server.mjs

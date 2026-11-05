@@ -1,0 +1,8 @@
+# Variant 3: an entrypoint script that starts node as a child.
+FROM node:24-alpine
+WORKDIR /app
+COPY package.json server.mjs ./
+COPY entrypoint-noexec.sh /entrypoint.sh
+ENV PORT=8080
+USER node
+ENTRYPOINT ["/entrypoint.sh"]

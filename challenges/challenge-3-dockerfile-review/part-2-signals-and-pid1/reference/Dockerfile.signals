@@ -1,0 +1,12 @@
+# Your Dockerfile for part 2. It starts daftar-api through an entrypoint script.
+# Goal: docker stop ends the container in about a second with exit code 0 (not 137), because
+# node is PID 1 and gets SIGTERM. The script entrypoint.sh must still print its "preparing" line.
+# Fix entrypoint.sh. You can change this file too, but you do not have to.
+FROM node:24-alpine
+WORKDIR /app
+COPY package.json server.mjs ./
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENV PORT=8080
+USER node
+ENTRYPOINT ["/entrypoint.sh"]

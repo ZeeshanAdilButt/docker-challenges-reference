@@ -1,0 +1,7 @@
+# Variant 1: shell form. "sh -c" is PID 1 and stays PID 1.
+FROM node:24-alpine
+WORKDIR /app
+COPY package.json server.mjs ./
+ENV PORT=8080
+USER node
+CMD node server.mjs; echo "server stopped"

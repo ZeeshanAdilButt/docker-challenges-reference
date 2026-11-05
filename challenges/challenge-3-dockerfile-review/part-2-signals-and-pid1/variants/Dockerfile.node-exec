@@ -1,0 +1,7 @@
+# Variant 5: exec form, node directly. Node is PID 1.
+FROM node:24-alpine
+WORKDIR /app
+COPY package.json server.mjs ./
+ENV PORT=8080
+USER node
+CMD ["node", "server.mjs"]
