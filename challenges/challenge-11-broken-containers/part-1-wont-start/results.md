@@ -14,7 +14,6 @@ cd services/01-wrong-entrypoint && docker compose up -d --build
 
 ```text
  Network dkr-c11-wrong-entrypoint_default Created 
- Network dkr-c11-wrong-entrypoint_default Created 
  Container dkr-c11-wrong-entrypoint Creating 
  Container dkr-c11-wrong-entrypoint Created 
  Container dkr-c11-wrong-entrypoint Starting 
@@ -47,7 +46,7 @@ dkr-c11-wrong-entrypoint   Created
 **Command**
 
 ```sh
-docker logs --tail 5 dkr-c11-wrong-entrypoint
+docker logs --tail 15 dkr-c11-wrong-entrypoint
 ```
 
 **Output**
@@ -56,7 +55,7 @@ docker logs --tail 5 dkr-c11-wrong-entrypoint
 (no output)
 ```
 
-**Note:** Rung 2. What did it say before it stopped? Read the last lines of its output.
+**Note:** Rung 2. What did it say before it stopped? Read the last lines of its output (the error is usually in the first few lines of a stack trace).
 
 ## Step 4
 
@@ -72,7 +71,7 @@ docker inspect dkr-c11-wrong-entrypoint --format "exit={{.State.ExitCode}} oom={
 exit=127 oom=false error=failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: exec: "/app/start": stat /app/start: no such file or directory restarts=0
 ```
 
-**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error.
+**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error. (For a container that is still running these are all zero or empty.)
 
 ## Step 5
 
@@ -137,7 +136,6 @@ cd services/02-missing-env && docker compose up -d --build
 
 ```text
  Network dkr-c11-missing-env_default Created 
- Network dkr-c11-missing-env_default Created 
  Container dkr-c11-missing-env Creating 
  Container dkr-c11-missing-env Created 
  Container dkr-c11-missing-env Starting 
@@ -160,8 +158,8 @@ docker ps -a --filter label=dkr.challenge=11 --filter name=dkr-c11-missing-env -
 **Output**
 
 ```text
-NAMES                 STATUS                     PORTS
-dkr-c11-missing-env   Exited (1) 2 seconds ago
+NAMES                 STATUS                    PORTS
+dkr-c11-missing-env   Exited (1) 1 second ago
 ```
 
 **Note:** Rung 1. Is it running? The status column says what state it is in.
@@ -171,7 +169,7 @@ dkr-c11-missing-env   Exited (1) 2 seconds ago
 **Command**
 
 ```sh
-docker logs --tail 5 dkr-c11-missing-env
+docker logs --tail 15 dkr-c11-missing-env
 ```
 
 **Output**
@@ -180,7 +178,7 @@ docker logs --tail 5 dkr-c11-missing-env
 FATAL: DATABASE_URL is not set. Set it to a postgres:// address.
 ```
 
-**Note:** Rung 2. What did it say before it stopped? Read the last lines of its output.
+**Note:** Rung 2. What did it say before it stopped? Read the last lines of its output (the error is usually in the first few lines of a stack trace).
 
 ## Step 11
 
@@ -196,7 +194,7 @@ docker inspect dkr-c11-missing-env --format "exit={{.State.ExitCode}} oom={{.Sta
 exit=1 oom=false error= restarts=0
 ```
 
-**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error.
+**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error. (For a container that is still running these are all zero or empty.)
 
 ## Step 12
 
@@ -243,7 +241,7 @@ cd services/03-volume-permission && docker compose up -d --build
 **Output**
 
 ```text
- Network dkr-c11-volume-permission_default Created 
+ Volume dkr-c11-volume-permission_shop-data Created 
  Network dkr-c11-volume-permission_default Created 
  Container dkr-c11-volume-permission Creating 
  Container dkr-c11-volume-permission Created 
@@ -278,12 +276,22 @@ dkr-c11-volume-permission   Exited (1) 2 seconds ago
 **Command**
 
 ```sh
-docker logs --tail 5 dkr-c11-volume-permission
+docker logs --tail 15 dkr-c11-volume-permission
 ```
 
 **Output**
 
 ```text
+                         ^
+
+Error: EACCES: permission denied, mkdir '/var/lib/shop/db'
+    at mkdirSync (node:fs:1410:26)
+    at file:///app/server.mjs:8:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -13,
+  code: 'EACCES',
   syscall: 'mkdir',
   path: '/var/lib/shop/db'
 }
@@ -291,7 +299,7 @@ docker logs --tail 5 dkr-c11-volume-permission
 Node.js v24.22.2
 ```
 
-**Note:** Rung 2. What did it say before it stopped? Read the last lines of its output.
+**Note:** Rung 2. What did it say before it stopped? Read the last lines of its output (the error is usually in the first few lines of a stack trace).
 
 ## Step 17
 
@@ -307,7 +315,7 @@ docker inspect dkr-c11-volume-permission --format "exit={{.State.ExitCode}} oom=
 exit=1 oom=false error= restarts=0
 ```
 
-**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error.
+**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error. (For a container that is still running these are all zero or empty.)
 
 ## Step 18
 
@@ -320,7 +328,7 @@ docker run --rm --name dkr-c11-ladder --label dkr.challenge=11 --memory 64m --me
 **Output**
 
 ```text
-drwxr-xr-x    2 0        0             4096 Nov  5 00:27 /v
+drwxr-xr-x    2 0        0             4096 Nov  5 09:35 /v
 ```
 
 **Note:** Rung 4. Who owns the volume? User 0 (root) owns it.
@@ -354,7 +362,7 @@ cd reference/services/03-volume-permission && docker compose up -d --build
 ```text
 volume-permission: running
 ok   GET http://127.0.0.1:18103/health: HTTP 200 {"status":"ok","service":"volume-permission"}
-ok   GET http://127.0.0.1:18103/: HTTP 200 {"service":"volume-permission","started_at":"2026-11-05T00:27:22.009Z"}
+ok   GET http://127.0.0.1:18103/: HTTP 200 {"service":"volume-permission","started_at":"2026-11-05T09:36:04.331Z"}
 ```
 
 **Note:** Fixed. The service is running and every check answers.
@@ -370,7 +378,6 @@ cd services/04-exit-137 && docker compose up -d --build
 **Output**
 
 ```text
- Network dkr-c11-exit-137_default Created 
  Network dkr-c11-exit-137_default Created 
  Container dkr-c11-exit-137 Creating 
  Container dkr-c11-exit-137 Created 
@@ -405,7 +412,7 @@ dkr-c11-exit-137   Exited (137) 1 second ago
 **Command**
 
 ```sh
-docker logs --tail 5 dkr-c11-exit-137
+docker logs --tail 15 dkr-c11-exit-137
 ```
 
 **Output**
@@ -414,7 +421,7 @@ docker logs --tail 5 dkr-c11-exit-137
 (no output)
 ```
 
-**Note:** Rung 2. What did it say before it stopped? Read the last lines of its output.
+**Note:** Rung 2. What did it say before it stopped? Read the last lines of its output (the error is usually in the first few lines of a stack trace).
 
 ## Step 24
 
@@ -430,7 +437,7 @@ docker inspect dkr-c11-exit-137 --format "exit={{.State.ExitCode}} oom={{.State.
 exit=137 oom=true error= restarts=0
 ```
 
-**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error.
+**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error. (For a container that is still running these are all zero or empty.)
 
 ## Step 25
 
