@@ -1,0 +1,4 @@
+{
+  "stages": ["lint", "build", "test", "scan", "sbom", "push", "sign"],
+  "tags": ["sha", "version"]
+}

@@ -1,0 +1,66 @@
+# The Daftar platform on the production host. Fixed version.
+#   - every image is named by DIGEST, so the host runs exactly what the pipeline tested and pushed
+#   - no secret in the file: the database address (with its password) comes from the environment of whoever deploys
+#   - a health check on every service, so "up --wait" returns only when the whole colour can take traffic
+#   - limits, a restart policy, a read-only root and no capabilities
+#   - pull_policy: missing, so an outage of the registry does not stop a redeploy of images the host already has
+# The deploy tool passes REGISTRY, DIGEST_API, DIGEST_WORKER, DIGEST_WEB and DATABASE_URL.
+x-hardening: &hardening
+  read_only: true
+  tmpfs: [/tmp]
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+  restart: unless-stopped
+  pull_policy: missing
+
+services:
+  api:
+    <<: *hardening
+    image: ${REGISTRY}/dkr-c14/api@${DIGEST_API:?set DIGEST_API}
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?set DATABASE_URL when you deploy}
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/ready"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+    mem_limit: 256m
+    pids_limit: 100
+    networks: [default, data]
+
+  worker:
+    <<: *hardening
+    image: ${REGISTRY}/dkr-c14/worker@${DIGEST_WORKER:?set DIGEST_WORKER}
+    environment:
+      API_URL: http://api:8080
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os, sys, time; sys.exit(0 if time.time() - os.path.getmtime('/tmp/heartbeat') < 10 else 1)"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+    mem_limit: 128m
+    pids_limit: 50
+
+  web:
+    <<: *hardening
+    image: ${REGISTRY}/dkr-c14/web@${DIGEST_WEB:?set DIGEST_WEB}
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/healthz"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+    mem_limit: 64m
+    pids_limit: 50
+    networks: [default, edge]
+
+networks:
+  data:
+    external: true
+  edge:
+    external: true
