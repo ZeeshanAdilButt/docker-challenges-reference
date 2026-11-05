@@ -14,9 +14,9 @@ docker --context dkr-c13-prod info --format "engine {{.ServerVersion}}, name {{.
 **Output**
 
 ```text
-engine 29.9.3, name b716fb610406, storage overlayfs
+engine 29.9.3, name c0036a2972e0, storage overlayfs
 privileged: true   socket mounted: false
-started in 3.1 s
+started in 4.5 s
 ```
 
 **Note:** A second Docker engine, in a container, reached through a Docker context over TLS. It is the only privileged container in this course. Everything you deploy lands here, and nothing touches your own containers.
@@ -32,10 +32,10 @@ GET /v2/dkr-c13/api/manifests/<tag>   for 1.0.0, 2.0.0, 3.0.0 and latest
 **Output**
 
 ```text
-1.0.0   084dc38500af
-2.0.0   a1713d0e10c3   <- the version you want to deploy
-3.0.0   5eea143c8645   <- another merge finished first
-latest  5eea143c8645
+1.0.0   1bcd1ce53e21
+2.0.0   063d4a06dae8   <- the version you want to deploy
+3.0.0   7e81369295bd   <- another merge finished first
+latest  7e81369295bd
 ```
 
 **Note:** You tested and approved 2.0.0. While you were getting ready to deploy, another change was pushed. "latest" now names 3.0.0, an image nobody tested together with your change.
@@ -45,7 +45,7 @@ latest  5eea143c8645
 **Command**
 
 ```sh
-DIGEST=084dc38500af... docker --context dkr-c13-prod compose -p daftar-blue -f compose.prod.yaml up -d --wait
+DIGEST=1bcd1ce53e21... docker --context dkr-c13-prod compose -p daftar-blue -f compose.prod.yaml up -d --wait
 docker --context dkr-c13-prod ps --format "{{.Names}}  {{.Image}}  {{.Status}}"
 ```
 
@@ -53,10 +53,10 @@ docker --context dkr-c13-prod ps --format "{{.Names}}  {{.Image}}  {{.Status}}"
 
 ```text
 daftar-blue-api-1  dkr-c13-registry:5000/dkr-c13/api  Up 5 seconds (healthy)
-edge-proxy  nginx:1.27-alpine  Up 16 seconds
+edge-proxy  nginx:1.27-alpine  Up 18 seconds
 ```
 
-**Note:** The first deploy took 6.7 s, including the image pull from the registry. "Up (healthy)" appears only if your compose file has a health check.
+**Note:** The first deploy took 7 s, including the image pull from the registry. "Up (healthy)" appears only if your compose file has a health check.
 
 ## Step 4
 
@@ -69,9 +69,9 @@ roll out version 2 while load runs, with a compose file that has NO health check
 **Output**
 
 ```text
-rollout took 3.4 s
-requests: 572   failed: 64   (503 from a copy still warming up: 64, refused 0, reset 0)
-answers from version 1: 69, from version 2: 122
+rollout took 3.5 s
+requests: 577   failed: 63   (503 from a copy still warming up: 63, refused 0, reset 0)
+answers from version 1: 70, from version 2: 122
 ```
 
 **Note:** "up --wait" returned when the container was running, not when it was ready. nginx switched to a copy that was still warming up, and some requests failed.
@@ -87,9 +87,9 @@ roll out version 2 while load runs, with YOUR compose.prod.yaml   (3 trials, med
 **Output**
 
 ```text
-rollout took 7.3 s (median)
-requests over 3 trials: 1728   failed: 0
-answers from version 1: 70, from version 2: 122 (last trial)
+rollout took 7.5 s (median)
+requests over 3 trials: 1736   failed: 0
+answers from version 1: 69, from version 2: 124 (last trial)
 ```
 
 **Note:** Not one request failed. The new copy had to report healthy before nginx moved to it, and the old copy was stopped only after a short drain. Both versions served traffic, so the swap really happened.
@@ -106,10 +106,10 @@ docker --context dkr-c13-prod image inspect <image> --format "{{json .RepoDigest
 **Output**
 
 ```text
-image reference:  <registry>/dkr-c13/api@sha256:a1713d0e10c37375ed4fa1a4bf077e78fa39c279c2fc5ac0b3cc0b6ab917616c
-running digest:   a1713d0e10c3
-intended digest:  a1713d0e10c3   (2.0.0)
-latest digest:    5eea143c8645   (3.0.0)
+image reference:  <registry>/dkr-c13/api@sha256:063d4a06dae873504055def49db2ad7da0214fa925a74b1b95afbfe6c18bae6d
+running digest:   063d4a06dae8
+intended digest:  063d4a06dae8   (2.0.0)
+latest digest:    7e81369295bd   (3.0.0)
 ```
 
 **Note:** The host runs exactly the image you tested. A digest cannot move, so the tag race could not touch it.

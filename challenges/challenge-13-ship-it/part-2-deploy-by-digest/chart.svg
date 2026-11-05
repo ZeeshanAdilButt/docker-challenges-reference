@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 132" width="640" height="132" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
   <title id="t">Requests that failed during one rollout under load</title>
-  <desc id="d">No health check: 64 requests. Your compose file (3 trials): 0 requests</desc>
+  <desc id="d">No health check: 63 requests. Your compose file (3 trials): 0 requests</desc>
   <text x="0" y="24" font-size="17" font-weight="600">Requests that failed during one rollout under load</text>
   <text x="236" y="65" text-anchor="end" font-size="14">No health check</text>
   <rect x="252" y="51" width="282" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
   <rect x="252" y="51" width="282.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
-  <text x="544" y="66" font-size="14">64 requests</text>
+  <text x="544" y="66" font-size="14">63 requests</text>
   <text x="236" y="99" text-anchor="end" font-size="14">Your compose file (3 trials)</text>
   <rect x="252" y="85" width="282" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
   <rect x="252" y="85" width="0.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
