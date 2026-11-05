@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 234" width="640" height="234" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">daftar-api image size on five bases</title>
+  <desc id="d">node:24 (Debian, full): 1630.5 MB. node:24-slim (Debian, slim): 330.4 MB. node:24-alpine (musl): 243.6 MB. alpine:3.23 + apk nodejs: 108.6 MB. distroless nodejs24: 214.8 MB</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">daftar-api image size on five bases</text>
+  <text x="228" y="65" text-anchor="end" font-size="14">node:24 (Debian, full)</text>
+  <rect x="244" y="51" width="290" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="244" y="51" width="290.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">1630.5 MB</text>
+  <text x="228" y="99" text-anchor="end" font-size="14">node:24-slim (Debian, slim)</text>
+  <rect x="244" y="85" width="290" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="244" y="85" width="58.8" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">330.4 MB</text>
+  <text x="228" y="133" text-anchor="end" font-size="14">node:24-alpine (musl)</text>
+  <rect x="244" y="119" width="290" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="244" y="119" width="43.3" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">243.6 MB</text>
+  <text x="228" y="167" text-anchor="end" font-size="14">alpine:3.23 + apk nodejs</text>
+  <rect x="244" y="153" width="290" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="244" y="153" width="19.3" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="168" font-size="14">108.6 MB</text>
+  <text x="228" y="201" text-anchor="end" font-size="14">distroless nodejs24</text>
+  <rect x="244" y="187" width="290" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="244" y="187" width="38.2" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="202" font-size="14">214.8 MB</text>
+</svg>

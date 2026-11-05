@@ -1,0 +1,7 @@
+# One of the five bases for daftar-api. Build context: the daftar-api folder.
+FROM node:24-alpine
+WORKDIR /app
+COPY package.json server.mjs ./
+ENV PORT=8080
+EXPOSE 8080
+CMD ["node", "server.mjs"]

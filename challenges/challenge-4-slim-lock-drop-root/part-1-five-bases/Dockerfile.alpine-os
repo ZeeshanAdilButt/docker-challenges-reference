@@ -1,0 +1,9 @@
+# Plain Alpine with Node installed from Alpine's own package (musl, no npm).
+# FAULT: this leaves the package index cache (/var/cache/apk) inside the image.
+FROM alpine:3.23
+RUN apk update && apk add nodejs
+WORKDIR /app
+COPY package.json server.mjs ./
+ENV PORT=8080
+EXPOSE 8080
+CMD ["node", "server.mjs"]

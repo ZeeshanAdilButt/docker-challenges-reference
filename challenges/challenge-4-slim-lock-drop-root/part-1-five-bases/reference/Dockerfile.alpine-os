@@ -1,0 +1,8 @@
+# Plain Alpine with Node installed from Alpine's own package (musl, no npm).
+FROM alpine:3.23
+RUN apk add --no-cache nodejs
+WORKDIR /app
+COPY package.json server.mjs ./
+ENV PORT=8080
+EXPOSE 8080
+CMD ["node", "server.mjs"]

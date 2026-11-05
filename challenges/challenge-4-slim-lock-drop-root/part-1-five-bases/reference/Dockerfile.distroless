@@ -1,0 +1,7 @@
+# Distroless Node: no shell, no package manager, only Node and its libraries.
+FROM gcr.io/distroless/nodejs24-debian13@sha256:03980f6fd2a3245fa06e371c36fd33528ebbc676a1d0f84e3e21d95cd291b807
+WORKDIR /app
+COPY package.json server.mjs ./
+ENV PORT=8080
+EXPOSE 8080
+CMD ["server.mjs"]
