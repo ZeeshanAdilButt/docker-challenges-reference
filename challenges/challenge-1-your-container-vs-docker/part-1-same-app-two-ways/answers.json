@@ -1,0 +1,8 @@
+{
+  "docker_makes_namespaces": [],
+  "your_script_makes_namespaces": [],
+  "who_runs_the_image_user": "",
+  "docker_proc_sys_writable": null,
+  "more_mounts": "",
+  "node_sees_its_limit_in_your_container": null
+}

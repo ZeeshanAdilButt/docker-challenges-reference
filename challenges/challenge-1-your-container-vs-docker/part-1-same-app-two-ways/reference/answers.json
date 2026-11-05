@@ -1,0 +1,8 @@
+{
+  "docker_makes_namespaces": ["cgroup", "ipc", "mnt", "net", "pid", "time", "uts"],
+  "your_script_makes_namespaces": ["ipc", "mnt", "net", "pid", "uts"],
+  "who_runs_the_image_user": "docker",
+  "docker_proc_sys_writable": false,
+  "more_mounts": "docker",
+  "node_sees_its_limit_in_your_container": false
+}
