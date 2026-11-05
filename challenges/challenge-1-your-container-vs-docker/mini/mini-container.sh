@@ -11,6 +11,7 @@
 #   mini-container.sh prepare
 #   mini-container.sh run  NAME ROOTFS MEMORY_BYTES PIDS_MAX NETNUM  COMMAND...
 #   mini-container.sh exec NAME COMMAND...
+#   mini-container.sh sidecar NAME ROOTFS JOIN COMMAND...   JOIN is none, or a list such as pid,net,ipc
 #   mini-container.sh pid  NAME
 #   mini-container.sh stop NAME
 set -euo pipefail
@@ -94,6 +95,23 @@ cmd_exec() {
   exec nsenter -t "$pid" -m -u -i -n -p -- env -i PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin PORT=8080 "$@"
 }
 
+cmd_sidecar() {
+  # A second process next to NAME. For each of pid, net and ipc it either joins the namespace of NAME
+  # (nsenter) or gets a new one of its own (unshare). It always gets its own mount namespace.
+  local name=$1 root=$2 join=$3; shift 3
+  local pid; pid=$(cat "$STATE/$name.pid")
+  local enter=() fresh=(--mount --fork)
+  for ns in pid net ipc; do
+    case ",$join," in
+      *,$ns,*) case $ns in pid) enter+=(--pid);; net) enter+=(--net);; ipc) enter+=(--ipc);; esac ;;
+      *)       case $ns in pid) fresh+=(--pid);; net) fresh+=(--net);; ipc) fresh+=(--ipc);; esac ;;
+    esac
+  done
+  local inner=(unshare "${fresh[@]}" -- bash -c 'mount -t proc proc "$1/proc"; r=$1; shift; exec chroot "$r" env -i PATH=/usr/local/bin:/usr/bin:/bin:/sbin "$@"' _ "$root" "$@")
+  if [ ${#enter[@]} -gt 0 ]; then exec nsenter -t "$pid" "${enter[@]}" -- "${inner[@]}"; fi
+  exec "${inner[@]}"
+}
+
 cmd_pid() { cat "$STATE/$1.pid"; }
 
 cmd_stop() {
@@ -113,7 +131,8 @@ case $c in
   run)     cmd_run "$@" ;;
   _init)   cmd_init "$@" ;;
   exec)    cmd_exec "$@" ;;
+  sidecar) cmd_sidecar "$@" ;;
   pid)     cmd_pid "$@" ;;
   stop)    cmd_stop "$@" ;;
-  *) sed -n '2,21p' "$0"; exit 2 ;;
+  *) sed -n '2,22p' "$0"; exit 2 ;;
 esac

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 234" width="640" height="234" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">What a sidecar shares with the app (out of 3)</title>
+  <desc id="d">joined: (none): 0 of 3. joined: net: 1 of 3. joined: pid: 1 of 3. joined: ipc: 1 of 3. joined: pid+net+ipc: 3 of 3</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">What a sidecar shares with the app (out of 3)</text>
+  <text x="164" y="65" text-anchor="end" font-size="14">joined: (none)</text>
+  <rect x="180" y="51" width="354" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="180" y="51" width="0.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">0 of 3</text>
+  <text x="164" y="99" text-anchor="end" font-size="14">joined: net</text>
+  <rect x="180" y="85" width="354" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="180" y="85" width="118.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">1 of 3</text>
+  <text x="164" y="133" text-anchor="end" font-size="14">joined: pid</text>
+  <rect x="180" y="119" width="354" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="180" y="119" width="118.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">1 of 3</text>
+  <text x="164" y="167" text-anchor="end" font-size="14">joined: ipc</text>
+  <rect x="180" y="153" width="354" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="180" y="153" width="118.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="168" font-size="14">1 of 3</text>
+  <text x="164" y="201" text-anchor="end" font-size="14">joined: pid+net+ipc</text>
+  <rect x="180" y="187" width="354" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="180" y="187" width="354.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="202" font-size="14">3 of 3</text>
+</svg>
