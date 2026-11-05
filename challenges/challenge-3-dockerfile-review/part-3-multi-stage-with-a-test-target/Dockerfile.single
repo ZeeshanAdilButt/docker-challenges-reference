@@ -1,0 +1,13 @@
+# The single-stage Dockerfile that part 3 starts from. Do not edit: the run uses it as the "before" image.
+FROM node:24-alpine
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+COPY toolchain /opt/toolchain
+COPY server.mjs test.mjs ./
+RUN test -s /opt/toolchain/compiler.bin
+RUN node --test test.mjs
+ENV PORT=8080
+USER node
+EXPOSE 8080
+CMD ["node", "server.mjs"]
