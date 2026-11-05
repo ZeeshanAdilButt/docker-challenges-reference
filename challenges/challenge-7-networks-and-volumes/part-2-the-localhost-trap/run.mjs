@@ -54,7 +54,11 @@ function ask(overrides) {
     const found = r.out.split('\n').filter((l) => l.startsWith('{')).pop() ?? '{"result":"error","ms":0}';
     return JSON.parse(found);
   });
-  return { result: runs[0].result, host: runs[0].host, port: runs[0].port, ms: median(runs.map((x) => x.ms)) };
+  // the answer that most runs agree on, so one slow moment on a busy machine does not decide
+  const counts = {};
+  for (const x of runs) counts[x.result] = (counts[x.result] ?? 0) + 1;
+  const result = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+  return { result, host: runs[0].host, port: runs[0].port, ms: median(runs.map((x) => x.ms)) };
 }
 const text = (r) => `${r.host}:${r.port} -> ${r.result} (${r.ms} ms)`;
 

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 234" width="640" height="234" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">Rows in the database after each event</title>
+  <desc id="d">Written: 3 rows. Container recreated: 3 rows. Volume removed: 0 rows. Restored from dump: 3 rows. Restored from volume copy: 3 rows</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">Rows in the database after each event</text>
+  <text x="212" y="65" text-anchor="end" font-size="14">Written</text>
+  <rect x="228" y="51" width="306" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="228" y="51" width="306.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">3 rows</text>
+  <text x="212" y="99" text-anchor="end" font-size="14">Container recreated</text>
+  <rect x="228" y="85" width="306" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="228" y="85" width="306.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">3 rows</text>
+  <text x="212" y="133" text-anchor="end" font-size="14">Volume removed</text>
+  <rect x="228" y="119" width="306" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="228" y="119" width="0.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">0 rows</text>
+  <text x="212" y="167" text-anchor="end" font-size="14">Restored from dump</text>
+  <rect x="228" y="153" width="306" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="228" y="153" width="306.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="168" font-size="14">3 rows</text>
+  <text x="212" y="201" text-anchor="end" font-size="14">Restored from volume copy</text>
+  <rect x="228" y="187" width="306" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="228" y="187" width="306.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="202" font-size="14">3 rows</text>
+</svg>
