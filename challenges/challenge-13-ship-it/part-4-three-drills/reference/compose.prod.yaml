@@ -1,0 +1,24 @@
+# How daftar-api runs on the production host. Fixed version for part 4.
+#   restart: unless-stopped   a crash is followed by a start, and a person's "docker stop" is respected
+#   pull_policy: missing      pull only when the digest is not on the host, so an outage of the registry does not stop a redeploy
+#   interval x retries        how long a bad copy takes to be called unhealthy: 2 s x 5 = about 10 s, not minutes
+services:
+  api:
+    image: ${REGISTRY}/dkr-c13/api@${DIGEST:?set DIGEST to the sha256 digest from the pipeline}
+    environment:
+      API_TOKEN: ${API_TOKEN:?set API_TOKEN when you deploy}
+      WARMUP_MS: "3000"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/ready"]
+      interval: 2s
+      timeout: 2s
+      retries: 5
+    restart: unless-stopped
+    pull_policy: missing
+    mem_limit: 128m
+    pids_limit: 100
+    networks: [edge]
+
+networks:
+  edge:
+    external: true

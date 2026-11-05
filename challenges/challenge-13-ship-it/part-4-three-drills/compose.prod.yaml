@@ -1,0 +1,23 @@
+# How daftar-api runs on the production host, after part 2. STARTER for part 4: it is by digest, it has its secret from
+# the environment and it has limits. It will not survive three bad days. Find what is wrong and fix it.
+# The deploy tool passes REGISTRY, DIGEST and API_TOKEN in the environment.
+services:
+  api:
+    image: ${REGISTRY}/dkr-c13/api@${DIGEST:?set DIGEST to the sha256 digest from the pipeline}
+    environment:
+      API_TOKEN: ${API_TOKEN:?set API_TOKEN when you deploy}
+      WARMUP_MS: "3000"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/ready"]
+      interval: 30s
+      timeout: 2s
+      retries: 3
+    restart: "no"
+    pull_policy: always
+    mem_limit: 128m
+    pids_limit: 100
+    networks: [edge]
+
+networks:
+  edge:
+    external: true
