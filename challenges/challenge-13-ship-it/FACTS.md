@@ -20,10 +20,10 @@ Every number a chapter may quote. Names are `c13.p<part>.<what>`; the unit is th
 | `c13.p1.workflow_has_test_step` | A build step has `target: test` | Text check |
 | `c13.p1.workflow_has_scan_sbom_sign` | The words scan, sbom and sign each appear (placeholders are accepted) | Text check |
 | `c13.p1.good_run_ok` | The good commit passed every stage | Result of the local pipeline |
-| `c13.p1.good_stages_ok_count`, `c13.p1.good_stages_skipped_count` | Stages that passed, stages that were skipped (scan, sbom, sign wait for challenge 12) | Stage results |
+| `c13.p1.good_stages_ok_count`, `c13.p1.good_stages_skipped_count` | Stages that passed, stages that were skipped (a stage is skipped only if its hook file of challenge 12 is missing) | Stage results |
 | `c13.p1.good_pushed_tags_count` | Tags the good commit pushed | `docker push` per tag |
 | `c13.p1.good_digest` | Digest of the good image in the registry | `Docker-Content-Digest` of a HEAD on the manifest |
-| `c13.p1.good_pipeline_s` | Sum of the stage times of the good commit | Wall clock per stage |
+| `c13.p1.good_pipeline_s` | Sum of the stage times of the good commit, scan, SBOM and sign included (4.5 s with those three stages skipped, 27.9 s with the hooks of challenge 12) | Wall clock per stage |
 | `c13.p1.tests_before_push`, `c13.p1.scan_before_push`, `c13.p1.sign_after_push`, `c13.p1.lint_first` | Order of stages in `pipeline.json` | Position of the stage names |
 | `c13.p1.bad_run_ok`, `c13.p1.bad_failed_at` | The bad commit (`/health` answers 500) makes the pipeline fail, and at which stage | Result of the local pipeline |
 | `c13.p1.bad_image_pushed` | A new image reached the registry from the bad commit | Digests behind every tag before and after |

@@ -43,7 +43,17 @@ For the course builders. Not for learners.
 
 ## Scan, SBOM and signing (challenge 12)
 
-Challenge 12 part 4 was still the template when this was built. `runPipeline` in `kit.mjs` calls an optional hook for each of these stages: `challenges/challenge-12-scan-harden-sign/hooks/scan.mjs`, `sbom.mjs` and `sign.mjs`, run as `node hooks/<stage>.mjs <image reference>`. Exit code 0 is a pass. `scan` and `sbom` get the image on this machine's Docker (`127.0.0.1:<port>/dkr-c13/api:build-<sha7>`); `sign` gets the pushed digest (`127.0.0.1:<port>/dkr-c13/api@sha256:...`). When a hook file does not exist, the stage is marked `skipped` with the detail `filled in after challenge 12`. To wire them in, add the three files; nothing else changes. Not written by this builder.
+`runPipeline` in `kit.mjs` calls an optional hook for each of these stages: `challenges/challenge-12-scan-harden-sign/hooks/scan.mjs`, `sbom.mjs` and `sign.mjs`, run as `node hooks/<stage>.mjs <image reference>`. Exit code 0 is a pass. `scan` and `sbom` get the image on this machine's Docker (`127.0.0.1:<port>/dkr-c13/api:build-<sha7>`); `sign` gets the pushed digest (`127.0.0.1:<port>/dkr-c13/api@sha256:...`). When a hook file does not exist, the stage is marked `skipped` with the detail `filled in after challenge 12`.
+
+**The hooks now exist** (written by the challenge 12 builder, with their own tests and contract in `challenge-12-scan-harden-sign/hooks/README.md`), and the reference run of part 1 includes all three. What they do here:
+
+- `scan`: saves the image into a labelled volume and runs the scanner pinned by digest (a secret scan and, with the cached database, a vulnerability scan). The good commit's image has 0 fixable CRITICAL findings and 6 fixable HIGH ones on the day of the run; HIGH findings are reported, not blocking.
+- `sbom`: an SPDX SBOM of the image with the same scanner (167 packages for the api image).
+- `sign`: a throwaway cosign key pair in a labelled volume, sign the pushed digest in the local registry, verify it with the public key. The signature adds one more tag (`sha256-<digest>.sig`) to the repository in the registry.
+- Time of a good run of the whole pipeline (`c13.p1.good_pipeline_s`): 27.9 s, up from 4.5 s with the three stages skipped. About 8.7 s of that is the scan, 6 s the SBOM and 7.4 s the signature. The first scan on a machine also downloads the scanner database (139 MB, 71 s here); it is cached after that.
+- The scan is date dependent: it uses the vulnerability database of the day. A new fixable CRITICAL in `node:24-alpine` would turn a passing pipeline into a failing one. That is the purpose of the gate.
+
+Parts 2 to 4 run the pipeline with only `build` and `push`, so their numbers did not change except for normal run-to-run noise.
 
 ## What the Docker Desktop learner sees differently
 
@@ -53,7 +63,7 @@ Challenge 12 part 4 was still the template when this was built. `runPipeline` in
 
 ## Not done
 
-- No GitHub run, no GHCR login, no real signing or scanning.
+- No GitHub run and no GHCR login. Scanning and signing run locally (hooks of challenge 12; throwaway key, not keyless).
 - The workflow's `deploy` job only prints the digest; the real deploy in this course is `run.mjs`.
 - No test of the learner-run flow on Linux or in a Codespace.
 
