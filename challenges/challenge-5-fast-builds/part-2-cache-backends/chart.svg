@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 234" width="640" height="234" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">Time of the npm install step on a cold runner (median of 3)</title>
+  <desc id="d">No cache: 5.1 s. Inline: 5.8 s. Local folder: 0 s. Registry: 0 s. Warm disk: 0 s</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">Time of the npm install step on a cold runner (median of 3)</text>
+  <text x="108" y="65" text-anchor="end" font-size="14">No cache</text>
+  <rect x="124" y="51" width="410" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="124" y="51" width="360.5" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">5.1 s</text>
+  <text x="108" y="99" text-anchor="end" font-size="14">Inline</text>
+  <rect x="124" y="85" width="410" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="124" y="85" width="410.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">5.8 s</text>
+  <text x="108" y="133" text-anchor="end" font-size="14">Local folder</text>
+  <rect x="124" y="119" width="410" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="124" y="119" width="0.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">0 s</text>
+  <text x="108" y="167" text-anchor="end" font-size="14">Registry</text>
+  <rect x="124" y="153" width="410" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="124" y="153" width="0.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="168" font-size="14">0 s</text>
+  <text x="108" y="201" text-anchor="end" font-size="14">Warm disk</text>
+  <rect x="124" y="187" width="410" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="124" y="187" width="0.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="202" font-size="14">0 s</text>
+</svg>

@@ -61,9 +61,9 @@ export function build({ dockerfile, context, tag, buildArgs = {}, extra = [], no
 export function parseSteps(out) {
   const byId = new Map();
   for (const line of out.split(/\r?\n/)) {
-    let m = /^#(\d+) \[(?:[^\]]*\s)?(\d+)\/(\d+)\] (.+)$/.exec(line);
+    let m = /^#(\d+) \[(?:([^\]]*?)\s)?(\d+)\/(\d+)\] (.+)$/.exec(line);
     if (m) {
-      if (!byId.has(m[1])) byId.set(m[1], { n: Number(m[1]), index: Number(m[2]), of: Number(m[3]), name: m[4], cached: false, sec: undefined });
+      if (!byId.has(m[1])) byId.set(m[1], { n: Number(m[1]), stage: m[2] || '', index: Number(m[3]), of: Number(m[4]), name: m[5], cached: false, sec: undefined });
       continue;
     }
     m = /^#(\d+) CACHED/.exec(line);

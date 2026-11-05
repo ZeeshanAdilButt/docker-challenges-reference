@@ -1,0 +1,15 @@
+# Cache flags for `docker buildx build`, one section per backend.
+# Lines starting with # are ignored. run.mjs fills in the placeholders:
+#   {DIR}       a folder for the local cache
+#   {REGISTRY}  the address of the registry that run.mjs starts for you
+# A CI job reads the cache at the start (--cache-from) and writes it at the end (--cache-to).
+
+[local]
+# mode=max also saves the layers of the "build" stage. mode=min saves only the final image's layers.
+--cache-to type=local,dest={DIR},mode=max
+--cache-from type=local,src={DIR}
+
+[registry]
+# Read from the same reference that you write to.
+--cache-to type=registry,ref={REGISTRY}/dkr-c5-cache:main,mode=max
+--cache-from type=registry,ref={REGISTRY}/dkr-c5-cache:main
