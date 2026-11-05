@@ -13,7 +13,7 @@ docker run -d --name dkr-c1-app --ipc shareable dkr-c1-daftar:1
 **Output**
 
 ```text
-dkr-c1-app is running. Its IPC namespace is ipc:[4026532742].
+dkr-c1-app is running. Its IPC namespace is ipc:[4026532417].
 daftar-mini is running in the host. Its IPC namespace is ipc:[4026532412].
 ```
 
@@ -69,7 +69,7 @@ docker run --rm --ipc container:dkr-c1-private alpine:3.23 true
 
 ```text
 exit 125
-Run 'docker run --help' for more information
+docker: Error response from daemon: failed to join IPC namespace: container 6ff134df88184471a019818276c623395534203d2af36aaabf7be53f5f2bf74f: non-shareable IPC (hint: use IpcMode:shareable for the donor container)
 ```
 
 **Note:** The default IPC mode is private. A sidecar can join only a container that started with --ipc shareable.
