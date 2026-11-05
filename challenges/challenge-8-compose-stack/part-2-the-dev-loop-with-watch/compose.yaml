@@ -1,0 +1,30 @@
+# The dev stack: one service, api, built from ./app. Edit the develop.watch block so that changes show up fast.
+# run.mjs starts it with `docker compose watch`, edits app/src/message.mjs and times how long until GET /message shows the change.
+name: dkr-c8
+
+x-safe: &safe
+  labels:
+    dkr.challenge: "8"
+  mem_limit: 128m
+  memswap_limit: 128m
+  pids_limit: 100
+  security_opt: ["no-new-privileges:true"]
+  logging:
+    driver: json-file
+    options: { max-size: "1m", max-file: "2" }
+
+services:
+  api:
+    <<: *safe
+    build: ./app
+    image: dkr-c8-dev:1
+    ports: ["127.0.0.1:${API_PORT}:8080"]
+    develop:
+      watch:
+        - action: rebuild
+          path: ./app/src
+
+networks:
+  default:
+    labels:
+      dkr.challenge: "8"

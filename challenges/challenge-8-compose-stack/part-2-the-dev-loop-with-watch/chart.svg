@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 166" width="640" height="166" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">Milliseconds from saving a file to seeing the change</title>
+  <desc id="d">sync + node --watch-path: 915 ms. sync+restart: 4004 ms. rebuild: 19569 ms</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">Milliseconds from saving a file to seeing the change</text>
+  <text x="204" y="65" text-anchor="end" font-size="14">sync + node --watch-path</text>
+  <rect x="220" y="51" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="51" width="14.7" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">915 ms</text>
+  <text x="204" y="99" text-anchor="end" font-size="14">sync+restart</text>
+  <rect x="220" y="85" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="85" width="64.2" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">4004 ms</text>
+  <text x="204" y="133" text-anchor="end" font-size="14">rebuild</text>
+  <rect x="220" y="119" width="314" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="220" y="119" width="314.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">19569 ms</text>
+</svg>

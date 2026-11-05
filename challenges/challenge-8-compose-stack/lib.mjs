@@ -72,14 +72,20 @@ export function removeStackImage() {
 /** GET a URL and return { status, json, text, ms }. status is 0 when nothing answered. */
 export async function get(url, { method = 'GET', timeoutMs = 3000 } = {}) {
   const t0 = process.hrtime.bigint();
+  // a timer that keeps the process alive (AbortSignal.timeout does not), so a stuck request cannot end the script
+  const ac = new AbortController();
+  const timer = setTimeout(() => ac.abort(), timeoutMs);
+  const ms = () => Number(process.hrtime.bigint() - t0) / 1e6;
   try {
-    const res = await fetch(url, { method, signal: AbortSignal.timeout(timeoutMs) });
+    const res = await fetch(url, { method, signal: ac.signal });
     const text = await res.text();
     let json;
     try { json = JSON.parse(text); } catch { /* not JSON */ }
-    return { status: res.status, json, text, ms: Number(process.hrtime.bigint() - t0) / 1e6 };
+    return { status: res.status, json, text, ms: ms() };
   } catch (e) {
-    return { status: 0, text: String(e.cause?.code ?? e.message), ms: Number(process.hrtime.bigint() - t0) / 1e6 };
+    return { status: 0, text: String(e.cause?.code ?? e.message), ms: ms() };
+  } finally {
+    clearTimeout(timer);
   }
 }
 

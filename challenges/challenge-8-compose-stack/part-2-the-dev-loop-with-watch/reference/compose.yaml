@@ -1,0 +1,33 @@
+# The dev stack, fixed: source changes are copied in and node --watch restarts the server; package.json changes rebuild the image.
+name: dkr-c8
+
+x-safe: &safe
+  labels:
+    dkr.challenge: "8"
+  mem_limit: 128m
+  memswap_limit: 128m
+  pids_limit: 100
+  security_opt: ["no-new-privileges:true"]
+  logging:
+    driver: json-file
+    options: { max-size: "1m", max-file: "2" }
+
+services:
+  api:
+    <<: *safe
+    build: ../app
+    image: dkr-c8-dev:1
+    command: ["node", "--watch-path=src", "src/server.mjs"]
+    ports: ["127.0.0.1:${API_PORT}:8080"]
+    develop:
+      watch:
+        - action: sync
+          path: ../app/src
+          target: /app/src
+        - action: rebuild
+          path: ../app/package.json
+
+networks:
+  default:
+    labels:
+      dkr.challenge: "8"
