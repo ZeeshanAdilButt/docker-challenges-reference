@@ -49,16 +49,16 @@ local pipeline, commit a1b2c3d (good):  stages lint > build > test > scan > sbom
 **Output**
 
 ```text
-lint   ok         2.5 s  docker build --check: no warnings
-build  ok         3.8 s  built api:build-a1b2c3d
-test   ok         4.1 s  tests passed (result reused from the layer cache)
+lint   ok         0.8 s  docker build --check: no warnings
+build  ok           1 s  built api:build-a1b2c3d
+test   ok         1.2 s  tests passed (result reused from the layer cache)
 scan   skipped      0 s  filled in after challenge 12
 sbom   skipped      0 s  filled in after challenge 12
-push   ok         4.6 s  pushed sha-a1b2c3d, 1.0.0 -> eb03d3dc5f56
+push   ok         1.5 s  pushed sha-a1b2c3d, 1.0.0 -> 5d5b0e67102c
 sign   skipped      0 s  filled in after challenge 12
 ```
 
-**Note:** The commit passed every stage. scan, sbom and sign say "skipped" because the real tools come with challenge 12. The image is in the registry as eb03d3dc5f56.
+**Note:** The commit passed every stage. scan, sbom and sign say "skipped" because the real tools come with challenge 12. The image is in the registry as 5d5b0e67102c.
 
 ## Step 3
 
@@ -72,9 +72,9 @@ local pipeline, commit badbadb (bad: /health now answers 500)
 **Output**
 
 ```text
-lint   ok         1.7 s  docker build --check: no warnings
-build  ok         7.3 s  built api:build-badbadb
-test   failed     8.4 s  tests 3, pass 2, fail 1
+lint   ok         0.7 s  docker build --check: no warnings
+build  ok         1.1 s  built api:build-badbadb
+test   failed     1.6 s  tests 3, pass 2, fail 1
 scan   not run      0 s  stopped at test
 sbom   not run      0 s  stopped at test
 push   not run      0 s  stopped at test
@@ -97,8 +97,8 @@ GET /v2/dkr-c13/api/manifests/<tag>   for each tag of the good commit
 **Output**
 
 ```text
-sha-a1b2c3d    eb03d3dc5f56
-1.0.0          eb03d3dc5f56
+sha-a1b2c3d    5d5b0e67102c
+1.0.0          5d5b0e67102c
 ```
 
 **Note:** One image, several names. The sha tag says exactly which commit built it, and it is never moved.
@@ -114,8 +114,9 @@ docker build --target release app   (3 times with --no-cache, 3 times with the l
 **Output**
 
 ```text
-cold (no cache): 4.6 s   [4.5, 5.5, 4.6]
-warm (cache):    2.9 s   [2.9, 4.2, 2.8]
+cold (no cache): 1.8 s   [1.7, 1.8, 2]
+warm (cache):    1.1 s   [1, 1.1, 1.3]
+steps answered by the cache in a warm build: 3
 ```
 
 **Note:** Unchanged layers come from the cache, so a build after a one-line change is fast. In GitHub Actions the layer cache is lost between runs unless you ask for one (cache-from and cache-to with type=gha).

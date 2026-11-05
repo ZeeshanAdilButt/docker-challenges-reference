@@ -10,11 +10,11 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { assertDocker } from '../../../toolkit/docker.js';
+import { assertDocker, run } from '../../../toolkit/docker.js';
 import { Recorder } from '../../../toolkit/record.js';
 import { barsSvg } from '../../../toolkit/bars.js';
 import { median, round } from '../../../toolkit/stats.js';
-import { checkWorkflow, clip, kit, pick, plantFault, removeTree, saveFacts, secs, short } from '../kit.mjs';
+import { checkWorkflow, clip, kit, pick, plantFault, removeTree, clearFacts, saveFacts, secs, short } from '../kit.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const app = join(here, '..', 'app');
@@ -39,6 +39,7 @@ const table = (res) =>
 const pad = (s, n) => String(s).padEnd(n);
 
 try {
+  clearFacts('c13.p1.'); // a failed run must not leave the numbers of an older run behind
   k.teardown(); // leftovers from an earlier run
   k.removeImages();
   const config = JSON.parse(readFileSync(pick(here, 'pipeline.json'), 'utf8'));
@@ -145,9 +146,12 @@ try {
   for (let i = 0; i < 3; i++) warm.push(k.build({ dir: app, tag: `${k.REPO_PREFIX}-timing:warm`, args: buildArgs }).ms);
   facts['c13.p1.build_cold_s'] = round(median(cold) / 1000, 1);
   facts['c13.p1.build_warm_s'] = round(median(warm) / 1000, 1);
+  // Count the steps that the cache answered: this does not depend on how fast the machine is today.
+  const plain = run(['build', '--progress=plain', '--provenance=false', '--sbom=false', '--target', 'release', '--build-arg', 'APP_VERSION=' + GOOD.version, '--build-arg', 'GIT_SHA=' + GOOD.sha, '--label', 'dkr.challenge=13', '-t', k.REPO_PREFIX + '-timing:warm', app], { timeoutMs: 300_000 });
+  facts['c13.p1.build_cache_hits_count'] = ((plain.stdout + plain.stderr).match(/^#\d+ CACHED/gm) ?? []).length;
   rec.step(
     'docker build --target release app   (3 times with --no-cache, 3 times with the layer cache; median of each)',
-    `cold (no cache): ${facts['c13.p1.build_cold_s']} s   [${cold.map((m) => secs(m)).join(', ')}]\nwarm (cache):    ${facts['c13.p1.build_warm_s']} s   [${warm.map((m) => secs(m)).join(', ')}]`,
+    `cold (no cache): ${facts['c13.p1.build_cold_s']} s   [${cold.map((m) => secs(m)).join(', ')}]\nwarm (cache):    ${facts['c13.p1.build_warm_s']} s   [${warm.map((m) => secs(m)).join(', ')}]\nsteps answered by the cache in a warm build: ${facts['c13.p1.build_cache_hits_count']}`,
     'Unchanged layers come from the cache, so a build after a one-line change is fast. In GitHub Actions the layer cache is lost between runs unless you ask for one (cache-from and cache-to with type=gha).',
   );
 
@@ -173,6 +177,9 @@ try {
   console.log('See your numbers with: node toolkit/show-facts.mjs c13.p1');
 } catch (e) {
   console.error(`\nStopped: ${clip(e.message, 12)}`);
+  try {
+    saveFacts(facts);
+  } catch { /* nothing more to save */ }
   process.exitCode = 1;
 } finally {
   k.teardown();

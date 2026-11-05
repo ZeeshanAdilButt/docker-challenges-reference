@@ -72,6 +72,7 @@ On the starter, the bad commit fails at `test` and its image is already in the r
 | `c13.p1.tests_before_push`, `scan_before_push`, `sign_after_push`, `lint_first` | The position of the stages in `pipeline.json`. |
 | `c13.p1.tags_include_sha`, `c13.p1.latest_only` | The tags the good commit pushed. |
 | `c13.p1.build_cold_s`, `c13.p1.build_warm_s` | Median of three `docker build` runs, with `--no-cache` and with the layer cache. |
+| `c13.p1.build_cache_hits_count` | Steps that say `CACHED` in the plain build log of one more warm build. This does not depend on how fast your machine is. |
 
 ## What is different on Docker Desktop
 

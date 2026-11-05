@@ -67,8 +67,9 @@ test('pipeline: the tags name the commit, and latest is not the only name', () =
   assert.equal(fact('latest_only'), false, '"latest" alone says nothing about the code. Use "sha" and "version".');
 });
 
-test('the build is faster with the layer cache', () => {
-  assert.ok(fact('build_warm_s') < fact('build_cold_s'), `A cached build (${getFact('c13.p1.build_warm_s')} s) should be faster than a cold one (${getFact('c13.p1.build_cold_s')} s).`);
+test('the layer cache answers the steps of a warm build', () => {
+  assert.ok(fact('build_cache_hits_count') >= 3, `Only ${getFact('c13.p1.build_cache_hits_count')} steps came from the cache. Run run.mjs again.`);
+  assert.ok(fact('build_warm_s') <= fact('build_cold_s') + 1, `A cached build (${getFact('c13.p1.build_warm_s')} s) should not be slower than a cold one (${getFact('c13.p1.build_cold_s')} s).`);
 });
 
 test('chart.svg is an accessible chart, the README links the safety rules', () => {
