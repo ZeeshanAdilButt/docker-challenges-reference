@@ -1,0 +1,44 @@
+# A release workflow for your own repository. You run it on GitHub, not here.
+# Problem: every step below is pinned to a tag or a branch, and one step is the scanner action that was
+# poisoned in March 2026. Fix it:
+#   1. Pin every `uses:` to a full 40-character commit hash. Look it up with:
+#        gh api repos/<owner>/<repo>/commits/<tag> -q .sha
+#      and keep the tag in a comment so people can read it.
+#   2. Remove aquasecurity/trivy-action. Run the scanner from its image, pinned by digest:
+#        docker run --rm aquasec/trivy:0.76.1@sha256:790fd66d1697395d8693d1acaa1ea702406a20f109b6fc7bac8db623eca6c06c image ...
+name: release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: docker/setup-buildx-action@v4
+      - uses: docker/login-action@v4.7.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v7
+        id: build
+        with:
+          push: true
+          tags: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
+          sbom: true
+          provenance: mode=max
+      - uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ghcr.io/${{ github.repository }}@${{ steps.build.outputs.digest }}
+      - uses: sigstore/cosign-installer@main
+      - run: cosign sign --yes ghcr.io/${{ github.repository }}@${{ steps.build.outputs.digest }}
