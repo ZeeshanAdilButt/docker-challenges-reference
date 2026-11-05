@@ -6,7 +6,8 @@
 // throw-away host container) and once with `docker run`. Then it asks both containers what
 // they can see, from the inside, and prints the two answers side by side.
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -15,6 +16,7 @@ import { setFact } from '../../../toolkit/facts.js';
 import { Recorder } from '../../../toolkit/record.js';
 import { barsSvg } from '../../../toolkit/bars.js';
 import { median, round, timed } from '../../../toolkit/stats.js';
+import { openImage, layerBytes } from '../../challenge-2-take-an-image-apart/lib/image.mjs';
 import {
   N, IMAGE, HOST, docker, workDir, buildImage, removeImage, startHost, miniStart, miniWaitHealthy, miniGet, miniStop,
   probeMini, probeDocker, hostNamespaces, newNamespaces, publishedPort, dockerWaitHealthy, popcountHex,
@@ -50,8 +52,22 @@ try {
 
   // Step 1: build the image that both containers use.
   const bytes = buildImage();
-  const imageMb = round(bytes / 1e6, 1);
-  rec.step(`docker build -t ${IMAGE} .   # daftar-api plus probe.mjs on node:24-alpine`, `${IMAGE}: ${bytes} bytes`, `One image, ${imageMb} MB on disk. Both containers use exactly these files.`);
+  const imageMb = round(bytes / 1e6, 1); // the Size field of docker image inspect (see below)
+  // With the containerd image store, Size is neither packed nor unpacked. Add up the layers ourselves.
+  const saveDir = mkdtempSync(join(tmpdir(), 'dkr-c1-save-'));
+  let unpackedMb;
+  let packedMb;
+  try {
+    docker(['save', '-o', join(saveDir, 'image.tar'), IMAGE], { timeoutMs: 300_000 });
+    const img = openImage(join(saveDir, 'image.tar'));
+    unpackedMb = round(img.layers.reduce((sum, l) => sum + layerBytes(l), 0) / 1e6, 1);
+    packedMb = round(img.layers.reduce((sum, l) => sum + l.size, 0) / 1e6, 1);
+  } finally {
+    rmSync(saveDir, { recursive: true, force: true });
+  }
+  rec.step(`docker build -t ${IMAGE} .   # daftar-api plus probe.mjs on node:24-alpine`, `${IMAGE}: Size field ${bytes} bytes
+layers unpacked: ${unpackedMb} MB
+layers packed (as saved): ${packedMb} MB`, `One image, ${unpackedMb} MB of files in its layers. docker reports a Size of ${imageMb} MB, which is not the size of the files. Both containers use exactly these files.`);
 
   // Step 2: the throw-away host, and the folder your container will use as its root.
   const hostT = await timed(() => startHost());
@@ -142,7 +158,9 @@ try {
   rec.step(`compare answers.json with the measurement`, lines.join('\n'), 'Your guesses are checked against the probe output above, not against a fixed list.');
 
   // Facts.
-  setFact('c1.p1.image_mb', imageMb);
+  setFact('c1.p1.image_mb', imageMb); // the raw Size field, kept for the chapters that already quote it
+  setFact('c1.p1.image_unpacked_mb', unpackedMb);
+  setFact('c1.p1.image_packed_mb', packedMb);
   setFact('c1.p1.start_mini_s', miniS);
   setFact('c1.p1.start_docker_s', dockerS);
   setFact('c1.p1.ns_new_mini', nsMini.join(','));

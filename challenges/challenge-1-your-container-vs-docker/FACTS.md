@@ -6,7 +6,9 @@ Every fact is saved by `run.mjs` through `toolkit/facts.js` into `facts.json`. N
 
 | Fact | Meaning | How it was measured |
 |---|---|---|
-| `c1.p1.image_mb` | Size on disk of `dkr-c1-daftar:1` (daftar-api and `probe.mjs` on `node:24-alpine`) | `docker image inspect` field `Size`, divided by 1e6 |
+| `c1.p1.image_mb` | The `Size` field of `docker image inspect` for `dkr-c1-daftar:1`, in MB. With the containerd image store this is not the size of the files (it is about unpacked plus packed plus file system overhead). Kept for chapters that already quote it; prefer the next two | `docker image inspect` field `Size`, divided by 1e6 |
+| `c1.p1.image_unpacked_mb` | Unpacked size of the same image: bytes of all files in all layers | `docker save`, then every layer is read and its regular files added up (challenge 2 `lib/image.mjs`) |
+| `c1.p1.image_packed_mb` | Packed size of the same image: layer sizes in the saved manifest | same `docker save` |
 | `c1.p1.start_mini_s` | Seconds from `mini-container.sh run` until `GET /health` answers | Median of 3 |
 | `c1.p1.start_docker_s` | Seconds from `docker run -d` until `GET /health` answers on the published port | Median of 3. Noisy on Desktop: 0.68 s to 1.96 s in different runs |
 | `c1.p1.ns_new_mini` | Namespace types of mini that differ from the host container's PID 1 | `readlink /proc/self/ns/*` inside, compared with `/proc/1/ns/*` of the host |

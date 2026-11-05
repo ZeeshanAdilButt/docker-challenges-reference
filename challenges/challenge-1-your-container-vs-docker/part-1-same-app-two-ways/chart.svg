@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 132" width="640" height="132" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
   <title id="t">Time until /health answers</title>
-  <desc id="d">Your container: 0.73 s. docker run: 1.96 s</desc>
+  <desc id="d">Your container: 0.61 s. docker run: 0.88 s</desc>
   <text x="0" y="24" font-size="17" font-weight="600">Time until /health answers</text>
   <text x="124" y="65" text-anchor="end" font-size="14">Your container</text>
   <rect x="140" y="51" width="394" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
-  <rect x="140" y="51" width="146.7" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
-  <text x="544" y="66" font-size="14">0.73 s</text>
+  <rect x="140" y="51" width="273.1" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">0.61 s</text>
   <text x="124" y="99" text-anchor="end" font-size="14">docker run</text>
   <rect x="140" y="85" width="394" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
   <rect x="140" y="85" width="394.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
-  <text x="544" y="100" font-size="14">1.96 s</text>
+  <text x="544" y="100" font-size="14">0.88 s</text>
 </svg>

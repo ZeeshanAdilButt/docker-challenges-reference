@@ -13,10 +13,12 @@ docker build -t dkr-c1-daftar:1 .   # daftar-api plus probe.mjs on node:24-alpin
 **Output**
 
 ```text
-dkr-c1-daftar:1: 243638979 bytes
+dkr-c1-daftar:1: Size field 243638979 bytes
+layers unpacked: 172 MB
+layers packed (as saved): 62.5 MB
 ```
 
-**Note:** One image, 243.6 MB on disk. Both containers use exactly these files.
+**Note:** One image, 172 MB of files in its layers. docker reports a Size of 243.6 MB, which is not the size of the files. Both containers use exactly these files.
 
 ## Step 2
 
@@ -32,7 +34,7 @@ docker export <image copy> | docker exec -i dkr-c1-host tar -x -C /rootfs
 /rootfs holds 173 MB
 ```
 
-**Note:** The image's files are now a plain folder inside the host. That folder is the root file system of your container. This took 20.6 s.
+**Note:** The image's files are now a plain folder inside the host. That folder is the root file system of your container. This took 17 s.
 
 ## Step 3
 
@@ -48,7 +50,7 @@ docker exec dkr-c1-host mini-container.sh run daftar-mini /rootfs 134217728 64 1
 container daftar-mini answers /health
 ```
 
-**Note:** Your container: ready in 0.73 s (median of 3, including the wait for /health).
+**Note:** Your container: ready in 0.61 s (median of 3, including the wait for /health).
 
 ## Step 4
 
@@ -61,10 +63,10 @@ docker run -d --name dkr-c1-app --label dkr.challenge=1 --memory 128m --memory-s
 **Output**
 
 ```text
-container dkr-c1-app answers /health on 127.0.0.1:58661
+container dkr-c1-app answers /health on 127.0.0.1:51946
 ```
 
-**Note:** Docker: ready in 1.96 s (median of 3). Docker adds a bridge network, a published port, DNS files and a writable layer.
+**Note:** Docker: ready in 0.88 s (median of 3). Docker adds a bridge network, a published port, DNS files and a writable layer.
 
 ## Step 5
 
@@ -78,7 +80,7 @@ GET /  and  GET /pid  on both
 
 ```text
 your container: {"app":"daftar-api","version":"1.0.0","hostname":"daftar-mini","requests":2} {"pid":1,"ppid":0}
-docker:         {"app":"daftar-api","version":"1.0.0","hostname":"d32e83eb9dd2","requests":2} {"pid":1,"ppid":0}
+docker:         {"app":"daftar-api","version":"1.0.0","hostname":"09adac509b46","requests":2} {"pid":1,"ppid":0}
 ```
 
 **Note:** Same service, same answers. In both, node is PID 1 and its parent is 0: the process is the first one in its own PID namespace.
@@ -95,7 +97,7 @@ node /app/probe.mjs   # run inside each container (docker exec, and mini-contain
 
 ```text
 what the process sees       your container            docker
-hostname                    daftar-mini               d32e83eb9dd2
+hostname                    daftar-mini               09adac509b46
 PID 1 is                    node server.mjs           node server.mjs
 user id of the app          0                         1000
 namespaces it made          ipc mnt net pid uts       cgroup ipc mnt net pid time uts
