@@ -78,7 +78,7 @@ export function checkSetup({ dir = root } = {}) {
     add('Compose plugin', c.code === 0 ? 'ok' : 'warn', c.code === 0 ? `v${c.stdout.trim().replace(/^v/, '')}` : 'missing. You need it from challenge 8.');
     const b = run(['buildx', 'version'], { timeoutMs: 30_000 });
     const bv = b.code === 0 ? (b.stdout.match(/v\d+\.\d+\.\d+/) || [''])[0] : '';
-    add('Buildx plugin', b.code === 0 ? 'ok' : 'warn', b.code === 0 ? bv || firstLine(b.stdout) : 'missing. You need it from challenge 5.');
+    add('Buildx plugin', b.code === 0 ? 'ok' : 'warn', b.code === 0 ? bv || firstLine(b.stdout) : 'missing. You need it from challenge 3 (docker build --check, build secrets).');
   }
 
   // Disk
