@@ -18,7 +18,7 @@ All the parts below are written for (a).
 
 - Dockerfiles that meet the rubric: multi-stage, non-root, pinned by digest, a clean `docker build --check`, a graceful shutdown that passes, the size targets. (part 1)
 - A Compose stack for development with health checks, profiles and watch that is healthy in under 60 seconds. (part 1)
-- A GitHub Actions pipeline that builds with a cache, scans, makes an SBOM, signs and pushes to GHCR. The GitHub run is your own; this repository checks the file as text and runs the same stages locally. Scan, SBOM and signing are pending until challenge 12. (part 2)
+- A GitHub Actions pipeline that builds with a cache, scans, makes an SBOM, signs and pushes to GHCR. The GitHub run is your own; this repository checks the file as text and runs the same stages locally. Scan, SBOM and signing run the hooks of challenge 12; they are pending only if those hook files are missing. (part 2)
 - A deploy by digest to the local production host with a rollout under load that drops no requests, and a rollback drill under two minutes. (part 2)
 - Three failure experiments with charts, and a runbook. (part 3)
 - A five-minute walkthrough with answers to three probes and one troubleshooting question. (part 4)

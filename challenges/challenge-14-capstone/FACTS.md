@@ -34,7 +34,7 @@ Every number a chapter may quote. Names are `c14.p<part>.<what>`; the unit is th
 | `c14.p2.pipeline_<service>_ok` | The local pipeline of the service passed every stage | Stage results |
 | `c14.p2.pipeline_order_ok` | Tests and scan before the push, sign after it | Position of the stages in `pipeline.json` |
 | `c14.p2.tags_include_sha` | A `sha-<7>` tag was pushed | Tags of the api |
-| `c14.p2.scan_status`, `c14.p2.sbom_status`, `c14.p2.sign_status` | `ok`, `skipped` (until challenge 12), `failed` or `partial` | Stage results of the three services |
+| `c14.p2.scan_status`, `c14.p2.sbom_status`, `c14.p2.sign_status` | `ok`, `skipped` (hook file missing), `failed` or `partial` (scan without the database) | Stage results of the three services |
 | `c14.p2.host_start_s`, `c14.p2.db_start_s`, `c14.p2.first_deploy_s` | Time to start the host and its proxy, the database, and the first deploy of the three services | Wall clock |
 | `c14.p2.deploy_ok`, `c14.p2.deploy_digests_match`, `c14.p2.prod_e2e_ok` | The first deploy worked; running digests equal pushed digests; a job posted on the host reaches `done` | `compose up --wait`; `RepoDigests` on the host; HTTP |
 | `c14.p2.rollout_s`, `c14.p2.rollback_s` | Rollout and rollback time | Median of three cycles |

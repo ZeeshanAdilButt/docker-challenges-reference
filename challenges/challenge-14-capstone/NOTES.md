@@ -6,7 +6,7 @@ For the course builders. Not for learners.
 
 | Part | It proves |
 |---|---|
-| 1 containerize | The starter system (`daftar-platform`: Node api with one dependency, Python worker with the standard library only, nginx page, PostgreSQL) runs, and fails every target of the rubric: 1635 MB api as root, `CMD npm start` so `docker stop` ends with 137, `COPY . .` before the install, `ENV` with a password, a `.env` copied into three images, no health checks, a published database port, a README about MySQL and Node 16. The fixed files (245 MB, 177 MB, 74 MB; non-root; exit 0 in under a second; no leak; healthy in about 20 s; a job done in about 2 s) meet them. |
+| 1 containerize | The starter system (`daftar-platform`: Node api with one dependency, Python worker with the standard library only, nginx page, PostgreSQL) runs, and fails every target of the rubric: 1635 MB api as root, `CMD npm start` so `docker stop` ends with 137, `COPY . .` before the install, `ENV` with a password, a `.env` copied into three images, no health checks, a published database port, a README about MySQL and Node 16. The fixed files (245 MB, 177 MB, 95 MB; non-root; exit 0 in under a second; no leak; healthy in about 20 s; a job done in about 2 s) meet them. |
 | 2 pipeline and ship | The pipeline of challenge 13 for three services and a shared database: digests travel together, a rollout of a whole colour under load loses no request, a rollback by digest takes about as long as a rollout. |
 | 3 break it | Kill (`/crash`), starve (`/alloc` against a memory limit) and misconfigure (wrong database password against a health gate) each behave as the runbook says, with numbers; the runbook is parsed and its **Measured:** numbers are compared with the run. |
 | 4 defend it | The walkthrough has the shape and the learner's own numbers; four answers have the right length and touch the right ideas; the whole rubric prints a score. No Docker needed. |
@@ -15,7 +15,7 @@ For the course builders. Not for learners.
 
 The brief asked for a rubric checker "in the reference". It is at `challenges/challenge-14-capstone/rubric.mjs`, outside any `reference/` folder, on purpose: `tools/make_starter.mjs` drops every `reference/` folder, and a checker that learners cannot run cannot score their work. It holds no answers; the fixed Dockerfiles, compose files, workflow, runbook, defence and probes are in the `reference/daftar-platform/` folder of each part, as the brief says. `rubric-tests.mjs` turns each criterion into a `node:test` test, and part 4's test adds one test for the total (pass mark 80 % of the points that can be earned today).
 
-Criteria that need challenge 12's tools (scan, SBOM, signing: 9 points) are `pending` while the pipeline reports `skipped`; they are listed, earn nothing and do not count against the score. Once the three hook files exist (see challenge 13 NOTES.md), the statuses become `ok` or `failed` and they count.
+Criteria that need challenge 12's tools (scan, SBOM, signing: 9 points) are `pending` only while the pipeline reports `skipped`, that is, when a hook file of challenge 12 is missing; then they are listed, earn nothing and do not count against the score. The three hook files now exist (see challenge 13 NOTES.md and `challenge-12-scan-harden-sign/hooks/README.md`), so the statuses are `ok` or `failed` and the 9 points count: the reference scores 149 of 149 (it was 140 of 140 with the three criteria pending).
 
 ## Problems hit and what was done
 
@@ -35,7 +35,7 @@ Criteria that need challenge 12's tools (scan, SBOM, signing: 9 points) are `pen
 
 - Scenario (a) of the roadmap lists Valkey. The brief for this build lists a Node api, a worker, Postgres and a static web page, so Valkey is left out. The queue lives in Postgres (`FOR UPDATE SKIP LOCKED`).
 - Scenario (b) (NGO campaign site) and (c) (bring your own) are described in the README but not built.
-- The roadmap asks for a "security report with a before and after scan and triage decisions". That needs challenge 12's scanner; it is `pending` in the rubric and not built. The defence asks the learner to say what is scanned and what is still to come.
+- The roadmap asks for a "security report with a before and after scan and triage decisions". The scanner now exists (challenge 12 hooks), so the pipeline scans every image before the push and the rubric counts it. A written before-and-after security report with triage decisions is still not built; the defence asks the learner to say what is scanned, with which tool, and what the scan stopped.
 - The roadmap asks that the compose stack comes up "healthy in under 60 seconds": checked (`compose_up_s`).
 - "A rollback drill under two minutes": the target is `rollback_s < 120`, measured at about 11 s.
 - The pipeline's cache evidence is local: the cached rebuild after an edit (part 1) and the `type=gha` lines in the workflow (checked as text). The Actions cache itself cannot be measured here.
@@ -45,12 +45,12 @@ Criteria that need challenge 12's tools (scan, SBOM, signing: 9 points) are `pen
 ## What the Docker Desktop learner sees differently
 
 - Everything runs in the Docker Desktop virtual machine; ports are published on 127.0.0.1 only and are random.
-- The image sizes are `docker image inspect` `Size`: 245, 177 and 74 MB for the fixed images on this machine's containerd store.
+- The image sizes are `docker image inspect` `Size`: 245, 177 and 95 MB for the fixed images on this machine's containerd store.
 - The registry port must be fixed for `docker push` (see challenge 13 NOTES.md).
 
 ## Not done
 
-- No GitHub run. No scan, SBOM or signature. Option (b) of the scenarios. A Linux or Codespaces run of the whole capstone.
+- No GitHub run. The signature is made with a throwaway key, not keyless. Option (b) of the scenarios. A Linux or Codespaces run of the whole capstone.
 
 ## Disk and downloads
 
@@ -58,3 +58,7 @@ Criteria that need challenge 12's tools (scan, SBOM, signing: 9 points) are `pen
 - Every image and stack of these parts is named `dkr-c14-...` and removed at the end of a run (`dkr-c14-stack-api` and the like included). The BuildKit cache is shared and never pruned.
 - Time of a reference run on this machine: part 1 about 1 minute 30 s (3 minutes on the starter, because of the stop timeouts), part 2 about 4 minutes, part 3 about 4 minutes, part 4 under 2 seconds.
 - Memory of the production host at the end of part 2: see `c14.p2.host_mem_used_mb` (the limit is 6 GB, the `tmpfs` disk 4500 MB).
+
+## The scan found a real problem in the reference
+
+When the three hooks of challenge 12 were wired in, the reference pipeline failed at `scan` for the web image: the nginx base pinned by digest (`nginx:1.27-alpine`, Alpine 3.21.3, months old) has 3 fixable CRITICAL findings on the day of the run (216 findings in total, the same numbers as in challenge 12 part 1). The fix is in the reference Dockerfile of the web image: `RUN apk upgrade --no-cache` after the `FROM`, which brings the operating system packages up to date and leaves 0 findings. The base stays pinned by digest. Consequences, all re-recorded: the web image is 95 MB instead of 74 MB (+21 MB for the upgraded packages), its cold build takes 11.6 s instead of 1.8 s (the upgrade downloads packages), and the defence text says so. The worker (Debian, `python:3.12-slim` pinned to an older local digest) has 0 fixable CRITICAL findings; it has 2 fixable HIGH ones, which do not block. A scan result is date dependent, so this reference can start to fail on another day. That is the lesson of the gate and it is written in the README of the hooks.

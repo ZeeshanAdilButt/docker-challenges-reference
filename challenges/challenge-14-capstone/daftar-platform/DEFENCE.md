@@ -10,7 +10,7 @@ Delete the lines in brackets as you write.
 
 ## The pipeline
 
-(What runs before the push and in what order. The CI run with its cache hit. What is scanned, listed and signed, and what is still to come from challenge 12.)
+(What runs before the push and in what order. The CI run with its cache hit. What is scanned, listed and signed, with which tool and how you know the scanner itself can be trusted.)
 
 ## The deploy
 
