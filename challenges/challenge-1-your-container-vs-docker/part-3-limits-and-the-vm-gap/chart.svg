@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 200" width="640" height="200" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">Memory: what you set, what Docker shows, what the machine has</title>
+  <desc id="d">docker run --memory: 128 MiB. memory.current: 88.4 MiB. docker stats: 58 MiB. working set: 58.4 MiB</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">Memory: what you set, what Docker shows, what the machine has</text>
+  <text x="164" y="65" text-anchor="end" font-size="14">docker run --memory</text>
+  <rect x="180" y="51" width="354" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="180" y="51" width="354.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">128 MiB</text>
+  <text x="164" y="99" text-anchor="end" font-size="14">memory.current</text>
+  <rect x="180" y="85" width="354" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="180" y="85" width="244.5" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">88.4 MiB</text>
+  <text x="164" y="133" text-anchor="end" font-size="14">docker stats</text>
+  <rect x="180" y="119" width="354" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="180" y="119" width="160.4" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">58 MiB</text>
+  <text x="164" y="167" text-anchor="end" font-size="14">working set</text>
+  <rect x="180" y="153" width="354" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="180" y="153" width="161.5" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="168" font-size="14">58.4 MiB</text>
+</svg>
