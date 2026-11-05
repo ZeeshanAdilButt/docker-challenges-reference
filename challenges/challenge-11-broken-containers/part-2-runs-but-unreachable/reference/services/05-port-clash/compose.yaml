@@ -1,0 +1,41 @@
+name: dkr-c11-port-clash
+
+# The safety cage for every challenge 11 service. Do not remove it.
+x-cage: &cage
+  labels:
+    dkr.challenge: "11"
+  mem_limit: 64m
+  memswap_limit: 64m
+  pids_limit: 50
+  logging:
+    driver: json-file
+    options:
+      max-size: 1m
+      max-file: "2"
+  security_opt:
+    - no-new-privileges:true
+
+services:
+  web:
+    <<: *cage
+    container_name: dkr-c11-port-clash-web
+    image: dkr-c11/port-clash:1
+    build: .
+    environment:
+      ROLE: web
+    ports:
+      - "127.0.0.1:18105:8080"
+
+  admin:
+    <<: *cage
+    container_name: dkr-c11-port-clash-admin
+    image: dkr-c11/port-clash:1
+    environment:
+      ROLE: admin
+    ports:
+      - "127.0.0.1:18115:8080"
+
+networks:
+  default:
+    labels:
+      dkr.challenge: "11"

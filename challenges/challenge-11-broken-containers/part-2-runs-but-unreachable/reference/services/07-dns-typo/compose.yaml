@@ -1,0 +1,40 @@
+name: dkr-c11-dns-typo
+
+# The safety cage for every challenge 11 service. Do not remove it.
+x-cage: &cage
+  labels:
+    dkr.challenge: "11"
+  mem_limit: 64m
+  memswap_limit: 64m
+  pids_limit: 50
+  logging:
+    driver: json-file
+    options:
+      max-size: 1m
+      max-file: "2"
+  security_opt:
+    - no-new-privileges:true
+
+services:
+  gateway:
+    <<: *cage
+    container_name: dkr-c11-dns-typo-gateway
+    image: dkr-c11/dns-typo:1
+    build: .
+    environment:
+      ROLE: gateway
+      BACKEND_URL: http://backend:8080
+    ports:
+      - "127.0.0.1:18107:8080"
+
+  backend:
+    <<: *cage
+    container_name: dkr-c11-dns-typo-backend
+    image: dkr-c11/dns-typo:1
+    environment:
+      ROLE: backend
+
+networks:
+  default:
+    labels:
+      dkr.challenge: "11"
