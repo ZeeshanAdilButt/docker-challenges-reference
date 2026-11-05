@@ -85,7 +85,7 @@ docker inspect dkr-c11-read-only-root --format "exit={{.State.ExitCode}} oom={{.
 exit=1 oom=false error= restarts=0
 ```
 
-**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error.
+**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error. (For a container that is still running these are all zero or empty.)
 
 ## Step 5
 
@@ -169,8 +169,8 @@ docker ps -a --filter label=dkr.challenge=11 --filter name=dkr-c11-missing-shell
 **Output**
 
 ```text
-NAMES                   STATUS                       PORTS
-dkr-c11-missing-shell   Exited (255) 2 seconds ago
+NAMES                   STATUS                      PORTS
+dkr-c11-missing-shell   Exited (255) 1 second ago
 ```
 
 **Note:** Rung 1. Is it running? The status column says what state it is in.
@@ -205,7 +205,7 @@ docker inspect dkr-c11-missing-shell --format "exit={{.State.ExitCode}} oom={{.S
 exit=255 oom=false error= restarts=0
 ```
 
-**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error.
+**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error. (For a container that is still running these are all zero or empty.)
 
 ## Step 12
 
@@ -342,7 +342,7 @@ docker inspect dkr-c11-wrong-user --format "exit={{.State.ExitCode}} oom={{.Stat
 exit=1 oom=false error= restarts=0
 ```
 
-**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error.
+**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error. (For a container that is still running these are all zero or empty.)
 
 ## Step 19
 
