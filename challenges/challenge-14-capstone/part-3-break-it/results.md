@@ -16,7 +16,7 @@ poll GET /api/ready through the web page every 100 ms; poll /api/jobs until ever
 ```text
 restart policy of the api in your compose.yaml: unless-stopped
 api answering again after 1.4 s   (restart count 1)
-jobs: 6 of 6 done after 4.1 s   lost: 0
+jobs: 6 of 6 done after 3.8 s   lost: 0
 ```
 
 **Note:** Docker restarted the api, and no job was lost: a job claimed by a worker that cannot report back goes back in the queue after a few seconds, and is done again. Delivery is at least once.
@@ -37,7 +37,7 @@ poll GET /api/ready until the api is back, then queue 3 jobs
 memory limit of the api in your compose.yaml: 256 MB
 answers to the three /alloc calls: 200, 0   (0 means the connection died)
 out-of-memory kill events: 1   api restarts: 1   worker restarts: 0   db restarts: 0
-api answering again 2.3 s after the last call
+api answering again 2.8 s after the last call
 jobs queued afterwards: 3, done: 3
 ```
 
@@ -55,7 +55,7 @@ curl http://127.0.0.1:<web port>/api/ready
 **Output**
 
 ```text
-compose up --wait: FAILED after 23.1 s (container dkr-c14-stack-api-1 is unhealthy)
+compose up --wait: FAILED after 22.4 s (container dkr-c14-stack-api-1 is unhealthy)
 api health status: unhealthy   GET /api/ready through the web page: 503
 ```
 
@@ -73,8 +73,8 @@ read RUNBOOK.md: one entry each for kill, starve and misconfigure; check the fie
 
 ```text
 kill      "Kill: the api process dies"  complete   measured 1.5 s, experiment 1.4 s
-starve    "Starve: the api eats its memory"  complete   measured 3.6 s, experiment 2.3 s
-misconfig "Misconfigure: the api has the wrong data"  complete   measured 22 s, experiment 23.1 s
+starve    "Starve: the api eats its memory"  complete   measured 3.6 s, experiment 2.8 s
+misconfig "Misconfigure: the api has the wrong data"  complete   measured 22 s, experiment 22.4 s
 ```
 
 **Note:** Three complete entries, and each quotes the number your own experiment measured. That is what a person at 3 am needs: what to look at, what to type, and what normal looks like.
