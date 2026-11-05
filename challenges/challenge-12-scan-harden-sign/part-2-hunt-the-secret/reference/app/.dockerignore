@@ -1,0 +1,6 @@
+.env
+deploy.key
+*.pem
+*.key
+.npmrc
+.git
