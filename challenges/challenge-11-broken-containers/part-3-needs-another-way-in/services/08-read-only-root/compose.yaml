@@ -1,0 +1,31 @@
+name: dkr-c11-read-only-root
+
+# The safety cage for every challenge 11 service. Do not remove it.
+x-cage: &cage
+  labels:
+    dkr.challenge: "11"
+  mem_limit: 64m
+  memswap_limit: 64m
+  pids_limit: 50
+  logging:
+    driver: json-file
+    options:
+      max-size: 1m
+      max-file: "2"
+  security_opt:
+    - no-new-privileges:true
+
+services:
+  api:
+    <<: *cage
+    container_name: dkr-c11-read-only-root
+    image: dkr-c11/read-only-root:1
+    build: .
+    read_only: true
+    ports:
+      - "127.0.0.1:18108:8080"
+
+networks:
+  default:
+    labels:
+      dkr.challenge: "11"
