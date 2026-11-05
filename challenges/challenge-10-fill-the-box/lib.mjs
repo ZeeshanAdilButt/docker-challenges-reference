@@ -232,3 +232,41 @@ export function gradeSettings(settings) {
   add('runaway writer gets "no space", not a kill', !runaway.oomKilled && runaway.enospc, `a 100 MB writer ${runaway.oomKilled ? 'was killed by the kernel (OOMKilled)' : runaway.enospc ? `stopped at ${runaway.wroteMb} MB with "no space left"` : 'was not stopped'}`);
   return { checks, emit: e, legit, runaway };
 }
+
+// ---------------------------------------------------------------------------
+// Part 3 helpers: four containers to audit
+// ---------------------------------------------------------------------------
+
+const LABELS = ['--label', `dkr.challenge=${CHALLENGE}`];
+const GOOD_FLAGS = ['--memory', '64m', '--memory-swap', '64m', '--pids-limit', '50', '--log-driver', 'json-file', '--log-opt', 'max-size=1m', '--log-opt', 'max-file=2', '--restart', 'on-failure:3', '--user', '10001:10001', '--read-only', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--health-cmd', 'true', '--health-interval', '30s'];
+
+/** The four containers of part 3 and the flags that make each one the way it is. */
+export const AUDIT_CONTAINERS = {
+  good: GOOD_FLAGS,
+  nolimits: [],
+  unrotated: ['--memory', '64m', '--pids-limit', '50', '--log-driver', 'json-file', '--user', '10001:10001', '--read-only'],
+  'restart-always': ['--memory', '64m', '--pids-limit', '50', '--log-driver', 'json-file', '--log-opt', 'max-size=1m', '--log-opt', 'max-file=2', '--restart', 'always', '--user', '10001:10001'],
+};
+
+/** What a correct audit must say. `has` ids must appear. `lacks` ids must not. `exact` means the list must be exactly this. */
+export const AUDIT_EXPECT = {
+  good: { exact: [] },
+  nolimits: { has: ['no-memory-limit', 'no-pids-limit', 'runs-as-root', 'writable-rootfs', 'no-healthcheck'], lacks: ['log-not-rotated', 'privileged', 'docker-socket'] },
+  unrotated: { has: ['log-not-rotated', 'no-healthcheck'], lacks: ['no-memory-limit', 'no-pids-limit', 'runs-as-root'] },
+  'restart-always': { has: ['restart-always', 'writable-rootfs'], lacks: ['no-memory-limit', 'log-not-rotated', 'runs-as-root'] },
+};
+
+/**
+ * Create the four containers (docker create, never started, so nothing runs without a cap)
+ * and return their `docker inspect` objects, in the order of AUDIT_CONTAINERS.
+ */
+export function createAuditContainers() {
+  const names = Object.keys(AUDIT_CONTAINERS);
+  for (const n of names) removeByName(`aud-${n}`);
+  for (const n of names) docker(['create', '--name', name(CHALLENGE, `aud-${n}`), ...LABELS, ...AUDIT_CONTAINERS[n], ALPINE_IMAGE, 'sleep', '300']);
+  const json = docker(['inspect', ...names.map((n) => name(CHALLENGE, `aud-${n}`))]);
+  return JSON.parse(json);
+}
+
+/** The short name ("good") of one of our audit containers from its inspect object. */
+export const shortName = (inspect) => String(inspect.Name).replace(`/${name(CHALLENGE, 'aud-')}`, '');
