@@ -1,0 +1,98 @@
+# The pipeline for daftar-api: test, build, scan, SBOM, sign, push, then hand the DIGEST to the deploy job.
+#
+# This file is the GitHub half of the pipeline. This machine cannot run GitHub Actions, so the GitHub run is YOUR OWN:
+# copy the folder to your own repository, push a branch and open a pull request. The local equivalent that this
+# part measures is run.mjs: the same stages in the same order against a registry on your machine.
+#
+# Every action is pinned to a full commit SHA, with the version in a comment. Tags can be moved; commits cannot.
+# (March 2026: a scanner action was poisoned by moving tags. A pinned SHA would not have changed.)
+name: ship
+
+on:
+  pull_request:            # NOT pull_request_target: that one runs fork code with your secrets
+    branches: [main]
+  push:
+    branches: [main]
+    tags: ['v*']
+
+permissions: {}            # nothing by default; each job asks for what it needs
+
+concurrency:
+  group: ship-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      packages: write      # push to GHCR with the built-in token
+      id-token: write      # keyless signing (filled in after challenge 12)
+    outputs:
+      digest: ${{ steps.push.outputs.digest }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - id: meta
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
+        with:
+          images: ghcr.io/${{ github.repository }}/api
+          tags: |
+            type=sha
+            type=semver,pattern={{version}}
+      - name: Unit tests (the test target; nothing is pushed if this fails)
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: challenges/challenge-13-ship-it/app
+          target: test
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Build the release image on the runner (not pushed yet)
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: challenges/challenge-13-ship-it/app
+          target: release
+          load: true
+          tags: local/api:scan
+          cache-from: type=gha
+      - name: Scan and SBOM (filled in after challenge 12)
+        run: echo "scan and sbom steps go here once challenge 12 gives you the tools"
+      - uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
+        if: github.event_name != 'pull_request'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: push
+        name: Push (only on main or a tag, never from a pull request)
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: challenges/challenge-13-ship-it/app
+          target: release
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          sbom: true
+          provenance: mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Sign the digest (filled in after challenge 12)
+        if: github.event_name != 'pull_request'
+        run: echo "sign ${{ steps.push.outputs.digest }} here once challenge 12 gives you the tool"
+
+  deploy:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    environment: production   # add a required reviewer in the repository settings
+    permissions:
+      contents: read
+    steps:
+      - name: Deploy by digest (the production host in this course is on your machine; see part 2)
+        env:
+          DIGEST: ${{ needs.build.outputs.digest }}
+        run: echo "deploy ghcr.io/${{ github.repository }}/api@${DIGEST}"

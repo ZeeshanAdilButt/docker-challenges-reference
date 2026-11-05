@@ -1,0 +1,15 @@
+{
+  "name": "daftar-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A tiny HTTP service for the Docker in Practice challenges. No dependencies.",
+  "type": "module",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test test.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
