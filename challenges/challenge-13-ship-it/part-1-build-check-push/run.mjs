@@ -97,7 +97,7 @@ try {
   rec.step(
     `local pipeline, commit ${GOOD.sha.slice(0, 7)} (good):  stages ${order.join(' > ')}   tags ${JSON.stringify(config.tags)}`,
     table(good),
-    good.ok ? `The commit passed every stage. scan, sbom and sign say "skipped" because the real tools come with challenge 12. The image is in the registry as ${short(good.digest)}.` : `The pipeline stopped at ${good.failedAt}.`,
+    good.ok ? (facts['c13.p1.good_stages_skipped_count'] > 0 ? `The commit passed every stage that ran. ${facts['c13.p1.good_stages_skipped_count']} stage(s) say "skipped" because the tool of challenge 12 is not wired in. The image is in the registry as ${short(good.digest)}.` : `The commit passed every stage. scan, sbom and sign ran the tools of challenge 12: the scanner pinned by digest, an SPDX SBOM, and a signature made with a throwaway key and checked before the stage ended. The image is in the registry as ${short(good.digest)}.`) : `The pipeline stopped at ${good.failedAt}.`,
   );
 
   // Step 3: the same pipeline on a bad commit (a change that breaks /health, so the unit tests fail).

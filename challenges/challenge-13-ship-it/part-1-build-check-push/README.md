@@ -17,10 +17,10 @@ A **pipeline** is the same steps run the same way on every change. For an image 
 | `lint` | Does the Dockerfile follow the rules? (`docker build --check`) |
 | `build` | Can the image be built at all? |
 | `test` | Do the unit tests pass? (a `test` stage in the Dockerfile) |
-| `scan` | Does it carry known vulnerabilities? (tools arrive in challenge 12) |
-| `sbom` | What is inside it? (challenge 12) |
+| `scan` | Does it carry known vulnerabilities? (the scanner of challenge 12, pinned by digest) |
+| `sbom` | What is inside it? (an SPDX SBOM, challenge 12) |
 | `push` | Put it in the registry under a name that says which commit built it. |
-| `sign` | Prove who made it. A signature belongs to a digest that is already in the registry. (challenge 12) |
+| `sign` | Prove who made it. A signature belongs to a digest that is already in the registry. (cosign with a throwaway key, challenge 12) |
 
 Two rules decide most of what can go wrong.
 
@@ -65,7 +65,7 @@ On the starter, the bad commit fails at `test` and its image is already in the r
 |---|---|
 | `c13.p1.workflow_unpinned_count` | Lines `uses:` in the workflow whose version is not 40 hexadecimal characters. |
 | `c13.p1.workflow_write_all`, `..._pull_request_target`, `..._push_guarded`, `..._hardcoded_secret` and the other `workflow_*` facts | Text checks on `workflow/ship.yml`. Comments are ignored. |
-| `c13.p1.good_run_ok`, `c13.p1.good_stages_ok_count`, `c13.p1.good_stages_skipped_count` | The result of each stage for the good commit. A stage that needs a challenge 12 tool says `skipped`. |
+| `c13.p1.good_run_ok`, `c13.p1.good_stages_ok_count`, `c13.p1.good_stages_skipped_count` | The result of each stage for the good commit. The scan, SBOM and sign stages run the hooks of challenge 12 (`challenges/challenge-12-scan-harden-sign/hooks/`). If a hook file is missing, its stage says `skipped`. |
 | `c13.p1.good_digest` | The `Docker-Content-Digest` header the registry sends for the first tag of the good commit. |
 | `c13.p1.good_pipeline_s` | Sum of the stage times of the good commit. |
 | `c13.p1.bad_image_pushed` | The digests behind every tag in the registry before and after the bad commit. A new digest means a push. |

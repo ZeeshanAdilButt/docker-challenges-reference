@@ -1,29 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 268" width="640" height="268" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 370" width="640" height="370" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
   <title id="t">Where the time goes in one pipeline run (seconds)</title>
-  <desc id="d">lint: 0.8 s. build: 1 s. test: 1.2 s. push: 1.5 s. build, no cache: 1.8 s. build, cached: 1.1 s</desc>
+  <desc id="d">lint: 1.5 s. build: 1.1 s. test: 1.5 s. scan: 8.7 s. sbom: 6 s. push: 1.7 s. sign: 7.4 s. build, no cache: 2 s. build, cached: 1.2 s</desc>
   <text x="0" y="24" font-size="17" font-weight="600">Where the time goes in one pipeline run (seconds)</text>
   <text x="132" y="65" text-anchor="end" font-size="14">lint</text>
   <rect x="148" y="51" width="386" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
-  <rect x="148" y="51" width="171.6" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
-  <text x="544" y="66" font-size="14">0.8 s</text>
+  <rect x="148" y="51" width="66.6" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">1.5 s</text>
   <text x="132" y="99" text-anchor="end" font-size="14">build</text>
   <rect x="148" y="85" width="386" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
-  <rect x="148" y="85" width="214.4" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
-  <text x="544" y="100" font-size="14">1 s</text>
+  <rect x="148" y="85" width="48.8" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">1.1 s</text>
   <text x="132" y="133" text-anchor="end" font-size="14">test</text>
   <rect x="148" y="119" width="386" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
-  <rect x="148" y="119" width="257.3" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
-  <text x="544" y="134" font-size="14">1.2 s</text>
-  <text x="132" y="167" text-anchor="end" font-size="14">push</text>
+  <rect x="148" y="119" width="66.6" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">1.5 s</text>
+  <text x="132" y="167" text-anchor="end" font-size="14">scan</text>
   <rect x="148" y="153" width="386" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
-  <rect x="148" y="153" width="321.7" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
-  <text x="544" y="168" font-size="14">1.5 s</text>
-  <text x="132" y="201" text-anchor="end" font-size="14">build, no cache</text>
+  <rect x="148" y="153" width="386.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="168" font-size="14">8.7 s</text>
+  <text x="132" y="201" text-anchor="end" font-size="14">sbom</text>
   <rect x="148" y="187" width="386" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
-  <rect x="148" y="187" width="386.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
-  <text x="544" y="202" font-size="14">1.8 s</text>
-  <text x="132" y="235" text-anchor="end" font-size="14">build, cached</text>
+  <rect x="148" y="187" width="266.2" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="202" font-size="14">6 s</text>
+  <text x="132" y="235" text-anchor="end" font-size="14">push</text>
   <rect x="148" y="221" width="386" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
-  <rect x="148" y="221" width="235.9" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
-  <text x="544" y="236" font-size="14">1.1 s</text>
+  <rect x="148" y="221" width="75.4" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="236" font-size="14">1.7 s</text>
+  <text x="132" y="269" text-anchor="end" font-size="14">sign</text>
+  <rect x="148" y="255" width="386" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="148" y="255" width="328.3" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="270" font-size="14">7.4 s</text>
+  <text x="132" y="303" text-anchor="end" font-size="14">build, no cache</text>
+  <rect x="148" y="289" width="386" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="148" y="289" width="88.7" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="304" font-size="14">2 s</text>
+  <text x="132" y="337" text-anchor="end" font-size="14">build, cached</text>
+  <rect x="148" y="323" width="386" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="148" y="323" width="53.2" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="338" font-size="14">1.2 s</text>
 </svg>

@@ -49,16 +49,16 @@ local pipeline, commit a1b2c3d (good):  stages lint > build > test > scan > sbom
 **Output**
 
 ```text
-lint   ok         0.8 s  docker build --check: no warnings
-build  ok           1 s  built api:build-a1b2c3d
-test   ok         1.2 s  tests passed (result reused from the layer cache)
-scan   skipped      0 s  filled in after challenge 12
-sbom   skipped      0 s  filled in after challenge 12
-push   ok         1.5 s  pushed sha-a1b2c3d, 1.0.0 -> 5d5b0e67102c
-sign   skipped      0 s  filled in after challenge 12
+lint   ok         1.5 s  docker build --check: no warnings
+build  ok         1.1 s  built api:build-a1b2c3d
+test   ok         1.5 s  tests passed (result reused from the layer cache)
+scan   ok         8.7 s  scan ok scanner=trivy-0.76.1 secrets=0 critical_fixable=0 high_fixable=6 total=19 os=alpine-3.24.3 seconds=8.5
+sbom   ok           6 s  sbom ok format=SPDX-2.3 packages=167 sha256=3ac0b8b1b60e seconds=5.9
+push   ok         1.7 s  pushed sha-a1b2c3d, 1.0.0 -> 558fc55b0cf4
+sign   ok         7.4 s  sign ok digest=sha256:558fc55b0cf4 verified=true key=throwaway seconds=7.3
 ```
 
-**Note:** The commit passed every stage. scan, sbom and sign say "skipped" because the real tools come with challenge 12. The image is in the registry as 5d5b0e67102c.
+**Note:** The commit passed every stage. scan, sbom and sign ran the tools of challenge 12: the scanner pinned by digest, an SPDX SBOM, and a signature made with a throwaway key and checked before the stage ended. The image is in the registry as 558fc55b0cf4.
 
 ## Step 3
 
@@ -72,15 +72,15 @@ local pipeline, commit badbadb (bad: /health now answers 500)
 **Output**
 
 ```text
-lint   ok         0.7 s  docker build --check: no warnings
-build  ok         1.1 s  built api:build-badbadb
-test   failed     1.6 s  tests 3, pass 2, fail 1
+lint   ok         0.6 s  docker build --check: no warnings
+build  ok         0.9 s  built api:build-badbadb
+test   failed       2 s  tests 3, pass 2, fail 1
 scan   not run      0 s  stopped at test
 sbom   not run      0 s  stopped at test
 push   not run      0 s  stopped at test
 sign   not run      0 s  stopped at test
 
-tags in the registry: 1.0.0, sha-a1b2c3d
+tags in the registry: 1.0.0, sha-a1b2c3d, sha256-558fc55b0cf44db54efa4c2fa34f485656d1d0479b8563bd67e287865af15043
 new images in the registry: 0
 ```
 
@@ -97,8 +97,8 @@ GET /v2/dkr-c13/api/manifests/<tag>   for each tag of the good commit
 **Output**
 
 ```text
-sha-a1b2c3d    5d5b0e67102c
-1.0.0          5d5b0e67102c
+sha-a1b2c3d    558fc55b0cf4
+1.0.0          558fc55b0cf4
 ```
 
 **Note:** One image, several names. The sha tag says exactly which commit built it, and it is never moved.
@@ -114,8 +114,8 @@ docker build --target release app   (3 times with --no-cache, 3 times with the l
 **Output**
 
 ```text
-cold (no cache): 1.8 s   [1.7, 1.8, 2]
-warm (cache):    1.1 s   [1, 1.1, 1.3]
+cold (no cache): 2 s   [2.1, 2, 2]
+warm (cache):    1.2 s   [1.2, 1.1, 1.2]
 steps answered by the cache in a warm build: 3
 ```
 
