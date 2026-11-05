@@ -44,7 +44,7 @@ The crash is `docker exec dkr-c8-db-1 kill -QUIT 1` (the Postgres main process s
 | `c8.p3.normal_pass_count` | Normal runs of `ci.mjs` (out of 3) that exited 0 | Exit codes |
 | `c8.p3.normal_total_s` | Median wall time of a normal run, build to clean-up | `process.hrtime` around `ci.mjs` |
 | `c8.p3.passing_run_leftover_containers_count` | Containers of project `dkr-c8` left after the first normal run | `docker ps -a` with the project label |
-| `c8.p3.slow_start_passes` | `ci.mjs` passes when the api needs 12 s to start listening | `API_START_DELAY_MS=6000` |
+| `c8.p3.slow_start_passes` | `ci.mjs` passes when the api needs 12 s to start listening | `API_START_DELAY_MS=12000` |
 | `c8.p3.slow_start_total_s` | Wall time of that run | Same |
 | `c8.p3.failing_run_exit_nonzero` | `ci.mjs` exits non-zero when the test fails on purpose | `CI_EXPECT_VERSION=999` |
 | `c8.p3.failing_run_leftover_containers_count` | Containers left after that run | Same count |

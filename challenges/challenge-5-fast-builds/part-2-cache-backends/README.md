@@ -28,7 +28,7 @@ This part uses a **cold runner** that you can control: for every build, `run.mjs
 1. `cache-flags.txt` has the flags for the `local` and `registry` backends. One has the wrong mode and the other reads from the wrong reference. Fix both (in this folder, not in `reference/`).
 2. `workflow/build.yml` is the GitHub Actions workflow. The cache line writes on every event and uses the wrong mode. Make it write only on a push, with `mode=max`, so a pull request from a fork reads the cache and never writes it. Every action in the file is already pinned to a full commit SHA. Keep it that way.
 
-**The GitHub run is your own.** This machine cannot run Actions, so the `gha` backend is not measured here. Copy `workflow/build.yml` to `.github/workflows/build.yml` in your own repository, push to a branch, push again, and compare the build step times in the two job logs. Expect the second run to show `CACHED` for the install step.
+**The GitHub run is your own.** This machine cannot run Actions, so the `gha` backend is not measured here. Copy `workflow/build.yml` to `.github/workflows/build.yml` in your own repository, push to `main`, push again to `main` (a pull request run cannot write the cache), and compare the build step times in the two job logs. Expect the second run to show `CACHED` for the install step.
 
 ## Steps
 
