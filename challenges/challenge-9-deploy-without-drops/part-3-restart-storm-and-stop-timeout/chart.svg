@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 336" width="640" height="336" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">Seconds docker stop waits for a process that ignores SIGTERM</title>
+  <desc id="d">Default: 3.6 s. docker stop -t 0: 0.4 s. docker stop -t 2: 2.5 s. docker stop -t 6: 6.5 s. docker stop -t 10: 10.8 s. --stop-timeout 3: 3.4 s. --init: 0.6 s. Your settings: 0.5 s</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">Seconds docker stop waits for a process that ignores SIGTERM</text>
+  <text x="148" y="65" text-anchor="end" font-size="14">Default</text>
+  <rect x="164" y="51" width="370" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="164" y="51" width="123.3" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">3.6 s</text>
+  <text x="148" y="99" text-anchor="end" font-size="14">docker stop -t 0</text>
+  <rect x="164" y="85" width="370" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="164" y="85" width="13.7" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">0.4 s</text>
+  <text x="148" y="133" text-anchor="end" font-size="14">docker stop -t 2</text>
+  <rect x="164" y="119" width="370" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="164" y="119" width="85.6" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">2.5 s</text>
+  <text x="148" y="167" text-anchor="end" font-size="14">docker stop -t 6</text>
+  <rect x="164" y="153" width="370" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="164" y="153" width="222.7" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="168" font-size="14">6.5 s</text>
+  <text x="148" y="201" text-anchor="end" font-size="14">docker stop -t 10</text>
+  <rect x="164" y="187" width="370" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="164" y="187" width="370.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="202" font-size="14">10.8 s</text>
+  <text x="148" y="235" text-anchor="end" font-size="14">--stop-timeout 3</text>
+  <rect x="164" y="221" width="370" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="164" y="221" width="116.5" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="236" font-size="14">3.4 s</text>
+  <text x="148" y="269" text-anchor="end" font-size="14">--init</text>
+  <rect x="164" y="255" width="370" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="164" y="255" width="20.6" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="270" font-size="14">0.6 s</text>
+  <text x="148" y="303" text-anchor="end" font-size="14">Your settings</text>
+  <rect x="164" y="289" width="370" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="164" y="289" width="17.1" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="304" font-size="14">0.5 s</text>
+</svg>

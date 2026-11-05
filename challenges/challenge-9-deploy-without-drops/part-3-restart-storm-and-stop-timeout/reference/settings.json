@@ -1,0 +1,7 @@
+{
+  "note": "Edit these four values. restartPolicy: no, on-failure or always. maxRetries only applies to on-failure (0 means no limit). stopTimeoutSeconds: null keeps Docker's default. init: true runs a tiny init (tini) as PID 1.",
+  "restartPolicy": "on-failure",
+  "maxRetries": 5,
+  "stopTimeoutSeconds": 3,
+  "init": true
+}
