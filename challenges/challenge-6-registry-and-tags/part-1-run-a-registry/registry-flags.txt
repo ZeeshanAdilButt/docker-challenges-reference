@@ -1,0 +1,7 @@
+# Extra flags for `docker run -d registry:3`. One or more per line. Lines starting with # are ignored.
+# run.mjs adds a name, a label, memory, process and log limits for you.
+# A named volume called dkr-c6-registry-data is created for you if you want to use it.
+# Not allowed here: --privileged, --cap-add, host networking, host PID, the Docker socket.
+#
+# {PORT} is replaced by a free port that run.mjs picks. Today the registry listens on every network interface:
+-p 0.0.0.0:{PORT}:5000

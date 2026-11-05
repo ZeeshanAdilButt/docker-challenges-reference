@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 166" width="640" height="166" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">Registry storage on disk</title>
+  <desc id="d">After image 1: 3932 KB. After image 2 (shares a layer): 4020 KB. If nothing were shared: 7864 KB</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">Registry storage on disk</text>
+  <text x="240" y="65" text-anchor="end" font-size="14">After image 1</text>
+  <rect x="256" y="51" width="278" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="256" y="51" width="139.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">3932 KB</text>
+  <text x="240" y="99" text-anchor="end" font-size="14">After image 2 (shares a layer)</text>
+  <rect x="256" y="85" width="278" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="256" y="85" width="142.1" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">4020 KB</text>
+  <text x="240" y="133" text-anchor="end" font-size="14">If nothing were shared</text>
+  <rect x="256" y="119" width="278" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="256" y="119" width="278.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">7864 KB</text>
+</svg>

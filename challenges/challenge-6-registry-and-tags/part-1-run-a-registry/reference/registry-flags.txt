@@ -1,0 +1,10 @@
+# Extra flags for `docker run -d registry:3`. One or more per line. Lines starting with # are ignored.
+
+# Only this machine can reach the registry. It has no password, so it must not listen on the network.
+-p 127.0.0.1:{PORT}:5000
+
+# Images live in a volume, so they survive when the container is removed and created again.
+-v dkr-c6-registry-data:/var/lib/registry
+
+# Allow DELETE on manifests (part 2 uses it). Deleting only removes the reference; the space comes back after garbage collection.
+-e REGISTRY_STORAGE_DELETE_ENABLED=true
