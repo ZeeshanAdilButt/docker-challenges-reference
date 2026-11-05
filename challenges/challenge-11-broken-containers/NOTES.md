@@ -14,7 +14,7 @@ Tests (starter, then reference):
 |---|---|---|
 | 1 | 5 fail, 2 pass | 7 pass |
 | 2 | 4 fail, 2 pass | 6 pass |
-| 3 | 4 fail, 2 pass | see "Not finished" |
+| 3 | 4 fail, 2 pass | 6 pass |
 
 The two tests that pass on every starter are the structure checks (nothing left in Docker, the README links the safety rules).
 
@@ -36,10 +36,6 @@ The two tests that pass on every starter are the structure checks (nothing left 
 
 See the box in each part README. In short: the same exit codes, the same messages; ports are on `127.0.0.1`; use a named volume, not a bind mount, for service 03.
 
-## Not finished (needs a rerun when Docker is back)
+## Re-run after a Docker outage
 
-Docker Desktop stopped during the last test run (the engine pipe disappeared, then Docker Desktop failed to start again with "initializing Ingest server ... sailor-ingest.sock: Only one usage of each socket address"). What that left:
-
-- **Part 3 reference test:** 08 and the structure tests passed; 09 and 10 failed only because the engine had gone. The recorded run of the same services (`results.md` of part 3) shows both working in their reference form. Run `DKR_TARGET=reference node --test challenges/challenge-11-broken-containers/part-3-needs-another-way-in/test.mjs` to confirm.
-- **Recorded runs:** `results.md` and `chart.svg` were recorded before three small edits to `ladder.mjs` and `part.mjs` (log tail 15 lines instead of 5 in part 1, a longer note on rung 3, the chart title "proves the cause", and a stricter health check test for service 06). Re-run `--record` for parts 1 to 3 (about two minutes each) so the files match the code.
-- **The stricter service 06 check** (the health check must call `/health`) was added after the last passing test run of part 2. It cannot fail the reference, which calls `/health`, but it has not been run.
+Docker Desktop stopped once during the first build of this challenge (an engine crash, not a fault in the challenge). After it came back, all three parts were re-recorded with `--record`, and the starter and reference tests were run again for every part. The numbers in the table above and the files `results.md` and `chart.svg` come from that second run. The stricter check for service 06 (the health check must call `/health`) ran in that pass.
