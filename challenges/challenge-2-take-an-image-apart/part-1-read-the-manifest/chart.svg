@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 234" width="640" height="234" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">Packed size of each layer</title>
+  <desc id="d">layer 0: 3852.2 KB. layer 1: 0.1 KB. layer 2: 0.2 KB. layer 3: 0.1 KB. layer 4: 0.2 KB</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">Packed size of each layer</text>
+  <text x="80" y="65" text-anchor="end" font-size="14">layer 0</text>
+  <rect x="96" y="51" width="438" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="96" y="51" width="438.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">3852.2 KB</text>
+  <text x="80" y="99" text-anchor="end" font-size="14">layer 1</text>
+  <rect x="96" y="85" width="438" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="96" y="85" width="2.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">0.1 KB</text>
+  <text x="80" y="133" text-anchor="end" font-size="14">layer 2</text>
+  <rect x="96" y="119" width="438" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="96" y="119" width="2.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">0.2 KB</text>
+  <text x="80" y="167" text-anchor="end" font-size="14">layer 3</text>
+  <rect x="96" y="153" width="438" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="96" y="153" width="2.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="168" font-size="14">0.1 KB</text>
+  <text x="80" y="201" text-anchor="end" font-size="14">layer 4</text>
+  <rect x="96" y="187" width="438" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="96" y="187" width="2.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="202" font-size="14">0.2 KB</text>
+</svg>
