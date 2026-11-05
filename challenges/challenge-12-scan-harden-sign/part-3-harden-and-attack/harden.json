@@ -1,0 +1,8 @@
+{
+  "user": "root",
+  "cap_drop": [],
+  "read_only": false,
+  "no_new_privileges": false,
+  "pids_limit": 0,
+  "tmpfs": []
+}

@@ -1,0 +1,8 @@
+{
+  "user": "10001:10001",
+  "cap_drop": ["ALL"],
+  "read_only": true,
+  "no_new_privileges": true,
+  "pids_limit": 32,
+  "tmpfs": ["/tmp:rw,size=8m,noexec,nosuid,nodev"]
+}
