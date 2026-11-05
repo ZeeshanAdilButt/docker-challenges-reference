@@ -12,7 +12,7 @@ It does not undo the database. A rollback is a deploy of older code and older im
 
 ## Probe 3: How do you know the image that runs in production is the one your CI built?
 
-The pipeline pushes an image and records its digest. The deploy job receives that digest as an output and the production file names the image by it, so the host cannot pull anything else under that name. I checked it on the host: `docker inspect` of the running container and the `RepoDigests` of its image equal the three digests the pipeline pushed. The part I cannot prove yet is who built it. For that I need a signature and provenance on the digest, made by the pipeline with a short-lived identity, and a check at deploy time that refuses an unsigned digest. That is the work of challenge 12, and today my scan, SBOM and signing steps are placeholders, marked pending in the rubric.
+The pipeline pushes an image and records its digest. The deploy job receives that digest as an output and the production file names the image by it, so the host cannot pull anything else under that name. I checked it on the host: `docker inspect` of the running container and the `RepoDigests` of its image equal the three digests the pipeline pushed. The part I cannot fully prove is who built it. My pipeline scans each image, makes an SBOM and signs the digest with a throwaway key, as in challenge 12, but a throwaway key says nothing about who ran the pipeline. What I would add next is a signature made with a short-lived identity, and a check at deploy time that refuses an unsigned digest.
 
 ## Troubleshooting: The api container restarts every 20 seconds. What do you do, in order?
 

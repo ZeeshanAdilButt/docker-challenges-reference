@@ -68,7 +68,7 @@ Every container, network and volume of the stack is labelled `dkr.challenge=14` 
 
 ## What you should see
 
-On the starter: the api is about 1.6 GB, everything runs as root, the api and the worker take the full 5 seconds to stop and exit 137, secrets are found in the history, the environment and the files, nothing is healthy because nothing has a health check, and the compose file publishes the database. On the fixed files: 245 MB, 177 MB and 74 MB, all three run as an unprivileged user, they stop in under a second with exit 0, no secret is found, the stack is healthy in about 20 seconds and 5 jobs finish in about 2 seconds. The full recorded run is in [results.md](results.md). Your numbers will differ.
+On the starter: the api is about 1.6 GB, everything runs as root, the api and the worker take the full 5 seconds to stop and exit 137, secrets are found in the history, the environment and the files, nothing is healthy because nothing has a health check, and the compose file publishes the database. On the fixed files: 245 MB, 177 MB and 95 MB, all three run as an unprivileged user, they stop in under a second with exit 0, no secret is found, the stack is healthy in about 20 seconds and 5 jobs finish in about 2 seconds. The full recorded run is in [results.md](results.md). Your numbers will differ.
 
 ![Image size after containerizing](chart.svg)
 

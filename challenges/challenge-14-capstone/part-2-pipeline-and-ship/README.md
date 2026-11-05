@@ -40,7 +40,7 @@ What step 2 does, in order:
 
 ## What you should see
 
-On the starter: the images are tagged `latest`, the host runs whatever `latest` points to, requests fail during every rollout because no service has a health check, and the API cannot reach its database because the starter file holds a wrong password. With the fixed files: the host runs exactly the pushed digests, a rollout and a rollback each take about 20 seconds, and no request fails. The full recorded run is in [results.md](results.md). Your numbers will differ.
+On the starter: the images are tagged `latest`, the host runs whatever `latest` points to, requests fail during every rollout because no service has a health check, and the API cannot reach its database because the starter file holds a wrong password. With the fixed files: the host runs exactly the pushed digests, a rollout and a rollback each take about 10 seconds, and no request fails. The full recorded run is in [results.md](results.md). Your numbers will differ.
 
 ![Rollout and rollback under load](chart.svg)
 

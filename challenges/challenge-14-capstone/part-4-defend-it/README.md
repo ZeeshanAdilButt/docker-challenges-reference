@@ -31,7 +31,7 @@ The pass mark is 80 % of the points that can be earned today. The criteria for s
 
 ## What you should see
 
-On the starter: no walkthrough, no answers, and a score that is mostly "not run". With the fixed files: five sections, about 500 words, at least six of your own numbers, four good answers, and a rubric score above 80 %. The full recorded run is in [results.md](results.md). Your numbers will differ.
+On the starter: no walkthrough, no answers, and a score that is mostly "not run". With the fixed files: five sections, about 750 words, at least six of your own numbers, four good answers, and a rubric score above 80 %. The full recorded run is in [results.md](results.md). Your numbers will differ.
 
 ![Rubric points earned by area](chart.svg)
 
