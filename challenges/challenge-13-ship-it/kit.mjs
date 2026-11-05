@@ -17,7 +17,7 @@
 //   certificates.
 
 import net from 'node:net';
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync, cpSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, renameSync, rmSync, writeFileSync, cpSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -25,7 +25,7 @@ import { spawn } from 'node:child_process';
 import http from 'node:http';
 
 import { cleanup, label, name as nameOf, run, safeArgs, waitFor } from '../../toolkit/docker.js';
-import { getFact, setFact } from '../../toolkit/facts.js';
+import { factsPath, getFact, setFact } from '../../toolkit/facts.js';
 
 export const DIND_IMAGE = 'docker:29-dind';
 export const REGISTRY_IMAGE = 'registry:3';
@@ -64,6 +64,21 @@ export function saveFacts(facts) {
   }
   throw new Error('could not save all facts to facts.json');
 }
+
+/** Remove the saved facts that start with a prefix, at the start of a run, so a run that stops early cannot leave older numbers behind. */
+export function clearFacts(prefix) {
+  const file = factsPath();
+  if (!existsSync(file)) return;
+  const text = readFileSync(file, 'utf8');
+  if (!text.trim()) return;
+  const all = JSON.parse(text);
+  const keep = Object.fromEntries(Object.entries(all).filter(([k]) => !k.startsWith(prefix)));
+  if (Object.keys(keep).length === Object.keys(all).length) return;
+  const tmp = file + '.' + process.pid + '.c13clear.tmp';
+  writeFileSync(tmp, JSON.stringify(keep, null, 2) + NLX);
+  renameSync(tmp, file);
+}
+const NLX = String.fromCharCode(10);
 
 export function freePort() {
   return new Promise((resolve, reject) => {
@@ -294,6 +309,16 @@ export function kit(n) {
     if (r.code !== 0) throw new Error(`could not load ${image} into the host: ${lastLines(r, 3)}`);
   }
 
+  /**
+   * Kill the main process of a container on the production host, the way an out-of-memory kill or a crash would:
+   * kill -9 on the process, sent from the host side. ("docker kill" would not do: Docker counts it as a manual stop
+   * and the restart policy leaves the container alone.)
+   */
+  function killProcess(container) {
+    const pid = prodDocker(['inspect', '--format', '{{.State.Pid}}', container]);
+    return docker(['exec', PROD, 'kill', '-9', pid]);
+  }
+
   /** Remove the context, the certificate folder and everything labelled with this challenge. */
   function teardown() {
     run(['context', 'rm', '-f', CTX]);
@@ -312,8 +337,8 @@ export function kit(n) {
 
   // ---- compose and the proxy on the production host ----
 
-  const containerOf = (project, env, file) => {
-    const ids = prod(['compose', '-p', project, '-f', file, 'ps', '-q'], { env }).stdout.trim().split(/\s+/).filter(Boolean);
+  const containerOf = (project, env, file, service) => {
+    const ids = prod(['compose', '-p', project, '-f', file, 'ps', '-q', ...(service ? [service] : [])], { env }).stdout.trim().split(/\s+/).filter(Boolean);
     if (!ids.length) return null;
     return prod(['inspect', '--format', '{{.Name}}', ids[0]]).stdout.trim().replace(/^\//, '');
   };
@@ -338,31 +363,35 @@ export function kit(n) {
     const edge = {
       current: null,
       url: `http://127.0.0.1:${state.prodPorts[hostPort]}`,
-      async deploy({ file, env, waitS = 60, drainMs = 1500, project = 'daftar' }) {
+      async deploy({ file, env, waitS = 60, drainMs = 1500, project = 'daftar', service = '', probe = '/ready', extraFiles = [] }) {
         const next = edge.current === 'blue' ? 'green' : 'blue';
         const proj = `${project}-${next}`;
         const t0 = Date.now();
-        const up = prod(['compose', '-p', proj, '-f', file, 'up', '-d', '--wait', '--wait-timeout', String(waitS)], { env, timeoutMs: (waitS + 90) * 1000 });
+        const files = [file, ...extraFiles].flatMap((f) => ['-f', f]);
+        const up = prod(['compose', '-p', proj, ...files, 'up', '-d', '--wait', '--wait-timeout', String(waitS)], { env, timeoutMs: (waitS + 90) * 1000 });
         const upMs = Date.now() - t0;
         if (up.code !== 0) {
           const why = lastLines(up, 3);
-          prod(['compose', '-p', proj, '-f', file, 'down', '--timeout', '2'], { env });
+          prod(['compose', '-p', proj, ...files, 'down', '--timeout', '2'], { env });
           return { ok: false, color: next, deploy_ms: upMs, error: why, serving: edge.current };
         }
-        const target = containerOf(proj, env, file);
+        const target = containerOf(proj, env, file, service);
         if (!target) throw new Error('compose started nothing');
         writeConf(proxyConf(target));
+        // nginx reloads in the background: wait until the proxy really serves the new copy
+        await waitFor(() => fetch(`${edge.url}${probe}`).then((r) => r.status === 200).catch(() => false), { timeoutMs: 8000, intervalMs: 100, what: 'the proxy to serve the new copy' }).catch(() => {});
         const old = edge.current;
         edge.current = next;
         if (old) {
           await sleep(drainMs);
-          prod(['compose', '-p', `${project}-${old}`, '-f', file, 'down', '--timeout', '10'], { env });
+          prod(['compose', '-p', `${project}-${old}`, ...files, 'down', '--timeout', '10'], { env });
         }
         return { ok: true, color: next, container: target, deploy_ms: Date.now() - t0, serving: next };
       },
       /** Take the current colour down without a replacement (a way to reset between trials). */
-      reset({ file, env, project = 'daftar' }) {
-        for (const c of ['blue', 'green']) prod(['compose', '-p', `${project}-${c}`, '-f', file, 'down', '--timeout', '2'], { env });
+      reset({ file, env, project = 'daftar', extraFiles = [] }) {
+        const files = [file, ...extraFiles].flatMap((f) => ['-f', f]);
+        for (const c of ['blue', 'green']) prod(['compose', '-p', `${project}-${c}`, ...files, 'down', '--timeout', '2'], { env });
         writeConf(noBackend);
         edge.current = null;
       },
@@ -375,7 +404,7 @@ export function kit(n) {
   const hookFile = (stage) => join(repoRoot, 'challenges', 'challenge-12-scan-harden-sign', 'hooks', `${stage}.mjs`);
 
   function build({ dir, tag, target = 'release', args = {}, labels = {}, noCache = false }) {
-    const a = ['build', '--provenance=false', '--sbom=false', '--target', target, '--label', `dkr.challenge=${n}`, ...(noCache ? ['--no-cache'] : [])];
+    const a = ['build', '--provenance=false', '--sbom=false', ...(target ? ['--target', target] : []), '--label', `dkr.challenge=${n}`, ...(noCache ? ['--no-cache'] : [])];
     for (const [k, v] of Object.entries(args)) a.push('--build-arg', `${k}=${v}`);
     for (const [k, v] of Object.entries(labels)) a.push('--label', `${k}=${v}`);
     a.push('-t', tag, dir);
@@ -403,7 +432,7 @@ export function kit(n) {
    * scan, sbom and sign call hooks/<stage>.mjs of challenge 12 when it exists. Otherwise they are skipped
    * and say so: the real tools arrive with challenge 12.
    */
-  async function runPipeline({ config, dir, repo, sha, version, buildArgs = {}, noCache = false, hooks = true }) {
+  async function runPipeline({ config, dir, repo, sha, version, buildArgs = {}, noCache = false, hooks = true, target = 'release', testTarget = 'test' }) {
     for (const s of config.stages) if (!STAGES.includes(s)) throw new Error(`pipeline.json: unknown stage "${s}". Stages are ${STAGES.join(', ')}.`);
     const local = `${regHost()}/${repo}`;
     const res = { stages: [], ok: true, pushed: [], digest: null, tags: [], failedAt: null };
@@ -422,14 +451,14 @@ export function kit(n) {
         }
       };
       if (stage === 'lint') {
-        const r = run(['build', '--check', '--target', 'release', dir], { timeoutMs: 120_000 });
+        const r = run(['build', '--check', ...(target ? ['--target', target] : []), dir], { timeoutMs: 120_000 });
         done(r.code === 0 ? 'ok' : 'failed', r.code === 0 ? 'docker build --check: no warnings' : lastLines(r, 3));
       } else if (stage === 'build') {
         built = `${local}:build-${sha.slice(0, 7)}`;
-        const r = build({ dir, tag: built, args: { APP_VERSION: version, GIT_SHA: sha, ...buildArgs }, noCache });
+        const r = build({ dir, tag: built, args: { APP_VERSION: version, GIT_SHA: sha, ...buildArgs }, noCache, target });
         done(r.code === 0 ? 'ok' : 'failed', r.code === 0 ? `built ${built.split('/').pop()}` : lastLines(r, 3));
       } else if (stage === 'test') {
-        const r = run(['build', '--target', 'test', '--progress=plain', ...(noCache ? ['--no-cache'] : []), dir], { timeoutMs: 300_000 });
+        const r = run(['build', '--target', testTarget, '--progress=plain', ...(noCache ? ['--no-cache'] : []), dir], { timeoutMs: 300_000 });
         const out = `${r.stdout}${r.stderr}`;
         const summary = (/ℹ tests (\d+)[\s\S]*?ℹ pass (\d+)[\s\S]*?ℹ fail (\d+)/.exec(out) || []).slice(1).map(Number);
         done(r.code === 0 ? 'ok' : 'failed', summary.length ? `tests ${summary[0]}, pass ${summary[1]}, fail ${summary[2]}` : r.code === 0 ? 'tests passed (result reused from the layer cache)' : lastLines(r, 3));
@@ -471,7 +500,7 @@ export function kit(n) {
   return {
     n, NET, REG, PROD, CTX, REPO_PREFIX, state,
     docker, prod, prodDocker, ensureNet, startRegistry, regHost, regBase, digestOf, tagsOf,
-    startProd, loadIntoProd, teardown, removeImages, startEdge, build, runPipeline, tagNames, containerOf, STAGES,
+    startProd, loadIntoProd, killProcess, teardown, removeImages, startEdge, build, runPipeline, tagNames, containerOf, STAGES,
   };
 }
 

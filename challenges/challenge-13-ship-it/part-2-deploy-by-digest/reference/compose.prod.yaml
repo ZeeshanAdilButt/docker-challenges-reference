@@ -1,0 +1,23 @@
+# How daftar-api runs on the production host. Fixed version.
+#   - the image is named by DIGEST, so the host runs exactly what the pipeline tested
+#   - the secret comes from the environment of the person or tool that deploys, never from this file or the image
+#   - a health check on /ready, so "up --wait" only returns when the service can take traffic
+#   - memory and process limits, so one bad release cannot take the host down
+services:
+  api:
+    image: ${REGISTRY}/dkr-c13/api@${DIGEST:?set DIGEST to the sha256 digest from the pipeline}
+    environment:
+      API_TOKEN: ${API_TOKEN:?set API_TOKEN when you deploy}
+      WARMUP_MS: "3000"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/ready"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+    mem_limit: 128m
+    pids_limit: 100
+    networks: [edge]
+
+networks:
+  edge:
+    external: true

@@ -1,0 +1,14 @@
+# How daftar-api runs on the production host. STARTER: it starts, and it is not safe to run in production.
+# The deploy tool passes three values in the environment: REGISTRY, DIGEST and API_TOKEN.
+# Find what is wrong and fix it. (There are four things.)
+services:
+  api:
+    image: ${REGISTRY}/dkr-c13/api:latest
+    environment:
+      API_TOKEN: s3cr3t-prod-token-2026
+      WARMUP_MS: "3000"
+    networks: [edge]
+
+networks:
+  edge:
+    external: true
