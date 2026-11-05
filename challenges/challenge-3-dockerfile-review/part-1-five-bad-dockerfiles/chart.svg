@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 234" width="640" height="234" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">Problems found per Dockerfile: reviewer, before the fix</title>
+  <desc id="d">01-unpinned-root: 2 findings. 02-cache-buster: 2 findings. 03-leaky-env: 1 findings. 04-add-and-shell: 2 findings. 05-no-ignore: 1 findings</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">Problems found per Dockerfile: reviewer, before the fix</text>
+  <text x="140" y="65" text-anchor="end" font-size="14">01-unpinned-root</text>
+  <rect x="156" y="51" width="378" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="156" y="51" width="378.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">2 findings</text>
+  <text x="140" y="99" text-anchor="end" font-size="14">02-cache-buster</text>
+  <rect x="156" y="85" width="378" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="156" y="85" width="378.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">2 findings</text>
+  <text x="140" y="133" text-anchor="end" font-size="14">03-leaky-env</text>
+  <rect x="156" y="119" width="378" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="156" y="119" width="189.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">1 findings</text>
+  <text x="140" y="167" text-anchor="end" font-size="14">04-add-and-shell</text>
+  <rect x="156" y="153" width="378" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="156" y="153" width="378.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="168" font-size="14">2 findings</text>
+  <text x="140" y="201" text-anchor="end" font-size="14">05-no-ignore</text>
+  <rect x="156" y="187" width="378" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="156" y="187" width="189.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="202" font-size="14">1 findings</text>
+</svg>
