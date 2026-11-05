@@ -1,0 +1,74 @@
+# The full local stack: db (Postgres), cache (Valkey), migrate (a one-shot job), api, worker, and a psql tool.
+# run.mjs builds the image dkr-c8-stack:1, starts this file and tests it.
+# API_PORT is a free random port chosen by run.mjs.
+name: dkr-c8
+
+x-safe: &safe
+  labels:
+    dkr.challenge: "8"
+  mem_limit: 128m
+  memswap_limit: 128m
+  pids_limit: 100
+  security_opt: ["no-new-privileges:true"]
+  logging:
+    driver: json-file
+    options: { max-size: "1m", max-file: "2" }
+
+x-app: &app
+  <<: *safe
+  image: dkr-c8-stack:1
+  environment:
+    DB_HOST: db
+    DB_PASSWORD: dkr-demo-only
+    CACHE_HOST: cache
+
+services:
+  db:
+    <<: *safe
+    image: postgres:18-alpine
+    mem_limit: 256m
+    memswap_limit: 256m
+    environment:
+      POSTGRES_PASSWORD: dkr-demo-only
+    volumes: ["pgdata:/var/lib/postgresql"]
+
+  cache:
+    <<: *safe
+    image: valkey/valkey:9-alpine
+
+  migrate:
+    <<: *safe
+    image: postgres:18-alpine
+    entrypoint: ["psql", "-h", "db", "-U", "postgres", "-v", "ON_ERROR_STOP=1", "-f", "/migrations/001_create_tables.sql"]
+    environment:
+      PGPASSWORD: dkr-demo-only
+    volumes: ["../stack/migrations:/migrations:ro"]
+    depends_on: [db]
+
+  api:
+    <<: *app
+    ports: ["127.0.0.1:${API_PORT}:8080"]
+    depends_on: [db, cache]
+
+  worker:
+    <<: *app
+    command: ["node", "src/worker.mjs"]
+    depends_on: [db, cache]
+
+  psql:
+    <<: *safe
+    image: postgres:18-alpine
+    entrypoint: ["psql", "-h", "db", "-U", "postgres"]
+    environment:
+      PGPASSWORD: dkr-demo-only
+    depends_on: [db]
+
+volumes:
+  pgdata:
+    labels:
+      dkr.challenge: "8"
+
+networks:
+  default:
+    labels:
+      dkr.challenge: "8"
