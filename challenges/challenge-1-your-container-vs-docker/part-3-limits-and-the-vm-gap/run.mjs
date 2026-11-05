@@ -13,7 +13,7 @@ import { totalmem, cpus } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { run, assertDocker, cleanup, leftovers, name, safeArgs } from '../../../toolkit/docker.js';
+import { run, assertDocker, cleanup, leftovers, name, safeArgs, waitFor } from '../../../toolkit/docker.js';
 import { setFact } from '../../../toolkit/facts.js';
 import { Recorder } from '../../../toolkit/record.js';
 import { barsSvg } from '../../../toolkit/bars.js';
@@ -130,10 +130,17 @@ try {
   const statsMatch = Math.abs(statsMib - workingD) <= 2;
 
   // Step 3: hit the limit in both.
-  const killD = await alloc(port, 200);
+  const inspectState = () => docker(['inspect', APP, '--format', '{{.State.Status}} {{.State.ExitCode}} {{.State.OOMKilled}}']).trim().split(' ');
+  let killD;
+  for (let attempt = 0; attempt < 3; attempt++) { // the request can be lost in Docker Desktop's port proxy: ask again if the app is still alive
+    killD = await alloc(port, 200);
+    await new Promise((r) => setTimeout(r, 1500));
+    if (inspectState()[0] !== 'running') break;
+  }
   const killM = miniGet(MINI, '/alloc?mb=200');
   await new Promise((r) => setTimeout(r, 1500));
-  const st = docker(['inspect', APP, '--format', '{{.State.Status}} {{.State.ExitCode}} {{.State.OOMKilled}}']).trim().split(' ');
+  await waitFor(() => inspectState()[0] === 'exited', { timeoutMs: 20_000, what: 'the killed container to show as exited' });
+  const st = inspectState();
   const miniEvents = keyvals(docker(['exec', HOST, 'cat', `/sys/fs/cgroup/mini-${MINI}/memory.events`]));
   const miniPid = miniScript(['pid', MINI]).stdout.trim();
   const miniAlive = run(['exec', HOST, 'test', '-d', `/proc/${miniPid}`]).code === 0;

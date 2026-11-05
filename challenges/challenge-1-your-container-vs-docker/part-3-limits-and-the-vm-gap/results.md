@@ -33,12 +33,12 @@ docker stats --no-stream --format "{{.MemUsage}}" dkr-c1-app
 
 ```text
                         your container   docker
-memory.current (MiB)    85.2             88.4
+memory.current (MiB)    85.9             89.2
   of it anon (MiB)      56.1             55.8
-  of it file cache      26.7             30
-  inactive_file (MiB)   26.7             30
-current - inactive_file 58.5             58.4
-docker stats says       -                57.97MiB / 128MiB
+  of it file cache      27.5             30
+  inactive_file (MiB)   27.4             30
+current - inactive_file 58.5             59.2
+docker stats says       -                57.96MiB / 128MiB
 ```
 
 **Note:** docker stats is not memory.current. It subtracts inactive_file (cache that can be dropped at once). That number, the working set, is the one to watch. memory.current also counts cache.
@@ -57,7 +57,7 @@ cat /sys/fs/cgroup/mini-daftar-mini/memory.events
 
 ```text
 request in docker:    failed (UND_ERR_SOCKET)
-docker inspect:       running 0 false
+docker inspect:       exited 137 true
 request in yours:     failed
 your process alive:   false
 your memory.events:   low 0, high 0, max 105, oom 1, oom_kill 1, oom_group_kill 0
@@ -98,8 +98,8 @@ for i in 1..40: curl "/alloc?mb=10"; then cat memory.events of the container and
 ```text
 limit.json: container_limit_mb = 192   machine = 256 MB
 app held 170 MB (plus node itself) before it died
-container memory.events:  low 0, high 0, max 23, oom 1, oom_kill 1, oom_group_kill 0
-machine   memory.events.local: low 0, high 0, max 717, oom 0, oom_kill 0, oom_group_kill 0
+container memory.events:  low 0, high 0, max 45, oom 1, oom_kill 1, oom_group_kill 0
+machine   memory.events.local: low 0, high 0, max 730, oom 0, oom_kill 0, oom_group_kill 0
 killed by: its own limit
 ```
 
