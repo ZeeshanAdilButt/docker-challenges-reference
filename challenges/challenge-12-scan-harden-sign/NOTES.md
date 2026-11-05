@@ -53,3 +53,7 @@ See the box in each part README. The signing keys, the registry, the keys volume
 - **Docker Scout** and other scanners are not compared.
 - **Reachability** of a finding is not computed. The policy approximates "runs at run time" with a list of package names.
 - **A scan of the language packages** (for example Node dependencies) is not in the saved scans: the three images have only operating system packages.
+
+## State when the work stopped
+
+The scanner cache volume `dkr-c12-trivy-cache` (1.7 GB) was removed at the end to give the disk back. The saved scans in `part-1-scan-an-old-image/fixtures/` and the recorded `results.md` do not need it. To run the live scan again, use `run.mjs --live`: the database downloads again (71 s on the reference connection). The pulled tool images stay on the machine: the scanner, cosign, `registry:3` and the SBOM generator.
