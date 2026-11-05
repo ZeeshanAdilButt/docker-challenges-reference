@@ -14,7 +14,7 @@ release 2 renames the column name to full_name in one step (2.0.1), then:  roll 
 
 ```text
 rolled back by digest; the tag 1.0.0 had been moved after release 1 was deployed: true
-rollback took 7.9 s
+rollback took 8 s
 running now: version 1.0.0, the digest of release 1
 GET /customers: 500 (no such column: name)
 POST /customers: 500 (table customers has no column named name)
@@ -34,7 +34,7 @@ release-plan.json: {"secondRelease":"expand"}   and   rollbackTarget(history) fr
 
 ```text
 rolled back by digest; the tag 1.0.0 had been moved after release 1 was deployed: true
-rollback took 7.4 s
+rollback took 7.5 s
 running now: version 1.0.0, the digest of release 1
 GET /customers: 200 with 4 customers (there were 4 before the rollback)
 POST /customers: 201
@@ -53,8 +53,8 @@ repeat: deploy release 2, roll back (3 rollbacks in all, time each)
 **Output**
 
 ```text
-rollback times: 7.4 s, 5.9 s, 7.2 s
-median: 7.2 s   (target: under 120 s)
+rollback times: 7.5 s, 7.6 s, 7.4 s
+median: 7.5 s   (target: under 120 s)
 ```
 
 **Note:** A rollback is a deploy of an older digest that the host already has, so it takes about as long as a normal deploy. The registry is not needed: the image is already on the host.

@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 166" width="640" height="166" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
   <title id="t">Seconds to roll back (median of 3), and what it brings back</title>
-  <desc id="d">Rollback time (s): 7.2 s. Customers readable after (yours): 4 s. Customers readable after (rename): 0 s</desc>
+  <desc id="d">Rollback time (s): 7.5 s. Customers readable after (yours): 4 s. Customers readable after (rename): 0 s</desc>
   <text x="0" y="24" font-size="17" font-weight="600">Seconds to roll back (median of 3), and what it brings back</text>
   <text x="240" y="65" text-anchor="end" font-size="14">Rollback time (s)</text>
   <rect x="256" y="51" width="278" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
   <rect x="256" y="51" width="278.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
-  <text x="544" y="66" font-size="14">7.2 s</text>
+  <text x="544" y="66" font-size="14">7.5 s</text>
   <text x="240" y="99" text-anchor="end" font-size="14">Customers readable after (yours)</text>
   <rect x="256" y="85" width="278" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
-  <rect x="256" y="85" width="154.4" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <rect x="256" y="85" width="148.3" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
   <text x="544" y="100" font-size="14">4 s</text>
   <text x="240" y="133" text-anchor="end" font-size="14">Customers readable after (rename)</text>
   <rect x="256" y="119" width="278" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
