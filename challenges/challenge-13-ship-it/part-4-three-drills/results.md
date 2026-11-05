@@ -16,8 +16,8 @@ then poll GET /ready through the proxy every 100 ms (give up after 30 s)
 ```text
 restart policy: unless-stopped
 restart count: 1
-answering again after 3.5 s
-requests during the drill: 636   failed: 113
+answering again after 3.6 s
+requests during the drill: 651   failed: 118
 ```
 
 **Note:** Docker started the service again by itself. The outage is the restart plus the warm-up, and the failed requests are what one copy costs: a restart policy bounds an outage, a second copy would remove it.
@@ -34,8 +34,8 @@ docker stop dkr-c13-registry   then redeploy the same digest with compose up --w
 
 ```text
 pull policy in the file: missing
-redeploy: ok in 7.5 s
-requests during the drill: 516   failed: 0
+redeploy: ok in 7.6 s
+requests during the drill: 514   failed: 0
 ```
 
 **Note:** The registry was gone and the deploy did not notice: the image was already on the host, named by digest, and the file did not ask to pull it again.
@@ -51,9 +51,9 @@ deploy a release whose /ready never answers 200 (it passed its unit tests) while
 **Output**
 
 ```text
-deploy result: refused after 11.3 s (container daftar-green-api-1 is unhealthy)
+deploy result: refused after 11.5 s (container daftar-green-api-1 is unhealthy)
 serving after the attempt: blue, version 1.0.0
-requests during the drill: 322   failed: 0
+requests during the drill: 323   failed: 0
 ```
 
-**Note:** The health gate refused the bad copy after 11.3 s, and the old copy never stopped serving. Nobody noticed, which is the point.
+**Note:** The health gate refused the bad copy after 11.5 s, and the old copy never stopped serving. Nobody noticed, which is the point.

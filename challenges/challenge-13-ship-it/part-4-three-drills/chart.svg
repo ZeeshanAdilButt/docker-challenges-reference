@@ -1,17 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 166" width="640" height="166" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
   <title id="t">Seconds to get through each drill</title>
-  <desc id="d">Killed copy is back: 3.5 s. Redeploy, registry down: 7.5 s. Bad release refused: 11.3 s</desc>
+  <desc id="d">Killed copy is back: 3.6 s. Redeploy, registry down: 7.6 s. Bad release refused: 11.5 s</desc>
   <text x="0" y="24" font-size="17" font-weight="600">Seconds to get through each drill</text>
   <text x="196" y="65" text-anchor="end" font-size="14">Killed copy is back</text>
   <rect x="212" y="51" width="322" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
-  <rect x="212" y="51" width="99.7" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
-  <text x="544" y="66" font-size="14">3.5 s</text>
+  <rect x="212" y="51" width="100.8" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">3.6 s</text>
   <text x="196" y="99" text-anchor="end" font-size="14">Redeploy, registry down</text>
   <rect x="212" y="85" width="322" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
-  <rect x="212" y="85" width="213.7" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
-  <text x="544" y="100" font-size="14">7.5 s</text>
+  <rect x="212" y="85" width="212.8" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">7.6 s</text>
   <text x="196" y="133" text-anchor="end" font-size="14">Bad release refused</text>
   <rect x="212" y="119" width="322" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
   <rect x="212" y="119" width="322.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
-  <text x="544" y="134" font-size="14">11.3 s</text>
+  <text x="544" y="134" font-size="14">11.5 s</text>
 </svg>
