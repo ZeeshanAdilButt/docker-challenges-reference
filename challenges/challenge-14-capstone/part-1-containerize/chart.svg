@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 166" width="640" height="166" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">Image size after containerizing (MB)</title>
+  <desc id="d">api: 245 MB. worker: 177 MB. web: 74 MB</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">Image size after containerizing (MB)</text>
+  <text x="80" y="65" text-anchor="end" font-size="14">api</text>
+  <rect x="96" y="51" width="438" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="96" y="51" width="438.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">245 MB</text>
+  <text x="80" y="99" text-anchor="end" font-size="14">worker</text>
+  <rect x="96" y="85" width="438" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="96" y="85" width="316.4" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">177 MB</text>
+  <text x="80" y="133" text-anchor="end" font-size="14">web</text>
+  <rect x="96" y="119" width="438" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="96" y="119" width="132.3" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">74 MB</text>
+</svg>
