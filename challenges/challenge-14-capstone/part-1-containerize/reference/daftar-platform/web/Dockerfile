@@ -1,5 +1,8 @@
 # daftar-web: static files behind nginx, listening on 8080 as the unprivileged user "nginx".
 FROM nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+# The pinned base is months old, and the scan of challenge 12 found fixable CRITICAL flaws in its packages.
+# Bring the operating system packages up to date; the base stays pinned by digest.
+RUN apk upgrade --no-cache
 ARG APP_VERSION=1.0.0
 ARG GIT_SHA=unknown
 LABEL org.opencontainers.image.version=$APP_VERSION       org.opencontainers.image.revision=$GIT_SHA

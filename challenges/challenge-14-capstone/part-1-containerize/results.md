@@ -51,9 +51,9 @@ docker run --rm --entrypoint id <image> -u
 **Output**
 
 ```text
-api       245 MB   cold build 5.4 s (median of 3)   runs as uid 1000
-worker    177 MB   cold build 1.9 s (median of 3)   runs as uid 10001
-web        74 MB   cold build 1.8 s (median of 3)   runs as uid 101
+api       245 MB   cold build 4.1 s (median of 3)   runs as uid 1000
+worker    177 MB   cold build 2.2 s (median of 3)   runs as uid 10001
+web        95 MB   cold build 11.6 s (median of 3)   runs as uid 101
 ```
 
 **Note:** Size follows the base image and what you copy into it. A process that runs as uid 0 is root inside the container; the rubric asks for an unprivileged user.
@@ -91,7 +91,7 @@ docker run -d <image>; docker stop -t 5 <container>   (3 times each, median)
 ```text
 api     docker stop took 0.3 s (median of 3)   exit code 0
 worker  docker stop took 0.6 s (median of 3)   exit code 0
-web     docker stop took 0.3 s (median of 3)   exit code 0
+web     docker stop took 0.4 s (median of 3)   exit code 0
 ```
 
 **Note:** 137 means the process ignored SIGTERM and Docker killed it after the limit. A shell in front of the program, or a program with no signal handler as PID 1, is the usual cause. Exec-form CMD fixes the first.
@@ -108,7 +108,7 @@ append a comment to api/server.mjs, then docker build api   (3 edits; the npm st
 
 ```text
 npm install step reused from the cache after an edit: yes
-rebuild after an edit: 1.3 s (median of 3), cold build: 5.4 s
+rebuild after an edit: 1.7 s (median of 3), cold build: 4.1 s
 ```
 
 **Note:** Packages are copied and installed before the source, so a source edit leaves that layer alone.
@@ -146,12 +146,12 @@ docker compose ps   then queue 5 jobs through the web page path (POST /api/jobs)
 **Output**
 
 ```text
-up took 15.8 s
+up took 19.4 s
 api     running  health: healthy
 db      running  health: healthy
 web     running  health: healthy
 worker  running  health: healthy
-jobs: 5 queued by the web path and all done after 1.9 s
+jobs: 5 queued by the web path and all done after 1.6 s
 ```
 
 **Note:** Every container reports healthy, and a job goes web, API, database, worker, database, web. That is the whole system working.
