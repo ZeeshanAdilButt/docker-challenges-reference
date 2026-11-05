@@ -39,7 +39,7 @@ export function review(dockerfilePath) {
       add('add-for-local-files', ins, 'ADD does more than COPY (URLs, archives). Use COPY for local files');
     }
     if ((ins.cmd === 'CMD' || ins.cmd === 'ENTRYPOINT') && !isExecForm(ins.args)) {
-      add('shell-form', ins, `${ins.cmd} in shell form runs under /bin/sh -c: the shell, not your program, is PID 1. Use ["node", "server.mjs"]`);
+      add('shell-form', ins, `${ins.cmd} in shell form runs under /bin/sh -c: a shell can end up as PID 1 between Docker and your program. Use exec form: ["node", "server.mjs"]`);
     }
   }
 

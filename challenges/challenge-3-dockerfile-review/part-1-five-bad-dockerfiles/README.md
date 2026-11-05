@@ -19,7 +19,7 @@ A Dockerfile has a few places where one quiet line causes a loud problem later:
 | `COPY . .` before `RUN npm ci` | Docker caches a step only when its inputs did not change. Copying all the code first means every code edit reruns the install. |
 | `ENV SECRET=...` or `ARG TOKEN=...` | Both stay in the image config and in `docker history`. Anyone who can pull the image reads them. |
 | `ADD` for local files | `ADD` also downloads URLs and unpacks archives. That surprises people. `COPY` only copies. |
-| `CMD npm start` (shell form) | The command runs as `/bin/sh -c "npm start"`. The shell or npm is PID 1, not your program. Signals may not reach it. Part 2 measures what that costs. |
+| `CMD npm start` (shell form) | The command runs as `/bin/sh -c "npm start"`. A shell, or npm, can end up as PID 1 instead of your program, and then the signals Docker sends go to the wrapper. Some wrappers pass them on and some do not. Part 2 measures which. |
 | `COPY . .` with no ignore file | The whole folder goes into the image: env files, notes, tests, `.git`. |
 
 You do not need a linter to know these. This part gives you two anyway, so you can see what each one catches:
@@ -54,7 +54,7 @@ The originals pass `docker build` and answer `/health`. The reviewer finds seven
 05-no-ignore         no-dockerignore
 ```
 
-For the cache fault, the proof is a number: after a one-line change in `server.mjs`, the original rebuilds in several seconds because `npm ci` runs again; the fixed one finishes in a fraction of that because `npm ci` is `CACHED`. For the PID fault, the original shows node as a PID far from 1 (136 in the recorded run); the fixed one shows PID 1.
+For the cache fault, the proof is a number: after a one-line change in `server.mjs`, the original rebuilds in several seconds because `npm ci` runs again; the fixed one finishes in a fraction of that because `npm ci` is `CACHED`. For the PID fault, the original shows node as a child of a wrapper, with a PID far from 1 (136 in the recorded run); the fixed one shows PID 1.
 
 The full recorded run is in [results.md](results.md).
 

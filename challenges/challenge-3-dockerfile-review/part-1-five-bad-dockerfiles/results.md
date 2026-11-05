@@ -62,9 +62,9 @@ build each original and test the property its fault was about
 
 ```text
 01-unpinned-root     FAIL base image node:latest is not on this machine, so the build is skipped. Use node:24-alpine.
-02-cache-buster      FAIL after a code change the npm ci step was run again; rebuild took 7.4 s (median of 3)
+02-cache-buster      FAIL after a code change the npm ci step was run again; rebuild took 6.8 s (median of 3)
 03-leaky-env         FAIL secret in docker inspect Env: true; in docker history: true
-04-add-and-shell     FAIL the node process is PID 38 (a shell or npm is PID 1 and does not pass signals on)
+04-add-and-shell     FAIL the node process is PID 44 (a wrapper is PID 1; whether it passes signals on depends on the wrapper, and part 2 measures it)
 05-no-ignore         FAIL these should not be in the image: .env.local, notes, test.mjs
 ```
 
@@ -82,7 +82,7 @@ review, docker build --check, build and test, for dockerfiles/<each>/Dockerfile 
 
 ```text
 01-unpinned-root     reviewer 0  check 0  ok   user id 1000; base image pinned
-02-cache-buster      reviewer 0  check 0  ok   after a code change the npm ci step was CACHED; rebuild took 5.9 s (median of 3)
+02-cache-buster      reviewer 0  check 0  ok   after a code change the npm ci step was CACHED; rebuild took 3.7 s (median of 3)
 03-leaky-env         reviewer 0  check 0  ok   secret in docker inspect Env: false; in docker history: false
 04-add-and-shell     reviewer 0  check 0  ok   the node process is PID 1
 05-no-ignore         reviewer 0  check 0  ok   no env file, notes or tests in /app

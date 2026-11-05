@@ -94,7 +94,7 @@ export async function checkOne(name, dockerfile, ctx, tag) {
       out.detail = `secret in docker inspect Env: ${env.includes(SECRET)}; in docker history: ${hist.includes(SECRET)}`;
     } else if (name === '04-add-and-shell') {
       out.ok = out.pid === 1;
-      out.detail = `the node process is PID ${out.pid}${out.pid === 1 ? '' : ' (a shell or npm is PID 1 and does not pass signals on)'}`;
+      out.detail = `the node process is PID ${out.pid}${out.pid === 1 ? '' : ' (a wrapper is PID 1; whether it passes signals on depends on the wrapper, and part 2 measures it)'}`;
     } else if (name === '05-no-ignore') {
       const ls = oneShot(tag, ['ls', '-A', '/app']).stdout.split('\n');
       const junk = ['.env.local', 'notes', 'test.mjs'].filter((f) => ls.includes(f));
