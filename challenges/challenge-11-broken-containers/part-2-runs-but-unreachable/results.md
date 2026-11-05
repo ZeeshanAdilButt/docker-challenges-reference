@@ -39,7 +39,7 @@ docker ps -a --filter label=dkr.challenge=11 --filter name=dkr-c11-port-clash --
 ```text
 NAMES                      STATUS         PORTS
 dkr-c11-port-clash-admin   Created        
-dkr-c11-port-clash-web     Up 4 seconds   127.0.0.1:18105->8080/tcp
+dkr-c11-port-clash-web     Up 3 seconds   127.0.0.1:18105->8080/tcp
 ```
 
 **Note:** Rung 1. Is it running? The status column says what state it is in.
@@ -71,10 +71,10 @@ docker inspect dkr-c11-port-clash-admin --format "exit={{.State.ExitCode}} oom={
 **Output**
 
 ```text
-exit=128 oom=false error=failed to set up container networking: driver failed programming external connectivity on endpoint dkr-c11-port-clash-admin (87b1c5faf698476332e15204fd22ac907bcdef8ffdd2f5576be7b7b8f3492b42): Bind for 127.0.0.1:18105 failed: port is already allocated restarts=0
+exit=128 oom=false error=failed to set up container networking: driver failed programming external connectivity on endpoint dkr-c11-port-clash-admin (79110f1ba8be5367dffaf94346009e8e2f9a7158603670b0d796c133d54b3a86): Bind for 127.0.0.1:18105 failed: port is already allocated restarts=0
 ```
 
-**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error.
+**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error. (For a container that is still running these are all zero or empty.)
 
 ## Step 5
 
@@ -87,7 +87,7 @@ docker inspect dkr-c11-port-clash-admin --format "error={{.State.Error}}"
 **Output**
 
 ```text
-error=failed to set up container networking: driver failed programming external connectivity on endpoint dkr-c11-port-clash-admin (87b1c5faf698476332e15204fd22ac907bcdef8ffdd2f5576be7b7b8f3492b42): Bind for 127.0.0.1:18105 failed: port is already allocated
+error=failed to set up container networking: driver failed programming external connectivity on endpoint dkr-c11-port-clash-admin (79110f1ba8be5367dffaf94346009e8e2f9a7158603670b0d796c133d54b3a86): Bind for 127.0.0.1:18105 failed: port is already allocated
 ```
 
 **Note:** Rung 4. The admin container never started. The engine says why: the port is already allocated.
@@ -138,7 +138,6 @@ cd services/06-bad-healthcheck && docker compose up -d --build
 
 ```text
  Network dkr-c11-bad-healthcheck_default Created 
- Network dkr-c11-bad-healthcheck_default Created 
  Container dkr-c11-bad-healthcheck Creating 
  Container dkr-c11-bad-healthcheck Created 
  Container dkr-c11-bad-healthcheck Starting 
@@ -161,7 +160,7 @@ docker ps -a --filter label=dkr.challenge=11 --filter name=dkr-c11-bad-healthche
 
 ```text
 NAMES                     STATUS                     PORTS
-dkr-c11-bad-healthcheck   Up 3 seconds (unhealthy)   127.0.0.1:18106->8080/tcp
+dkr-c11-bad-healthcheck   Up 4 seconds (unhealthy)   127.0.0.1:18106->8080/tcp
 ```
 
 **Note:** Rung 1. Is it running? The status column says what state it is in.
@@ -196,7 +195,7 @@ docker inspect dkr-c11-bad-healthcheck --format "exit={{.State.ExitCode}} oom={{
 exit=0 oom=false error= restarts=0
 ```
 
-**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error.
+**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error. (For a container that is still running these are all zero or empty.)
 
 ## Step 12
 
@@ -259,8 +258,8 @@ cd services/07-dns-typo && docker compose up -d --build
 **Output**
 
 ```text
- Container dkr-c11-dns-typo-backend Created 
  Container dkr-c11-dns-typo-gateway Created 
+ Container dkr-c11-dns-typo-backend Created 
  Container dkr-c11-dns-typo-gateway Starting 
  Container dkr-c11-dns-typo-backend Starting 
  Container dkr-c11-dns-typo-gateway Started 
@@ -285,7 +284,7 @@ docker ps -a --filter label=dkr.challenge=11 --filter name=dkr-c11-dns-typo --fo
 ```text
 NAMES                      STATUS          PORTS
 dkr-c11-dns-typo-gateway   Up 21 seconds   127.0.0.1:18107->8080/tcp
-dkr-c11-dns-typo-backend   Up 19 seconds
+dkr-c11-dns-typo-backend   Up 20 seconds
 ```
 
 **Note:** Rung 1. Is it running? The status column says what state it is in.
@@ -325,7 +324,7 @@ docker inspect dkr-c11-dns-typo-gateway --format "exit={{.State.ExitCode}} oom={
 exit=0 oom=false error= restarts=0
 ```
 
-**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error.
+**Note:** Rung 3. Why did it stop? Exit code, OOM flag and the engine error. (For a container that is still running these are all zero or empty.)
 
 ## Step 19
 
@@ -366,7 +365,7 @@ Non-authoritative answer:
 
 Non-authoritative answer:
 Name:	backend
-Address: 172.24.0.3
+Address: 172.25.0.3
 ```
 
 **Note:** Rung 5. The real service name resolves to an address on the network.
