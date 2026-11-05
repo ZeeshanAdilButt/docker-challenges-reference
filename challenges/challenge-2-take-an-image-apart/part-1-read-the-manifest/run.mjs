@@ -14,7 +14,7 @@ import { setFact } from '../../../toolkit/facts.js';
 import { Recorder } from '../../../toolkit/record.js';
 import { barsSvg } from '../../../toolkit/bars.js';
 import { round } from '../../../toolkit/stats.js';
-import { readTarFile } from '../lib/image.mjs';
+import { readTarFile, openImage, layerBytes } from '../lib/image.mjs';
 import { N, docker, workDir, tmp, rmTree, build, save, removeImages, mb, short } from '../lib/common.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -96,16 +96,18 @@ try {
   const idIsManifest = inspect.Id === img.manifestDigest;
   const idIsConfig = inspect.Id === img.configDigest;
   const packed = img.layers.reduce((s, l) => s + l.size, 0);
+  const unpacked = openImage(entries).layers.reduce((s, l) => s + layerBytes(l), 0);
   rec.step(
     `docker image inspect ${TAG} --format "{{.Id}} {{.Size}} {{json .RootFS.Layers}}"`,
     [
       `Id          ${inspect.Id.slice(0, 19)}...  ${idIsManifest ? '= the manifest digest' : idIsConfig ? '= the config digest' : '= neither'}`,
       `RootFS.Layers equal your diffIds: ${sameLayers}`,
-      `Size        ${inspect.Size} bytes (unpacked, on disk)`,
-      `your layers ${packed} bytes (packed, what a pull downloads)`,
+      `your layers ${packed} bytes packed (what a pull downloads)`,
+      `files in them ${unpacked} bytes unpacked (what the container sees)`,
+      `Size field  ${inspect.Size} bytes`,
     ].join('\n'),
     idIsManifest
-      ? 'This Docker uses the containerd image store, so the image ID is the manifest digest. With the older store the ID is the config digest. Packed (download) and unpacked (disk) differ: always say which one you mean.'
+      ? 'This Docker uses the containerd image store, so the image ID is the manifest digest. With the older store the ID is the config digest. Packed (download) and unpacked differ, and this store reports a Size that counts both the compressed blobs and the unpacked files. Always say which number you mean.'
       : 'This Docker uses the classic image store, so the image ID is the config digest. Packed (download) and unpacked (disk) differ: always say which one you mean.',
   );
 
@@ -117,7 +119,8 @@ try {
   setFact('c2.p1.manifest_bytes', entries.get(`blobs/sha256/${img.manifestDigest.slice(7)}`).length);
   setFact('c2.p1.config_bytes', entries.get(`blobs/sha256/${img.configDigest.slice(7)}`).length);
   setFact('c2.p1.packed_mb', mb(packed, 2));
-  setFact('c2.p1.unpacked_mb', mb(inspect.Size, 2));
+  setFact('c2.p1.unpacked_mb', mb(unpacked, 2));
+  setFact('c2.p1.docker_size_field_mb', mb(inspect.Size, 2));
   setFact('c2.p1.base_layer_packed_mb', mb(img.layers[0].size, 2));
   setFact('c2.p1.bad_digests_count', bad.length);
   setFact('c2.p1.bad_diffids_count', badDiff.length);

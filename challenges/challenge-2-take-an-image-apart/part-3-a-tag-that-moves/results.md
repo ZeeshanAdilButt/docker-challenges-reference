@@ -7,7 +7,7 @@ Recorded run. Machine: win32, Docker Desktop, Engine 29.9.2, Node 22.22.2. Date:
 **Command**
 
 ```sh
-docker run -d -p 127.0.0.1:5149:5000 -v dkr-c2-registry-data:/var/lib/registry registry:3   then   curl http://127.0.0.1:5149/v2/_catalog
+docker run -d -p 127.0.0.1:5694:5000 -v dkr-c2-registry-data:/var/lib/registry registry:3   then   curl http://127.0.0.1:5694/v2/_catalog
 ```
 
 **Output**
@@ -23,7 +23,7 @@ docker run -d -p 127.0.0.1:5149:5000 -v dkr-c2-registry-data:/var/lib/registry r
 **Command**
 
 ```sh
-docker push 127.0.0.1:5149/dkr-c2-app:stable  (and :1.0.0)   then   digestOf / listTags / layersOf   # your code
+docker push 127.0.0.1:5694/dkr-c2-app:stable  (and :1.0.0)   then   digestOf / listTags / layersOf   # your code
 ```
 
 **Output**
@@ -42,7 +42,7 @@ layers:    7, 62495630 bytes packed
 **Command**
 
 ```sh
-docker run -d --name dkr-c2-server-a 127.0.0.1:5149/dkr-c2-app:stable   # pulls, then GET /
+docker run -d --name dkr-c2-server-a 127.0.0.1:5694/dkr-c2-app:stable   # pulls, then GET /
 ```
 
 **Output**
@@ -58,7 +58,7 @@ server A runs version 1.0.0 (image e3e13ab2a2be)
 **Command**
 
 ```sh
-docker build --build-arg APP_VERSION=2.0.0 -t 127.0.0.1:5149/dkr-c2-app:stable .  &&  docker push ...:stable  (and :2.0.0)
+docker build --build-arg APP_VERSION=2.0.0 -t 127.0.0.1:5694/dkr-c2-app:stable .  &&  docker push ...:stable  (and :2.0.0)
 ```
 
 **Output**
@@ -79,14 +79,14 @@ the two pushes said "already exists" 13 times; new layers: 1, 147 bytes packed (
 **Command**
 
 ```sh
-docker run -d --name dkr-c2-server-b 127.0.0.1:5149/dkr-c2-app:stable   then   docker restart dkr-c2-server-a
+docker run -d --name dkr-c2-server-b 127.0.0.1:5694/dkr-c2-app:stable   then   docker restart dkr-c2-server-a
 ```
 
 **Output**
 
 ```text
-server A: 127.0.0.1:5149/dkr-c2-app:stable  ->  version 1.0.0 (image e3e13ab2a2be), after a restart
-server B: 127.0.0.1:5149/dkr-c2-app:stable  ->  version 2.0.0 (image 96c7924bd2f1)
+server A: 127.0.0.1:5694/dkr-c2-app:stable  ->  version 1.0.0 (image e3e13ab2a2be), after a restart
+server B: 127.0.0.1:5694/dkr-c2-app:stable  ->  version 2.0.0 (image 96c7924bd2f1)
 ```
 
 **Note:** Two servers, the same tag in their config, two different programs running. A restart does not pull, so A stays on 1.0.0. Nobody changed any config.
@@ -96,7 +96,7 @@ server B: 127.0.0.1:5149/dkr-c2-app:stable  ->  version 2.0.0 (image 96c7924bd2f
 **Command**
 
 ```sh
-docker run -d --name dkr-c2-server-c 127.0.0.1:5149/dkr-c2-app@e3e13ab2a2be...
+docker run -d --name dkr-c2-server-c 127.0.0.1:5694/dkr-c2-app@e3e13ab2a2be...
 ```
 
 **Output**

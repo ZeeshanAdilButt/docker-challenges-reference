@@ -105,11 +105,12 @@ docker image inspect dkr-c2-demo:1 --format "{{.Id}} {{.Size}} {{json .RootFS.La
 ```text
 Id          sha256:749517f62020...  = the manifest digest
 RootFS.Layers equal your diffIds: true
-Size        12986090 bytes (unpacked, on disk)
-your layers 3852819 bytes (packed, what a pull downloads)
+your layers 3852819 bytes packed (what a pull downloads)
+files in them 8418414 bytes unpacked (what the container sees)
+Size field  12986090 bytes
 ```
 
-**Note:** This Docker uses the containerd image store, so the image ID is the manifest digest. With the older store the ID is the config digest. Packed (download) and unpacked (disk) differ: always say which one you mean.
+**Note:** This Docker uses the containerd image store, so the image ID is the manifest digest. With the older store the ID is the config digest. Packed (download) and unpacked differ, and this store reports a Size that counts both the compressed blobs and the unpacked files. Always say which number you mean.
 
 ## Step 6
 

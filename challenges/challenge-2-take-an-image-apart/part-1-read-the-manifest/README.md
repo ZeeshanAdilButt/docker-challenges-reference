@@ -47,15 +47,16 @@ The saved tar holds ten small files. Your code prints the five layers and the ni
 9 steps, 4 made no layer, 5 made a layer
 good image:      0 bad digests, 0 bad diffIds
 one bit flipped: 1 bad digest -> 5e9b4a97f639
-Size        12986090 bytes (unpacked, on disk)
-your layers 3852819 bytes (packed, what a pull downloads)
+your layers 3852819 bytes packed (what a pull downloads)
+files in them 8418414 bytes unpacked (what the container sees)
+Size field  12986090 bytes
 ```
 
 Notice three things:
 
 1. The base layer, alpine, is almost all of the size. The four layers you wrote are 93 to 190 bytes each.
 2. `ENV`, `LABEL` and `CMD` make history lines but no layers. Layers equal steps that write files.
-3. Packed (3.9 MB) is much smaller than unpacked (13 MB). "How big is the image" has two honest answers.
+3. Packed (3.9 MB) is much smaller than unpacked (8.4 MB). "How big is the image" has two honest answers. And the `Size` field of `docker image inspect` is a third number: with the containerd image store it counts the compressed blobs and the unpacked files together (3.9 + 8.4 + the small layers = 13 MB). Always say which number you mean.
 
 The full recorded run is in [results.md](results.md).
 
@@ -70,7 +71,8 @@ The full recorded run is in [results.md](results.md).
 | `c2.p1.layers_under_1kb_count` | Layers whose packed size is under 1024 bytes. |
 | `c2.p1.manifest_bytes`, `c2.p1.config_bytes` | Size of those two blobs in the tar. |
 | `c2.p1.packed_mb` | Sum of the layer sizes in the manifest, divided by 1e6. |
-| `c2.p1.unpacked_mb` | `docker image inspect`, field `Size`, divided by 1e6. |
+| `c2.p1.unpacked_mb` | Bytes of all files in all layers (after gunzip), divided by 1e6. |
+| `c2.p1.docker_size_field_mb` | `docker image inspect`, field `Size`, divided by 1e6. With the containerd store it counts packed and unpacked together. |
 | `c2.p1.base_layer_packed_mb` | Size of layer 0. |
 | `c2.p1.bad_digests_count`, `c2.p1.bad_diffids_count` | What your two checks found on the good image. Must be 0. |
 | `c2.p1.tampered_detected_count` | What `findBadDigests` found after one bit was flipped in layer 0. Must be 1. |

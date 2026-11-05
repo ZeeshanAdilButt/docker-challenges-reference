@@ -77,7 +77,7 @@ runs:         config checked: ok | service ready
 4 layers, findInLayers: nothing
 whiteouts: 0   seed.bin shipped: false
 packed:   leaky 6.85 MB, fixed 3.85 MB
-unpacked: leaky 19 MB, fixed 12.97 MB
+unpacked: leaky 11.42 MB, fixed 8.42 MB
 ```
 
 **Note:** Same behaviour, no secret in any layer, nothing deleted, and the image is smaller by the bytes that were only ever needed to build.

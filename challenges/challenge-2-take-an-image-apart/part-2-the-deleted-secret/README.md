@@ -72,7 +72,7 @@ The full recorded run is in [results.md](results.md).
 | `c2.p2.seed_layer_packed_mb`, `c2.p2.seed_file_bytes` | Packed size of the layer that copied `seed.bin`, and the file's size. |
 | `c2.p2.seed_deleted_still_shipped_bytes` | Unpacked bytes of that layer: what `rm` did not remove. |
 | `c2.p2.leaky_packed_mb`, `c2.p2.fixed_packed_mb` | Sum of the layer sizes in the manifest, divided by 1e6. This is what a pull downloads. |
-| `c2.p2.leaky_unpacked_mb`, `c2.p2.fixed_unpacked_mb` | `docker image inspect`, field `Size`, divided by 1e6. This is what lands on disk. |
+| `c2.p2.leaky_unpacked_mb`, `c2.p2.fixed_unpacked_mb` | Bytes of all files in all layers, divided by 1e6. What the container can reach, plus what is hidden. |
 | `c2.p2.fixed_secret_hits_count`, `c2.p2.fixed_whiteout_count` | The same searches on your fixed image. Both must be 0. |
 | `c2.p2.fixed_runs_same` | Your fixed image prints the same lines as the leaky one. |
 

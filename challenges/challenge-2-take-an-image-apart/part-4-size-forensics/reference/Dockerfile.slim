@@ -1,0 +1,9 @@
+# Reference slim image.
+# - Dockerfile.slim.dockerignore keeps .git, fixtures and notes out of the build context.
+# - COPY --chown sets the owner while copying: no second copy of every file in a chown layer.
+# - The temporary build file is not needed at all.
+FROM alpine:3.23
+WORKDIR /app
+COPY --chown=1000:1000 . /app
+USER 1000
+CMD ["sh", "/app/run.sh"]

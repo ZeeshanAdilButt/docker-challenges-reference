@@ -1,8 +1,8 @@
 # Facts of challenge 2
 
-Every fact is saved by `run.mjs` through `toolkit/facts.js` into `facts.json`. Names are `c2.p<part>.<what>_<unit>`. Values come from the reference run on Windows 11, Docker Desktop 29.9.2 (containerd image store), Node 22.22.2, 2026-11-05. "Packed" is the sum of the layer sizes in the manifest (a pull downloads this). "Unpacked" is `docker image inspect` field `Size` (what lands on disk).
+Every fact is saved by `run.mjs` through `toolkit/facts.js` into `facts.json`. Names are `c2.p<part>.<what>_<unit>`. Values come from the reference run on Windows 11, Docker Desktop 29.9.2 (containerd image store), Node 22.22.2, 2026-11-05. "Packed" is the sum of the layer sizes in the manifest (a pull downloads this). "Unpacked" is `docker image inspect` field `Size` (counted from the layers).
 
-Parts 1 to 3 are recorded. Part 4 is written but was not run yet (see NOTES.md); its facts are listed at the end.
+All four parts are recorded. "Unpacked" in the tables below is the sum of the file sizes in the layers (counted by the scripts). The `Size` field of `docker image inspect` is kept separately: with the containerd image store it adds the compressed blobs to the unpacked files.
 
 ## Part 1: read the manifest
 
@@ -12,7 +12,8 @@ Parts 1 to 3 are recorded. Part 4 is written but was not run yet (see NOTES.md);
 | `c2.p1.history_count`, `c2.p1.history_empty_count` | Dockerfile steps in the config, and how many made no layer | `history` and `emptyLayer` from `readImage` |
 | `c2.p1.layers_under_1kb_count` | Layers with a packed size under 1024 bytes | Manifest layer sizes |
 | `c2.p1.manifest_bytes`, `c2.p1.config_bytes` | Size of those two blobs | Blob sizes in the saved tar |
-| `c2.p1.packed_mb`, `c2.p1.unpacked_mb` | Packed and unpacked size of the demo image | Sum of manifest layer sizes; `docker image inspect` |
+| `c2.p1.packed_mb`, `c2.p1.unpacked_mb` | Packed and unpacked size of the demo image | Sum of manifest layer sizes; sum of file sizes in the layers |
+| `c2.p1.docker_size_field_mb` | The `Size` field of `docker image inspect` | Counts packed plus unpacked with the containerd store |
 | `c2.p1.base_layer_packed_mb` | Packed size of the alpine base layer | Manifest |
 | `c2.p1.bad_digests_count`, `c2.p1.bad_diffids_count` | Blobs whose hash does not match their name, layers whose uncompressed hash does not match the diffId, on the good image | `findBadDigests`, `findBadDiffIds`. Must be 0 |
 | `c2.p1.tampered_detected_count` | Bad digests found after one bit of layer 0 was flipped | `findBadDigests` on a modified copy. Must be 1 |
@@ -30,7 +31,7 @@ Parts 1 to 3 are recorded. Part 4 is written but was not run yet (see NOTES.md);
 | `c2.p2.secret_recovered` | `recoverFile` returned a file with the secret | Comparison |
 | `c2.p2.deleted_file_visible_in_container` | `cat /app/prod.env` succeeded in a container (must be false) | `docker run` exit code |
 | `c2.p2.seed_layer_packed_mb`, `c2.p2.seed_file_bytes`, `c2.p2.seed_deleted_still_shipped_bytes` | The 3 MB deleted file: packed layer size, file size, unpacked bytes still shipped | Saved tar |
-| `c2.p2.leaky_packed_mb`, `c2.p2.leaky_unpacked_mb` | Sizes of the leaky image | Manifest sum; `docker image inspect` |
+| `c2.p2.leaky_packed_mb`, `c2.p2.leaky_unpacked_mb` | Sizes of the leaky image | Manifest sum; sum of file sizes in the layers |
 | `c2.p2.fixed_packed_mb`, `c2.p2.fixed_unpacked_mb` | Sizes of the learner's fixed image | Same |
 | `c2.p2.fixed_secret_hits_count`, `c2.p2.fixed_whiteout_count` | Secret hits and whiteouts in the fixed image (must be 0) | Same functions on the fixed image |
 | `c2.p2.fixed_runs_same` | The fixed image prints the same lines | `docker run` output |
@@ -52,6 +53,16 @@ Parts 1 to 3 are recorded. Part 4 is written but was not run yet (see NOTES.md);
 | `c2.p3.same_tag_two_versions` | A (after restart) and B run different versions from the same tag | Comparison |
 | `c2.p3.leftover_count` | Objects with the label after cleanup | `leftovers(2)` |
 
-## Part 4: size forensics (written, not yet run)
+## Part 4: size forensics
 
-`c2.p4.fat_layer_count`, `c2.p4.fat_packed_mb`, `c2.p4.fat_unpacked_mb`, `c2.p4.fat_biggest_layer_mb`, `c2.p4.fat_chown_layer_mb`, `c2.p4.fat_wasted_mb`, `c2.p4.fat_wasted_replaced_mb`, `c2.p4.fat_wasted_deleted_mb`, `c2.p4.fat_wasted_percent`, `c2.p4.slim_packed_mb`, `c2.p4.slim_unpacked_mb`, `c2.p4.slim_wasted_mb`, `c2.p4.slim_saved_percent`, `c2.p4.slim_runs_same`, `c2.p4.slim_user_id`, `c2.p4.slim_has_git`, `c2.p4.leftover_count`. Definitions are in the README table of part 4.
+| Fact | Meaning | How it was measured |
+|---|---|---|
+| `c2.p4.fat_layer_count` | Layers of the fat image | Rows of the learner's `layerReport` |
+| `c2.p4.fat_packed_mb`, `c2.p4.fat_unpacked_mb` | Packed and unpacked size | Manifest sum; sum of file sizes in the layers |
+| `c2.p4.fat_docker_size_field_mb` | `docker image inspect` `Size` | Larger than both with the containerd store |
+| `c2.p4.fat_biggest_layer_mb`, `c2.p4.fat_chown_layer_mb` | Biggest layer, and the layer made by `chown -R` | `biggestLayers`, `layerReport` |
+| `c2.p4.fat_wasted_mb`, `c2.p4.fat_wasted_percent` | Bytes shipped but replaced or deleted later, and their share of unpacked | `wastedBytes` |
+| `c2.p4.fat_wasted_replaced_mb`, `c2.p4.fat_wasted_deleted_mb` | The two reasons | `wastedBytes` items |
+| `c2.p4.slim_packed_mb`, `c2.p4.slim_unpacked_mb`, `c2.p4.slim_wasted_mb`, `c2.p4.slim_saved_percent` | The same for the learner's slim image, and how much smaller it is | Same functions |
+| `c2.p4.slim_runs_same`, `c2.p4.slim_user_id`, `c2.p4.slim_has_git` | Same output, user id, and whether `.git` is in the image | `docker run` |
+| `c2.p4.leftover_count` | Objects with the label after cleanup | `leftovers(2)` |

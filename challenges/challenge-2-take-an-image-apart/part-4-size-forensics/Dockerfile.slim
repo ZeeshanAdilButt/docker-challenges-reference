@@ -1,0 +1,15 @@
+# Your slim image. Right now this is a copy of Dockerfile.fat.
+#
+# Goal: the container prints the same two lines (run `docker run` on it to see), runs as user 1000,
+# and the image is less than a quarter of the size of the fat one, with NO wasted bytes:
+# no file that is shipped and then replaced or deleted in a later layer.
+#
+# Use what your forensics report found. Also edit Dockerfile.slim.dockerignore (next to this file).
+FROM alpine:3.23
+WORKDIR /app
+COPY . /app
+RUN chown -R 1000:1000 /app
+RUN head -c 20000000 /dev/urandom > /var/cache/build.tmp
+RUN rm /var/cache/build.tmp
+USER 1000
+CMD ["sh", "/app/run.sh"]

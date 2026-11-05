@@ -215,9 +215,9 @@ try {
 
 /** Remove the local images of the repository dkr-c2-app that came from our registry (127.0.0.1:<port>/dkr-c2-app). Only ours. */
 function removeOurImages() {
-  const rows = run(['image', 'ls', '--no-trunc', '--format', '{{.Repository}} {{.Tag}} {{.ID}}']).stdout.split('\n').map((l) => l.trim().split(' '));
-  for (const [repo, tag, id] of rows) {
+  const rows = run(['image', 'ls', '--digests', '--format', '{{.Repository}} {{.Tag}} {{.Digest}}']).stdout.split('\n').map((l) => l.trim().split(' '));
+  for (const [repo, tag, digest] of rows) {
     if (!/^127\.0\.0\.1:\d+\/dkr-c2-app$/.test(repo ?? '')) continue;
-    run(['image', 'rm', tag && tag !== '<none>' ? `${repo}:${tag}` : id]);
+    run(['image', 'rm', tag && tag !== '<none>' ? `${repo}:${tag}` : `${repo}@${digest}`]);
   }
 }

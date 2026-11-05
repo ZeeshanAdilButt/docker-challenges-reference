@@ -7,7 +7,7 @@ Builder notes. Not for learners.
 1. **Read the manifest.** `docker save` writes a tar of small files named by digest. Learners write the reader (manifest, config, layers, diffIds, history) and a digest check, and see that one flipped bit is caught. Proves: packed versus unpacked size, two digests per layer, steps without layers.
 2. **The deleted secret.** A made-up secret copied in one layer and removed in the next is recoverable from the saved image, and the deleted 3 MB still ships. Learners write the search, the recovery and the whiteout list, then fix the build with a multi-stage `Dockerfile.fixed`.
 3. **A tag that moves.** A real `registry:3` in a labelled container. Version 1 is pushed as `:stable` and `:1.0.0`, server A pulls it, version 2 is pushed under the same tag, server B pulls and gets other code, server A stays on version 1 after a restart, server C deployed by digest keeps version 1. Learners write `digestOf`, `listTags`, `layersOf` against the registry API. An update downloads 147 bytes instead of 62 MB.
-4. **Size forensics.** Written and not run yet (see below). Learners write `layerReport`, `biggestLayers`, `wastedBytes` for a fat image (COPY of everything, `chown -R`, a temp file removed in a later layer) and fix `Dockerfile.slim` and `Dockerfile.slim.dockerignore`.
+4. **Size forensics.** Learners write `layerReport`, `biggestLayers`, `wastedBytes` for a fat image (COPY of everything, `chown -R`, a temp file removed in a later layer) and fix `Dockerfile.slim` and `Dockerfile.slim.dockerignore`.
 
 ## Design decisions
 
@@ -28,8 +28,13 @@ Builder notes. Not for learners.
 - `docker image inspect` sizes differ between image stores. Compare two sizes of one image, not across machines.
 - The registry push needs a fixed port on Docker Desktop (see above). Registries on `127.0.0.0/8` are insecure (HTTP) by default.
 
+## More problems hit (second session)
+
+- **`docker image inspect` Size is not the unpacked size with the containerd store.** It is packed plus unpacked (173 MB for an 88 MB image in part 4; 13 MB for 8.4 MB of files in part 1). All unpacked numbers are now counted from the layers; the raw field is kept as `docker_size_field_mb`. The dossier says to label packed and unpacked: this is a third number to label.
+- `docker image rm <id>` fails for an image that was pulled by digest only ("referenced in multiple repositories"). Part 3 removes such images as `repo@digest`.
+- Docker Desktop crashed once with a socket error after C: filled up and had to be restarted by the coordinator. No data of mine was lost.
+
 ## Things not done
 
-- **Part 4 was written but not run.** The Docker engine stopped (Docker Desktop crashed on start with "Only one usage of each socket address" for `sailor-ingest.sock`, after C: filled up). Part 4 files (`Dockerfile.fat`, `Dockerfile.slim`, its `.dockerignore`, `forensics.mjs`, `context.mjs`, `run.mjs`, `test.mjs`, `README.md`, `reference/`) are in the working tree, not committed. They need: `DKR_TARGET=reference node .../run.mjs --record`, the reference test, the starter test (with `DKR_FACTS_PATH` set to an empty temp file), then a commit. Expected: reference 13 passing, starter failing. The expected waste is about 50 MB of about 88 MB (30 MB replaced by chown plus 20 MB removed).
-- The README of part 4 has not been checked against a real run (numbers in it are expected values).
-- The part 3 `run.mjs` was edited after its last full run (the `removeOurImages` helper). Syntax is checked; the last full run and the reference test (10 of 10) were before that edit. Run it once more.
+- The expected wasted share in part 4 is 50 MB of 88.4 MB (57 percent), measured.
+- No test of the learner flow on a classic (non-containerd) image store: the reader supports `manifest.json` as a fallback but it was not exercised.

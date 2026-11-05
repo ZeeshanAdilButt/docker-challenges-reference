@@ -93,8 +93,8 @@ try {
   const fixedHits = findInLayers(fixedTar, SECRET);
   const fixedDels = whiteouts(fixedTar);
   const fixedSeed = fixedImg.layers.some((l) => layerFiles(l).some((f) => f.name.endsWith('seed.bin')));
-  const sizeLeaky = Number(docker(['image', 'inspect', LEAKY, '--format', '{{.Size}}']));
-  const sizeFixed = Number(docker(['image', 'inspect', FIXED, '--format', '{{.Size}}']));
+  const sizeLeaky = img.layers.reduce((s, l) => s + layerBytes(l), 0);
+  const sizeFixed = fixedImg.layers.reduce((s, l) => s + layerBytes(l), 0);
   const packedLeaky = img.layers.reduce((s, l) => s + l.size, 0);
   const packedFixed = fixedImg.layers.reduce((s, l) => s + l.size, 0);
   rec.step(

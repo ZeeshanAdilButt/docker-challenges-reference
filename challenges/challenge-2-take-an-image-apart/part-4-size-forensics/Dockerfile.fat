@@ -1,0 +1,10 @@
+# The fat image. Do not fix this file: it is the thing you investigate.
+# Four things in it make the image bigger than it needs to be. Part of your job is to find them.
+FROM alpine:3.23
+WORKDIR /app
+COPY . /app
+RUN chown -R 1000:1000 /app
+RUN head -c 20000000 /dev/urandom > /var/cache/build.tmp
+RUN rm /var/cache/build.tmp
+USER 1000
+CMD ["sh", "/app/run.sh"]
