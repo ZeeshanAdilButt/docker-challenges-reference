@@ -78,6 +78,7 @@ export function ociExport({ dockerfile, context, buildArgs = {}, flags = [], out
     rmSync(dir, { recursive: true, force: true });
     return { ok: false, ms, out: r.stdout + r.stderr };
   }
+  try {
   // relative name + cwd: GNU tar would read "C:\..." as host:path
   const read = (path) => spawnSync('tar', ['-xOf', 'image.tar', path], { cwd: dir, encoding: 'buffer', maxBuffer: 64 * 1024 * 1024 }).stdout;
   const index = JSON.parse(read('index.json').toString('utf8'));
@@ -89,8 +90,10 @@ export function ociExport({ dockerfile, context, buildArgs = {}, flags = [], out
   const steps = (config.history || []).filter((h) => !h.empty_layer).map((h) => h.created_by || '');
   const packedBytes = manifest.layers.reduce((s, l) => s + l.size, 0) + manifest.config.size;
   const tarBytes = statSync(dest).size;
-  rmSync(dir, { recursive: true, force: true });
   return { ok: true, ms, out: r.stdout + r.stderr, digest, config: manifest.config.digest, layers, steps, created: config.created, packedBytes, tarBytes };
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 }
 
 /** Remove the images this challenge built: label dkr.challenge=4 AND a name starting with dkr-c4-. */
