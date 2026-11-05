@@ -14,10 +14,10 @@ docker build -t dkr-c5-p1-app:test .
 
 ```text
 build folder sent to the builder: 0.1 MB
-image size: 345.7 MB
+image size (files in the layers): 243.4 MB
 npm cache stored inside the image: 0 MB
 folders .git, logs, coverage inside the image: 0 of 3
-first build took 33.5 s
+first build took 9.8 s
 ```
 
 **Note:** The build folder holds clutter. Ignore rules decide how much of it is sent, and how much ends up in the image.
@@ -37,8 +37,8 @@ echo "// a small edit" >> server.mjs && docker build -t dkr-c5-p1-app:test .
 [2/5] CACHED   WORKDIR /app
 [3/5] CACHED   COPY package.json package-lock.json ./
 [4/5] CACHED   RUN --mount=type=cache,target=/root/.npm,id=dkr-c5-npm npm c
-[5/5]   0.2 s  COPY server.mjs ./
-rebuild times: 6.3, 13.3, 4.2 s (median 6.3 s)
+[5/5]   0.1 s  COPY server.mjs ./
+rebuild times: 2.1, 1.9, 2 s (median 2 s)
 ```
 
 **Note:** The install step is CACHED. Only the code layer was rebuilt.
@@ -54,12 +54,12 @@ npm install eslint@9.20.0 && docker build -t dkr-c5-p1-app:test .   (three diffe
 **Output**
 
 ```text
-[1/5]   0.1 s  FROM docker.io/library/node:24-alpine@sha256:8a32c8cf649a499
+[1/5]   0.2 s  FROM docker.io/library/node:24-alpine@sha256:8a32c8cf649a499
 [2/5] CACHED   WORKDIR /app
-[3/5]   0.2 s  COPY package.json package-lock.json ./
-[4/5]   6.6 s  RUN --mount=type=cache,target=/root/.npm,id=dkr-c5-npm npm c
-[5/5]   0.8 s  COPY server.mjs ./
-rebuild times: 32.4, 28.2, 20.1 s (median 28.2 s)
+[3/5]   0.1 s  COPY package.json package-lock.json ./
+[4/5]   2.9 s  RUN --mount=type=cache,target=/root/.npm,id=dkr-c5-npm npm c
+[5/5]   0.1 s  COPY server.mjs ./
+rebuild times: 14.3, 8.1, 8.3 s (median 8.3 s)
 ```
 
 **Note:** A new dependency list must install again. A cache mount only saves the download.
@@ -75,8 +75,8 @@ the same three dependency changes, with the --mount option taken out of the RUN 
 **Output**
 
 ```text
-with your Dockerfile:      32.4, 28.2, 20.1 s (median 28.2 s)
-without a cache mount:     29.9, 29.1, 37.7 s (median 29.9 s)
+with your Dockerfile:      14.3, 8.1, 8.3 s (median 8.3 s)
+without a cache mount:     11.3, 14.6, 19 s (median 14.6 s)
 ```
 
-**Note:** The cache mount saved about 1.7 s per dependency change here. It saves the download, not the unpack, so the saving depends on your network.
+**Note:** The cache mount saved about 6.3 s per dependency change here. It saves the download, not the unpack, so the saving depends on your network.

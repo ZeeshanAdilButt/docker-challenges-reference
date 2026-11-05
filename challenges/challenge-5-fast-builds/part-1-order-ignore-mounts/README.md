@@ -62,14 +62,14 @@ and the same list for the starter, where `COPY . .` comes first, so `npm ci` run
 
 ![Rebuild time after a change (median of 3)](chart.svg)
 
-Read the chart honestly. The code change is much faster once the order is right. The cache mount helps a dependency change only a little here: npm's whole download cache is about 21 MB, and the download is a small part of an install on a fast network. The mount matters more on a slow link, on a runner far from the registry, or where the registry limits downloads. The machine was busy while the reference was recorded, so the times are higher than a quiet laptop would give. Compare the shape, not the seconds.
+Read the chart honestly. The code change is much faster once the order is right: 2 s against 19 s for the starter on the quiet machine that recorded this. The cache mount is a smaller and noisier win. The same three dependency bumps took 8.3 s with the mount and 14.6 s without it in the recorded run, and in earlier runs the saving was anywhere from 2 s to 10 s. Between two identical builds the noise was 2 to 3 s. npm's whole download cache is only about 21 MB, so the download is a small part of an install on a fast network. The mount matters more on a slow link, on a runner far from the registry, or where the registry limits downloads. Compare the shape, not the seconds.
 
 ## Where each number comes from
 
 | Fact | Where it comes from |
 |---|---|
 | `c5.p1.context_mb` | The `transferring context` line of `docker build --progress=plain` for the first build. |
-| `c5.p1.image_mb` | `docker image inspect`, field `Size`, divided by 1,000,000 (unpacked). |
+| `c5.p1.image_unpacked_mb` | `docker save` of the image, then the files in all layers are added up. `c5.p1.image_docker_size_mb` keeps the `Size` field of `docker image inspect`, which on the containerd image store is not the size of the files. |
 | `c5.p1.clutter_in_image`, `c5.p1.npm_cache_in_image_mb` | `ls -d` and `du -sk` inside the image. |
 | `c5.p1.code_change_s` | Wall clock of `docker build` after a one line change in `server.mjs`. Median of three. |
 | `c5.p1.code_change_steps_cached`, `c5.p1.code_change_steps_total`, `c5.p1.install_reran_on_code_change` | The numbered steps of the last code-change build. The `CACHED` markers are read from the plain progress output. |

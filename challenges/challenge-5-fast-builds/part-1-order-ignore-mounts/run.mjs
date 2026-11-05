@@ -13,6 +13,7 @@ import { assertDocker, cleanup, run, safeArgs } from '../../../toolkit/docker.js
 import { Recorder } from '../../../toolkit/record.js';
 import { barsSvg } from '../../../toolkit/bars.js';
 import { median } from '../../../toolkit/stats.js';
+import { openImage, layerBytes } from '../../challenge-2-take-an-image-apart/lib/image.mjs';
 import { CHALLENGE, build, clip, contextMb, imageBytes, mb, pick, removeImages, saveFacts, secs } from '../lib.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -81,14 +82,23 @@ try {
   const first = build({ dockerfile: join(ctx, 'Dockerfile'), context: ctx, tag: TAG });
   if (!first.ok) throw new Error(`the first build failed:\n${clip(first.out.split(/\r?\n/).slice(-14).join('\n'), 14)}`);
   facts['c5.p1.context_mb'] = Math.round(contextMb(first.out) * 10) / 10;
-  facts['c5.p1.image_mb'] = mb(imageBytes(TAG));
+  // docker image inspect Size is not the size of the files on the containerd image store: add up the layers.
+  facts['c5.p1.image_docker_size_mb'] = mb(imageBytes(TAG));
+  const saveDir = mkdtempSync(join(tmpdir(), 'dkr-c5-save-'));
+  try {
+    const saved = run(['save', '-o', join(saveDir, 'image.tar'), TAG], { timeoutMs: 300_000 });
+    if (saved.code !== 0) throw new Error(`docker save failed: ${saved.stderr.trim()}`);
+    facts['c5.p1.image_unpacked_mb'] = mb(openImage(join(saveDir, 'image.tar')).layers.reduce((sum, l) => sum + layerBytes(l), 0));
+  } finally {
+    rmSync(saveDir, { recursive: true, force: true });
+  }
   const cacheKb = run(['run', '--rm', ...safeArgs(CHALLENGE, 'probe'), '--entrypoint', 'sh', TAG, '-c', 'du -sk /root/.npm 2>/dev/null | cut -f1']).stdout.trim();
   facts['c5.p1.npm_cache_in_image_mb'] = Math.round((Number(cacheKb || 0) / 1024) * 10) / 10;
   const clutter = run(['run', '--rm', ...safeArgs(CHALLENGE, 'probe'), '--entrypoint', 'sh', TAG, '-c', 'ls -d /app/.git /app/logs /app/coverage 2>/dev/null | wc -l']).stdout.trim();
   facts['c5.p1.clutter_in_image'] = Number(clutter || 0);
   rec.step(
     'docker build -t dkr-c5-p1-app:test .',
-    `build folder sent to the builder: ${facts['c5.p1.context_mb']} MB\nimage size: ${facts['c5.p1.image_mb']} MB\nnpm cache stored inside the image: ${facts['c5.p1.npm_cache_in_image_mb']} MB\nfolders .git, logs, coverage inside the image: ${facts['c5.p1.clutter_in_image']} of 3\nfirst build took ${secs(first.ms)} s`,
+    `build folder sent to the builder: ${facts['c5.p1.context_mb']} MB\nimage size (files in the layers): ${facts['c5.p1.image_unpacked_mb']} MB\nnpm cache stored inside the image: ${facts['c5.p1.npm_cache_in_image_mb']} MB\nfolders .git, logs, coverage inside the image: ${facts['c5.p1.clutter_in_image']} of 3\nfirst build took ${secs(first.ms)} s`,
     'The build folder holds clutter. Ignore rules decide how much of it is sent, and how much ends up in the image.',
   );
 
