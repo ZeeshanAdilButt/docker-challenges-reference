@@ -1,0 +1,8 @@
+# Do not send these to the builder. They are big, they change all the time, or they hold secrets.
+.git
+node_modules
+coverage
+logs
+*.log
+Dockerfile
+.dockerignore

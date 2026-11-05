@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 166" width="640" height="166" role="img" aria-labelledby="t d" font-family="system-ui, sans-serif" fill="currentColor">
+  <title id="t">Rebuild time after a change (median of 3)</title>
+  <desc id="d">Code change: 6.3 s. Dependency change: 28.2 s. Dependency change, no mount: 29.9 s</desc>
+  <text x="0" y="24" font-size="17" font-weight="600">Rebuild time after a change (median of 3)</text>
+  <text x="228" y="65" text-anchor="end" font-size="14">Code change</text>
+  <rect x="244" y="51" width="290" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="244" y="51" width="61.1" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="66" font-size="14">6.3 s</text>
+  <text x="228" y="99" text-anchor="end" font-size="14">Dependency change</text>
+  <rect x="244" y="85" width="290" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="244" y="85" width="273.5" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="100" font-size="14">28.2 s</text>
+  <text x="228" y="133" text-anchor="end" font-size="14">Dependency change, no mount</text>
+  <rect x="244" y="119" width="290" height="20" rx="3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="244" y="119" width="290.0" height="20" rx="3" fill="currentColor" fill-opacity="0.7"/>
+  <text x="544" y="134" font-size="14">29.9 s</text>
+</svg>

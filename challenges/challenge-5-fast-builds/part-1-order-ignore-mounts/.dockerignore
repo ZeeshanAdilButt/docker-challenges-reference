@@ -1,0 +1,3 @@
+# Files that docker build must not send to the builder. One pattern per line.
+# Today nothing is ignored. run.mjs puts a heavy .git, node_modules, coverage and logs
+# folder in the build folder, the way a real project folder looks after some weeks.
